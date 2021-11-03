@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>ez ip</title>
-<script type="text/javascript">
-    window.onload = function () {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://api.ipify.org?format=jsonp&callback=DisplayIP";
-        document.getElementsByTagName("head")[0].appendChild(script);
-    };
-    function DisplayIP(response) {
-        document.getElementById("ipaddress").innerHTML = response.ip;
-    }
-</script>
-<script>
-    alert("hi")
-    alert("hehe")
-</script>
+<html lang="en">
+  <head>
+    <meta
+      name="google-site-verification"
+      content="k8B2z8FL-sU0BZY8hI8QNM5kW_eiDMQ2VOlwnCqD2Ao"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Orion</title>
+    <link rel="stylesheet" href="particles.js-master/demo/css/style.css">
+    <script src="https://kit.fontawesome.com/6c5df588e3.js" crossorigin="anonymous"></script>
+    
+  </head>
+  <html>
+    <head>
+      <link
+        rel="icon"
+        type="image/png"
+        href="favicon-32x32.png"
+        sizes="32x32"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        href="favicon-16x16.png"
+        sizes="16x16"
+      />
+      <title>Orion</title>
+      <link rel="stylesheet" href="Main.css" />
+    </head>
+    <body>
 
-</script>
-</head>
-<body>
-    <h1><span id="ipaddress"></span></h1>
-<p>yo</p>
 
-<p>this is fake does nothing.</p>
-<p>purely used for testing purposes</p>
+      <section>
+        <header class="home">
+          Orion
+        </header>
+        <li>
+          <a href="https://github.com/orionlmao" class="fa fa-github"></a>
+          <a href="https://twitter.com/orionlmao" class="fa fa-twitter"></a>
+          <a href="https://discord.com/invite/dJNQbnn5sB" class="fab fa-discord"></a>
+          <a href="https://open.spotify.com/user/47dyimkm70lvthbanawssccje?si=8f91485b8c6e49ce" class="fa fa-spotify"></a>
+        </li>
+      </section>
 
-</body>
+      <script src="js/particles.min.js"></script>
+      <script src="js/particles-app.js"></script>
+      <script src="js/app.js"></script>
+
+      <footer>&copy; 2021 Orion</footer>
+    </body>
+  </html>
 </html>
