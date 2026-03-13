@@ -215,7 +215,10 @@ let saving = false;
 // ── JSONBIN API ────────────────────────────────────────────────────────────────
 async function fetchBin() {
   const res = await fetch(BIN_URL + '/latest', {
-    headers: { 'X-Master-Key': MASTER_KEY }
+    headers: {
+      'X-Master-Key': MASTER_KEY,
+      'X-Access-Key': MASTER_KEY
+    }
   });
   if (!res.ok) throw new Error('Fetch failed: ' + res.status);
   const data = await res.json();
@@ -675,24 +678,27 @@ function renderAdminState() {
   try {
     await fetchBin();
     buildApp();
+    const loader = document.getElementById('loading');
+    if (loader) { loader.classList.add('fade-out'); setTimeout(() => { if(loader) loader.style.display='none'; }, 500); }
     render();
     renderAdminState();
-    // Fade out loading screen
-    const loader = document.getElementById('loading');
-    loader.classList.add('fade-out');
-    setTimeout(() => loader.style.display='none', 500);
     setSyncBadge('ok', 'In sync');
     window.addEventListener('resize', () => {
       const d = buildDays();
       renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
     });
   } catch(e) {
-    document.getElementById('loading').innerHTML = `
-      <div style="text-align:center;padding:60px 20px;font-family:'DM Mono',monospace;">
-        <div style="color:#dc2626;font-size:15px;margin-bottom:8px;">Could not load data</div>
-        <div style="color:#8a95a8;font-size:12px;">${e.message}</div>
-      </div>`;
-    setSyncBadge('error', 'Offline');
+    console.error('Init failed:', e);
+    buildApp();
+    render();
+    renderAdminState();
+    // Fade out loader first, then update badge
+    const loader = document.getElementById('loading');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(() => { if(loader) loader.style.display='none'; }, 500);
+    }
+    setSyncBadge('error', 'Load failed');
   }
 })();
 </script>
