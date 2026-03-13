@@ -475,8 +475,9 @@ function buildDays(){
   return days;
 }
 
-Chart.defaults.color='#6b7280';
+Chart.defaults.color='#1a2030';
 Chart.defaults.font.family='DM Sans';
+Chart.defaults.font.size=12;
 
 function sliceDays(days,range){
   const logged=days.filter(d=>d.hasData);
@@ -489,13 +490,13 @@ function ttCfg(){
     borderColor:'#dde2ea',borderWidth:1,padding:10,boxShadow:'0 4px 12px rgba(0,0,0,0.1)'};
 }
 function xScaleCfg(){
-  return{ticks:{color:'#9ca3af',font:{size:10},maxRotation:45,maxTicksLimit:20},
-    grid:{display:false},border:{color:'#e5e7eb'}};
+  return{ticks:{color:'#374151',font:{size:12,weight:'500'},maxRotation:45,maxTicksLimit:20},
+    grid:{display:false},border:{color:'#9ca3af'}};
 }
-function yScaleCfg(pos='left',color='#9ca3af'){
+function yScaleCfg(pos='left',color='#374151'){
   return{position:pos,
-    ticks:{color,font:{size:10},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v},
-    grid:{color:'#f0f2f6'},border:{display:false}};
+    ticks:{color,font:{size:12,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v},
+    grid:{color:'#e5e7eb'},border:{display:false}};
 }
 
 // ── MAIN CHART ────────────────────────────────────────────────────────────────
@@ -533,8 +534,8 @@ function renderMain(days){
       }}},
       scales:{
         x:{...xScaleCfg()},
-        yL:{...yScaleCfg('left','#3b82f6'),title:{display:true,text:'Daily Total',color:'#3b82f6',font:{size:11}}},
-        yR:{...yScaleCfg('right','#6b7280'),grid:{display:false},title:{display:true,text:'Running Total',color:'#6b7280',font:{size:11}}}
+        yL:{...yScaleCfg('left','#1d4ed8'),title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:13,weight:'600'}}},
+        yR:{...yScaleCfg('right','#374151'),grid:{display:false},title:{display:true,text:'Running Total',color:'#374151',font:{size:13,weight:'600'}}}
       }
     }
   });
