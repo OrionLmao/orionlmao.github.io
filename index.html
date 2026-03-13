@@ -21,25 +21,24 @@
   header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
   .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
   .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-  .header-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0;}
   .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
   .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
-  .btn-export{background:var(--green);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:8px 14px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.15s;white-space:nowrap;}
-  .btn-export:hover{background:#15803d;}
-  .btn-export svg{width:13px;height:13px;flex-shrink:0;}
+  /* sync badge */
+  .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
+  .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
+  .sync-badge.ok   .sync-dot{background:var(--green);}
+  .sync-badge.saving .sync-dot{background:var(--orange);animation:pulse 0.8s infinite;}
+  .sync-badge.error  .sync-dot{background:var(--red);}
 
   main{max-width:1320px;margin:0 auto;padding:28px 40px 80px;}
 
-  /* loading state */
   .loading-screen{text-align:center;padding:80px 20px;font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);}
   .loading-screen .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
   @keyframes spin{to{transform:rotate(360deg)}}
-  .error-screen{text-align:center;padding:60px 20px;font-family:'DM Mono',monospace;}
-  .error-screen h2{color:var(--red);font-size:16px;margin-bottom:8px;}
-  .error-screen p{color:var(--muted);font-size:12px;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-  /* stats */
   .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
@@ -54,7 +53,6 @@
   .sc-purple .pill{background:var(--purple);}.sc-purple .val{color:var(--purple);}
   .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
-  /* progress */
   .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
@@ -64,27 +62,23 @@
   .progress-target-line{position:absolute;top:-2px;width:2px;height:14px;background:var(--border2);border-radius:1px;}
   .progress-footer{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
 
-  /* log */
   .log-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);overflow:hidden;}
   .log-header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--surface2);}
   .log-header h2{font-weight:600;font-size:13px;color:var(--text);}
   .dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
   .log-form{padding:18px 22px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
   .field label{display:block;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
   .field input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:15px;padding:9px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;-moz-appearance:textfield;}
   .field input::-webkit-inner-spin-button,.field input::-webkit-outer-spin-button{-webkit-appearance:none;}
   .field input:focus{border-color:var(--accent);}
-  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;cursor:pointer;border-radius:6px;transition:background 0.2s;white-space:nowrap;}
+  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;cursor:pointer;border-radius:6px;transition:background 0.2s,opacity 0.2s;white-space:nowrap;}
   .btn-log:hover{background:#1d4ed8;}
-  .log-msg{padding:0 22px 12px;font-size:11px;font-family:'DM Mono',monospace;min-height:18px;}
-  .log-notice{padding:6px 22px 12px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);border-top:1px solid var(--border);}
+  .btn-log:disabled{opacity:0.5;cursor:not-allowed;}
+  .log-msg{padding:4px 22px 12px;font-size:11px;font-family:'DM Mono',monospace;min-height:22px;}
 
-  /* section title */
   .sec{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  /* charts */
   .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
   .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
@@ -101,7 +95,6 @@
   .ll{width:20px;height:3px;flex-shrink:0;border-radius:2px;}
   .ld{width:20px;height:0;flex-shrink:0;}
 
-  /* tabs */
   .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
   .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
@@ -111,7 +104,6 @@
   .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
   .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
-  /* table */
   .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .table-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;background:var(--surface2);flex-wrap:wrap;}
   .table-head h3{font-weight:600;font-size:13px;color:var(--text);margin-right:6px;}
@@ -129,7 +121,6 @@
   .sur{color:var(--green);font-weight:600;}.def{color:var(--red);font-weight:600;}
   .dim{color:var(--border2);}
   .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
-  .tag-local{font-size:9px;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
   footer{text-align:center;padding:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
 
@@ -145,10 +136,10 @@
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
   </div>
   <div class="header-right">
-    <button class="btn-export" onclick="exportJSON()" title="Download merged JSON to replace hosted file">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export JSON
-    </button>
+    <div class="sync-badge" id="sync-badge">
+      <div class="sync-dot"></div>
+      <span id="sync-text">Loading…</span>
+    </div>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
       <div class="label">Total Push-Ups</div>
@@ -159,7 +150,7 @@
 <main id="main">
   <div class="loading-screen" id="loading">
     <div class="spinner"></div>
-    Loading pushup_data.json…
+    Loading data…
   </div>
 </main>
 
@@ -167,6 +158,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
+// ── JSONBIN CONFIG ─────────────────────────────────────────────────────────────
+const BIN_ID    = '69b3b588c3097a1dd51f9207';
+const MASTER_KEY = '$2a$10$GPI2z2xnBtJJFAqKOvJOC.N2NIj1q5FnVmkpvCrJLrH3.HEzsjT1e';
+const BIN_URL   = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
 // ── CONSTANTS ──────────────────────────────────────────────────────────────────
 const GOAL = 100000, TOTAL_DAYS = 365;
 const START = new Date('2026-01-01T00:00:00');
@@ -174,53 +170,36 @@ const END   = new Date('2026-12-31T00:00:00');
 const AVG_NO_REST = GOAL / TOTAL_DAYS;
 const AVG_1_REST  = GOAL / (TOTAL_DAYS * 6 / 7);
 const AVG_2_REST  = GOAL / (TOTAL_DAYS * 5 / 7);
-const LS_KEY = 'pushup_local_2026';
 
 // ── STATE ──────────────────────────────────────────────────────────────────────
-let jsonEntries = {};    // from pushup_data.json  { date → {am,pm,night} }
-let localEntries = {};   // from localStorage       { date → {am,pm,night} }
+let entries = {};   // date → {am, pm, night}
 let filterMode = 'all';
 let rangeState = { main:30, daily:30, avg:30, running:30 };
 let charts = { main:null, daily:null, avg:null, running:null };
+let saving = false;
 
-// ── MERGED VIEW ────────────────────────────────────────────────────────────────
-// localEntries override jsonEntries for the same date
-function mergedEntries() {
-  return Object.assign({}, jsonEntries, localEntries);
-}
-
-// ── LOCALSTORAGE ───────────────────────────────────────────────────────────────
-function loadLocal() {
-  try { localEntries = JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
-  catch(e) { localEntries = {}; }
-}
-function saveLocal() {
-  localStorage.setItem(LS_KEY, JSON.stringify(localEntries));
-}
-
-// ── FETCH JSON ─────────────────────────────────────────────────────────────────
-async function fetchJSON() {
-  const res = await fetch('pushup_data.json?t=' + Date.now());
-  if (!res.ok) throw new Error('HTTP ' + res.status);
+// ── JSONBIN API ────────────────────────────────────────────────────────────────
+async function fetchBin() {
+  const res = await fetch(BIN_URL + '/latest', {
+    headers: { 'X-Master-Key': MASTER_KEY }
+  });
+  if (!res.ok) throw new Error('Fetch failed: ' + res.status);
   const data = await res.json();
-  jsonEntries = {};
-  (data.entries || []).forEach(e => {
-    jsonEntries[e.date] = { am: e.am || 0, pm: e.pm || 0, night: e.night || 0 };
+  const record = data.record;
+  entries = {};
+  (record.entries || []).forEach(e => {
+    entries[e.date] = { am: e.am||0, pm: e.pm||0, night: e.night||0 };
   });
 }
 
-// ── EXPORT JSON ────────────────────────────────────────────────────────────────
-// Merges localStorage on top of json entries and downloads a clean JSON file.
-// Replace the hosted pushup_data.json with this to persist new entries permanently.
-function exportJSON() {
-  const merged = mergedEntries();
+async function saveBin() {
+  // Build full record to PUT back
   const days = buildDays();
   const lastLogged = days.filter(d => d.hasData).pop();
-  const total = lastLogged ? lastLogged.running : 0;
-  const elapsed = lastLogged ? lastLogged.dayNum : 1;
+  const total = lastLogged?.running || 0;
+  const elapsed = lastLogged?.dayNum || 1;
   const avg = total > 0 ? Math.round(total / elapsed) : 0;
   const todayNum = days.find(d => d.date === dStr(new Date()))?.dayNum || 1;
-  const daysLeft = TOTAL_DAYS - todayNum;
   const restDays = days.filter(d => d.hasData && d.daily === 0).length;
   let projFinish = '—';
   if (avg > 0 && total < GOAL) {
@@ -228,48 +207,56 @@ function exportJSON() {
     projFinish = dStr(p);
   }
 
-  const entries = Object.entries(merged)
+  const entriesArr = Object.entries(entries)
     .sort(([a],[b]) => a.localeCompare(b))
-    .map(([date, e]) => {
-      const d = days.find(x => x.date === date);
-      const obj = { date, am: e.am||0, pm: e.pm||0, night: e.night||0 };
-      if (d && (e.am||0)+(e.pm||0)+(e.night||0) === 0) obj.rest_day = true;
-      return obj;
-    });
+    .map(([date, e]) => ({ date, am: e.am||0, pm: e.pm||0, night: e.night||0 }));
 
-  const out = {
+  const record = {
     challenge: {
       name: '100,000 Astin Challenge', year: 2026, goal: GOAL,
       total_days: TOTAL_DAYS, start_date: '2026-01-01', end_date: '2026-12-31'
     },
-    entries,
+    entries: entriesArr,
     summary: {
       last_updated: lastLogged?.date || '—',
-      days_logged: days.filter(d=>d.hasData).length,
-      total_pushups: total, remaining: Math.max(0, GOAL - total),
+      days_logged: days.filter(d => d.hasData).length,
+      total_pushups: total,
+      remaining: Math.max(0, GOAL - total),
       daily_average: avg,
-      surplus_vs_no_rest_target: lastLogged ? lastLogged.surplus : 0,
-      rest_days: restDays, projected_finish_at_current_pace: projFinish
+      surplus_vs_no_rest_target: lastLogged?.surplus || 0,
+      rest_days: restDays,
+      projected_finish_at_current_pace: projFinish
     }
   };
 
-  const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = 'pushup_data.json'; a.click();
-  URL.revokeObjectURL(a.href);
-  showMsg('✓ pushup_data.json downloaded — replace the hosted file to persist these entries', '#16a34a');
+  const res = await fetch(BIN_URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': MASTER_KEY
+    },
+    body: JSON.stringify(record)
+  });
+  if (!res.ok) throw new Error('Save failed: ' + res.status);
 }
 
-// ── BUILD DAY ARRAY ────────────────────────────────────────────────────────────
+// ── SYNC BADGE ─────────────────────────────────────────────────────────────────
+function setSyncBadge(state, text) {
+  const badge = document.getElementById('sync-badge');
+  const label = document.getElementById('sync-text');
+  badge.className = 'sync-badge ' + state;
+  label.textContent = text;
+}
+
+// ── DATA HELPERS ───────────────────────────────────────────────────────────────
 function dStr(d) { return d.toISOString().split('T')[0]; }
 
 function buildDays() {
-  const em = mergedEntries();
   const days = []; let running = 0, idx = 0;
   const cur = new Date(START);
   while (cur <= END) {
     idx++;
-    const ds = dStr(cur), e = em[ds], hasData = !!e;
+    const ds = dStr(cur), e = entries[ds], hasData = !!e;
     const am = e?.am||0, pm = e?.pm||0, night = e?.night||0;
     const daily = am + pm + night;
     if (hasData) running += daily;
@@ -278,19 +265,17 @@ function buildDays() {
     const tgt_2r = Math.round(idx * AVG_2_REST);
     const surplus = running - tgt_no;
     const avg = (running > 0 && idx > 0) ? Math.round(running / idx) : 0;
-    const isLocal = !!localEntries[ds] && !jsonEntries[ds];
-    days.push({ date:ds, dayNum:idx, am, pm, night, daily, running, tgt_no, tgt_1r, tgt_2r, surplus, avg, hasData, isLocal });
+    days.push({ date:ds, dayNum:idx, am, pm, night, daily, running, tgt_no, tgt_1r, tgt_2r, surplus, avg, hasData });
     cur.setDate(cur.getDate() + 1);
   }
-  // 14-day moving average over logged days only
   for (let i = 0; i < days.length; i++) {
-    const w = days.slice(Math.max(0, i-13), i+1).filter(d => d.hasData);
+    const w = days.slice(Math.max(0,i-13), i+1).filter(d => d.hasData);
     days[i].ma14 = w.length ? Math.round(w.reduce((a,d) => a+d.daily, 0) / w.length) : null;
   }
   return days;
 }
 
-// ── CHART HELPERS ──────────────────────────────────────────────────────────────
+// ── CHARTS ─────────────────────────────────────────────────────────────────────
 Chart.defaults.color = '#1a2030';
 Chart.defaults.font.family = 'DM Sans';
 Chart.defaults.font.size = 12;
@@ -357,8 +342,7 @@ function renderChartDaily(days) {
       borderWidth:1, borderRadius:3, order:2 },
     { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
       borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function renderChartAvg(days) {
@@ -369,8 +353,7 @@ function renderChartAvg(days) {
   charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function renderChartRunning(days) {
@@ -381,8 +364,7 @@ function renderChartRunning(days) {
   charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
@@ -408,27 +390,15 @@ function renderStats(days) {
   document.getElementById('s-needed').textContent = needed>0 ? needed.toLocaleString() : '✓';
   document.getElementById('s-surplus').textContent = (surplus>=0?'+':'')+surplus.toLocaleString();
   document.getElementById('s-streak').textContent = streak+' days';
-
-  document.getElementById('card-surplus').className='stat-card '+(surplus>=0?'sc-green':'sc-red');
-  document.getElementById('card-needed').className='stat-card '+(needed<=AVG_NO_REST?'sc-green':'sc-red');
-
+  document.getElementById('card-surplus').className = 'stat-card '+(surplus>=0?'sc-green':'sc-red');
+  document.getElementById('card-needed').className  = 'stat-card '+(needed<=AVG_NO_REST?'sc-green':'sc-red');
   document.getElementById('progress-pct').textContent = pct.toFixed(1)+'%';
   setTimeout(()=>{ document.getElementById('progress-fill').style.width=pct+'%'; }, 80);
   document.getElementById('target-line').style.left = Math.min(100,todayNum/TOTAL_DAYS*100)+'%';
   document.getElementById('pace-label').textContent = surplus>=0
     ? `+${surplus.toLocaleString()} ahead of pace`
     : `${Math.abs(surplus).toLocaleString()} behind pace`;
-
   document.querySelectorAll('.stat-card').forEach(c=>setTimeout(()=>c.classList.add('loaded'),80));
-
-  // show notice if there are localStorage entries not yet in the JSON
-  const localCount = Object.keys(localEntries).length;
-  const noticeEl = document.getElementById('log-notice');
-  if (localCount > 0) {
-    noticeEl.innerHTML = `⚠ ${localCount} entr${localCount===1?'y':'ies'} saved locally (not yet in hosted JSON). Click <strong>Export JSON</strong> to merge and update the file.`;
-  } else {
-    noticeEl.textContent = '';
-  }
 }
 
 function renderTable(days) {
@@ -438,7 +408,6 @@ function renderTable(days) {
   if (filterMode==='logged') filtered = filtered.filter(d=>d.hasData);
   if (filterMode==='rest')   filtered = filtered.filter(d=>d.hasData&&d.daily===0);
   filtered = [...filtered].reverse();
-
   document.getElementById('table-body').innerHTML = filtered.map(d => {
     const isToday = d.date===today, isRest = d.hasData&&d.daily===0;
     const surStr = d.surplus>=0
@@ -448,7 +417,7 @@ function renderTable(days) {
     const cell = v => v>0 ? v : `<span class="dim">—</span>`;
     if (!d.hasData) return `<tr><td>${dateStr}</td><td>${d.dayNum}</td><td colspan="8" class="dim">—</td><td></td></tr>`;
     return `<tr class="${isToday?'today-row':''}">
-      <td>${dateStr}${isToday?'<span class="tag-today">TODAY</span>':''}${d.isLocal?'<span class="tag-local">LOCAL</span>':''}</td>
+      <td>${dateStr}${isToday?'<span class="tag-today">TODAY</span>':''}</td>
       <td>${d.dayNum}</td>
       <td>${cell(d.am)}</td><td>${cell(d.pm)}</td><td>${cell(d.night)}</td>
       <td>${isRest?`<span class="dim">Rest</span>`:`<strong>${d.daily.toLocaleString()}</strong>`}</td>
@@ -461,43 +430,54 @@ function renderTable(days) {
   }).join('');
 }
 
-function logEntry() {
-  const dv = document.getElementById('input-date').value;
-  const am = parseInt(document.getElementById('input-am').value)||0;
-  const pm = parseInt(document.getElementById('input-pm').value)||0;
+async function logEntry() {
+  const dv    = document.getElementById('input-date').value;
+  const am    = parseInt(document.getElementById('input-am').value)||0;
+  const pm    = parseInt(document.getElementById('input-pm').value)||0;
   const night = parseInt(document.getElementById('input-night').value)||0;
   if (!dv) { showMsg('Please select a date.','#dc2626'); return; }
-  localEntries[dv] = { am, pm, night };
-  saveLocal();
-  showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv}`, '#16a34a');
-  ['input-am','input-pm','input-night'].forEach(id => document.getElementById(id).value='');
+  if (saving) return;
+
+  // Update local state immediately so UI feels instant
+  entries[dv] = { am, pm, night };
   render();
+  ['input-am','input-pm','input-night'].forEach(id => document.getElementById(id).value='');
+
+  // Save to JSONBin
+  saving = true;
+  document.querySelector('.btn-log').disabled = true;
+  setSyncBadge('saving', 'Saving…');
+  try {
+    await saveBin();
+    setSyncBadge('ok', 'Saved ✓');
+    showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv}`, '#16a34a');
+    setTimeout(() => setSyncBadge('ok', 'In sync'), 2000);
+  } catch(e) {
+    setSyncBadge('error', 'Save failed');
+    showMsg('⚠ Could not save to JSONBin: ' + e.message, '#dc2626');
+  } finally {
+    saving = false;
+    document.querySelector('.btn-log').disabled = false;
+  }
 }
 
 function showMsg(msg, color) {
   const el = document.getElementById('log-msg');
-  el.style.color=color; el.textContent=msg;
+  el.style.color = color; el.textContent = msg;
   setTimeout(()=>el.textContent='', 5000);
 }
-
 function setFilter(mode, btn) {
   filterMode=mode;
   document.querySelectorAll('.bt').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTable(buildDays());
 }
-
 function render() {
   const days = buildDays();
-  renderStats(days);
-  renderMain(days);
-  renderChartDaily(days);
-  renderChartAvg(days);
-  renderChartRunning(days);
-  renderTable(days);
+  renderStats(days); renderMain(days); renderChartDaily(days); renderChartAvg(days); renderChartRunning(days); renderTable(days);
 }
 
-// ── BUILD DOM & INIT ───────────────────────────────────────────────────────────
+// ── BUILD DOM ──────────────────────────────────────────────────────────────────
 function buildApp() {
   const today = dStr(new Date());
   document.getElementById('main').innerHTML = `
@@ -526,7 +506,6 @@ function buildApp() {
         <button class="btn-log" onclick="logEntry()">Log It</button>
       </div>
       <div class="log-msg" id="log-msg"></div>
-      <div class="log-notice" id="log-notice"></div>
     </div>
 
     <div class="sec">Overview Chart</div>
@@ -591,31 +570,28 @@ function buildApp() {
           <tbody id="table-body"></tbody>
         </table>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 // ── STARTUP ────────────────────────────────────────────────────────────────────
 (async function init() {
-  loadLocal();
   try {
-    await fetchJSON();
+    await fetchBin();
+    buildApp();
+    render();
+    setSyncBadge('ok', 'In sync');
+    window.addEventListener('resize', () => {
+      const d = buildDays();
+      renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
+    });
   } catch(e) {
-    // If fetch fails (e.g. running from file://) just show an error hint
     document.getElementById('loading').innerHTML = `
-      <div class="error-screen">
-        <h2>Could not load pushup_data.json</h2>
-        <p>Make sure <code>pushup_data.json</code> is in the same folder as this HTML file and served over HTTP.</p>
-        <p style="margin-top:8px;font-size:11px;">${e.message}</p>
+      <div style="text-align:center;padding:60px 20px;font-family:'DM Mono',monospace;">
+        <div style="color:#dc2626;font-size:15px;margin-bottom:8px;">Could not load data</div>
+        <div style="color:#8a95a8;font-size:12px;">${e.message}</div>
       </div>`;
-    return;
+    setSyncBadge('error', 'Offline');
   }
-  buildApp();
-  render();
-  window.addEventListener('resize', () => {
-    const d = buildDays();
-    renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
-  });
 })();
 </script>
 </body>
