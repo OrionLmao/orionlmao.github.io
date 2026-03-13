@@ -10,159 +10,131 @@
     --bg:#f4f6f9; --surface:#fff; --surface2:#f0f2f6;
     --border:#dde2ea; --border2:#c8d0dc;
     --accent:#2563eb; --accent-lt:#eff4ff;
-    --orange:#ea580c; --green:#16a34a; --green-lt:#f0fdf4;
+    --orange:#ea580c; --green:#16a34a;
     --red:#dc2626; --purple:#7c3aed;
     --text:#1a2030; --text2:#4b5668; --muted:#8a95a8;
-    --c-bar:rgba(59,130,246,0.55); --c-bar-h:rgba(59,130,246,0.85);
-    --c-avg:#2563eb; --c-run:#111827; --c-no:#f59e0b;
-    --c-1r:#3b82f6; --c-2r:#16a34a; --c-ma:#ea580c;
+    --c-no:#f59e0b; --c-1r:#3b82f6; --c-2r:#16a34a; --c-ma:#ea580c;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 
   header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
-  .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,44px);letter-spacing:2px;color:var(--accent);line-height:1;}
+  .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
   .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-  .header-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
-  .header-total{text-align:right;}
-  .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--accent);line-height:1;}
-  .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-shrink:0;}
+  .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
+  .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
-  /* JSON status badge */
-  .json-status{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
-  .json-status .status-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;}
-  .json-status.loaded .status-dot{background:var(--green);}
-  .json-status.unsaved .status-dot{background:var(--orange);animation:pulse 2s infinite;}
+  .btn-export{background:var(--green);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:8px 14px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.15s;white-space:nowrap;}
+  .btn-export:hover{background:#15803d;}
+  .btn-export svg{width:13px;height:13px;flex-shrink:0;}
 
-  main{max-width:1320px;margin:0 auto;padding:32px 40px 100px;}
+  main{max-width:1320px;margin:0 auto;padding:28px 40px 80px;}
 
-  /* ── LOAD PANEL (shown before JSON loaded) ── */
-  .load-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:40px;text-align:center;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .load-panel h2{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--text);margin-bottom:8px;letter-spacing:1px;}
-  .load-panel p{color:var(--text2);font-size:14px;margin-bottom:24px;}
-  .load-zone{border:2px dashed var(--border2);border-radius:8px;padding:32px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
-  .load-zone:hover{border-color:var(--accent);background:var(--accent-lt);}
-  .load-zone.drag-over{border-color:var(--accent);background:var(--accent-lt);}
-  .load-zone .load-icon{font-size:40px;margin-bottom:10px;}
-  .load-zone p{color:var(--text2);font-size:13px;}
-  .load-zone strong{color:var(--accent);}
-  #file-input{display:none;}
-  .btn-load-demo{margin-top:16px;background:none;border:1.5px solid var(--border);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 20px;border-radius:6px;cursor:pointer;transition:all 0.15s;}
-  .btn-load-demo:hover{border-color:var(--accent);color:var(--accent);}
+  /* loading state */
+  .loading-screen{text-align:center;padding:80px 20px;font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);}
+  .loading-screen .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .error-screen{text-align:center;padding:60px 20px;font-family:'DM Mono',monospace;}
+  .error-screen h2{color:var(--red);font-size:16px;margin-bottom:8px;}
+  .error-screen p{color:var(--muted);font-size:12px;}
 
-  /* ── STATS ── */
-  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px;}
-  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);transition:box-shadow 0.2s;}
-  .stat-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+  /* stats */
+  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+  .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
   .stat-card.loaded .pill{transform:scaleX(1);}
-  .stat-card .value{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;margin-bottom:4px;margin-top:6px;}
-  .stat-card .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
-  .stat-card .icon{font-size:20px;float:right;margin-top:4px;opacity:0.5;}
-  .sc-blue .pill{background:var(--accent);} .sc-blue .value{color:var(--accent);}
-  .sc-orange .pill{background:var(--orange);} .sc-orange .value{color:var(--orange);}
-  .sc-green .pill{background:var(--green);} .sc-green .value{color:var(--green);}
-  .sc-red .pill{background:var(--red);} .sc-red .value{color:var(--red);}
-  .sc-purple .pill{background:var(--purple);} .sc-purple .value{color:var(--purple);}
-  .sc-dark .pill{background:var(--text);} .sc-dark .value{color:var(--text);}
+  .stat-card .val{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin:6px 0 2px;}
+  .stat-card .lbl{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+  .stat-card .ico{font-size:18px;float:right;opacity:0.45;}
+  .sc-blue .pill{background:var(--accent);}.sc-blue .val{color:var(--accent);}
+  .sc-orange .pill{background:var(--orange);}.sc-orange .val{color:var(--orange);}
+  .sc-green .pill{background:var(--green);}.sc-green .val{color:var(--green);}
+  .sc-red .pill{background:var(--red);}.sc-red .val{color:var(--red);}
+  .sc-purple .pill{background:var(--purple);}.sc-purple .val{color:var(--purple);}
+  .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
-  /* ── PROGRESS ── */
-  .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
-  .progress-header h2{font-weight:600;font-size:14px;color:var(--text2);}
-  .progress-pct{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent);}
+  /* progress */
+  .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
+  .progress-pct{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);}
   .progress-track{height:10px;background:var(--surface2);border-radius:99px;position:relative;overflow:hidden;}
   .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);border-radius:99px;transition:width 1.2s cubic-bezier(0.16,1,0.3,1);}
   .progress-target-line{position:absolute;top:-2px;width:2px;height:14px;background:var(--border2);border-radius:1px;}
-  .progress-footer{display:flex;justify-content:space-between;margin-top:8px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
+  .progress-footer{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
 
-  /* ── LOG ── */
-  .log-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,0.05);overflow:hidden;}
-  .log-header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface2);flex-wrap:wrap;}
-  .log-header h2{font-weight:600;font-size:14px;color:var(--text);flex:1;}
-  .dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
-
-  /* Save JSON button */
-  .btn-save-json{
-    background:var(--green);color:#fff;border:none;
-    font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;
-    padding:7px 16px;border-radius:6px;cursor:pointer;
-    display:flex;align-items:center;gap:6px;transition:background 0.15s;
-    white-space:nowrap;
-  }
-  .btn-save-json:hover{background:#15803d;}
-  .btn-save-json svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;}
-  .btn-save-json.unsaved{background:var(--orange);}
-  .btn-save-json.unsaved:hover{background:#c2410c;}
-
-  .log-form{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:12px;align-items:end;}
-  .field label{display:block;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:500;}
-  .field input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:16px;padding:10px 12px;outline:none;border-radius:6px;transition:border-color 0.2s;-moz-appearance:textfield;}
+  /* log */
+  .log-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);overflow:hidden;}
+  .log-header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--surface2);}
+  .log-header h2{font-weight:600;font-size:13px;color:var(--text);}
+  .dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .log-form{padding:18px 22px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
+  .field label{display:block;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+  .field input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:15px;padding:9px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;-moz-appearance:textfield;}
   .field input::-webkit-inner-spin-button,.field input::-webkit-outer-spin-button{-webkit-appearance:none;}
-  .field input:focus{border-color:var(--accent);background:var(--surface);}
-  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:10px 24px;cursor:pointer;border-radius:6px;transition:background 0.2s,transform 0.1s;white-space:nowrap;}
-  .btn-log:hover{background:#1d4ed8;}.btn-log:active{transform:scale(0.97);}
-  .log-message{padding:0 24px 14px;font-size:12px;font-family:'DM Mono',monospace;min-height:20px;}
+  .field input:focus{border-color:var(--accent);}
+  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;cursor:pointer;border-radius:6px;transition:background 0.2s;white-space:nowrap;}
+  .btn-log:hover{background:#1d4ed8;}
+  .log-msg{padding:0 22px 12px;font-size:11px;font-family:'DM Mono',monospace;min-height:18px;}
+  .log-notice{padding:6px 22px 12px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);border-top:1px solid var(--border);}
 
-  .section-title{font-weight:600;font-size:13px;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:12px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
-  .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  /* section title */
+  .sec{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
+  .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  /* ── CHARTS ── */
-  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .chart-card-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:var(--surface2);}
-  .chart-card-header h3{font-weight:600;font-size:14px;color:var(--text);}
-  .range-group{display:flex;gap:4px;}
-  .range-btn{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
-  .range-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .range-btn:hover:not(.active){border-color:var(--accent);color:var(--accent);}
-  .chart-body{padding:20px;}
-  .chart-inner{position:relative;width:100%;height:340px;}
+  /* charts */
+  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
+  .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
+  .rg{display:flex;gap:3px;}
+  .rb{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
+  .rb.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .rb:hover:not(.active){border-color:var(--accent);color:var(--accent);}
+  .chart-body{padding:18px;}
+  .chart-inner{position:relative;width:100%;height:320px;}
   .chart-inner canvas{position:absolute;top:0;left:0;}
-  .chart-legend{display:flex;flex-wrap:wrap;gap:12px 20px;padding:12px 20px;border-top:1px solid var(--border);background:var(--surface2);}
-  .legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);}
-  .l-bar{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
-  .l-line{width:22px;height:3px;flex-shrink:0;border-radius:2px;}
-  .l-dashed{width:22px;height:0;flex-shrink:0;}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:10px 18px;padding:10px 18px;border-top:1px solid var(--border);background:var(--surface2);}
+  .li{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);}
+  .lb{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+  .ll{width:20px;height:3px;flex-shrink:0;border-radius:2px;}
+  .ld{width:20px;height:0;flex-shrink:0;}
 
-  .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  /* tabs */
+  .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
-  .chart-tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:12px 22px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
-  .chart-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
-  .chart-tab:hover:not(.active){color:var(--text2);}
-  .chart-panels{padding:20px;}
-  .chart-panel{display:none;}.chart-panel.active{display:block;}
-  .panel-controls{display:flex;gap:6px;margin-bottom:14px;align-items:center;flex-wrap:wrap;}
-  .panel-legend{display:flex;gap:14px;margin-left:auto;align-items:center;flex-wrap:wrap;}
+  .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
+  .ct.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
+  .chart-panels{padding:18px;}
+  .cp{display:none;}.cp.active{display:block;}
+  .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
+  .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
-  /* ── TABLE ── */
-  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:48px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .table-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--surface2);flex-wrap:wrap;}
-  .table-header h3{font-weight:600;font-size:14px;color:var(--text);margin-right:8px;}
-  .btn-toggle{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:4px 12px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
-  .btn-toggle.active{background:var(--accent-lt);border-color:var(--accent);color:var(--accent);}
-  .btn-toggle:hover:not(.active){border-color:var(--accent);color:var(--accent);}
-  .table-wrap{overflow:auto;max-height:480px;}
-  table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:12px;}
-  thead th{padding:10px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:2px solid var(--border);position:sticky;top:0;background:var(--surface);font-weight:500;}
-  tbody tr{border-bottom:1px solid var(--surface2);transition:background 0.12s;}
+  /* table */
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .table-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;background:var(--surface2);flex-wrap:wrap;}
+  .table-head h3{font-weight:600;font-size:13px;color:var(--text);margin-right:6px;}
+  .bt{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
+  .bt.active{background:var(--accent-lt);border-color:var(--accent);color:var(--accent);}
+  .table-wrap{overflow:auto;max-height:440px;}
+  table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:11px;}
+  thead th{padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);border-bottom:2px solid var(--border);position:sticky;top:0;background:var(--surface);font-weight:500;}
+  tbody tr{border-bottom:1px solid var(--surface2);}
   tbody tr:hover{background:var(--surface2);}
   tbody tr.today-row{background:var(--accent-lt);}
   tbody tr.today-row td:first-child{border-left:3px solid var(--accent);}
-  tbody td{padding:9px 14px;vertical-align:middle;color:var(--text2);}
-  tbody td strong{color:var(--text);}
-  .surplus{color:var(--green);font-weight:600;}.deficit{color:var(--red);font-weight:600;}
-  .dimmed{color:var(--border2);}
-  .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 6px;border-radius:3px;margin-left:6px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
-  .tag-rest{font-size:11px;color:var(--muted);font-style:italic;}
+  tbody td{padding:8px 12px;vertical-align:middle;color:var(--text2);}
+  td strong{color:var(--text);}
+  .sur{color:var(--green);font-weight:600;}.def{color:var(--red);font-weight:600;}
+  .dim{color:var(--border2);}
+  .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
+  .tag-local{font-size:9px;background:var(--orange);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
-  /* hidden content until JSON loaded */
-  .app-content{display:none;}
+  footer{text-align:center;padding:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
 
-  footer{text-align:center;padding:40px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
-
-  @media(max-width:1000px){main{padding:20px 20px 60px;}header{padding:14px 20px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.log-form{grid-template-columns:1fr 1fr;}.log-form .btn-log{grid-column:span 2;}.chart-inner{height:260px;}}
-  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);}.chart-inner{height:220px;}main{padding:14px 12px 60px;}}
+  @media(max-width:1000px){main{padding:18px 18px 60px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.log-form{grid-template-columns:1fr 1fr;}.log-form .btn-log{grid-column:span 2;}.chart-inner{height:250px;}header{padding:14px 18px;}}
+  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);}.chart-inner{height:200px;}main{padding:12px 12px 60px;}}
 </style>
 </head>
 <body>
@@ -173,10 +145,10 @@
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
   </div>
   <div class="header-right">
-    <div class="json-status" id="json-status">
-      <div class="status-dot"></div>
-      <span id="json-status-text">No file loaded</span>
-    </div>
+    <button class="btn-export" onclick="exportJSON()" title="Download merged JSON to replace hosted file">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export JSON
+    </button>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
       <div class="label">Total Push-Ups</div>
@@ -184,530 +156,467 @@
   </div>
 </header>
 
-<main>
-
-  <!-- LOAD PANEL -->
-  <div class="load-panel" id="load-panel">
-    <h2>Load Your Data File</h2>
-    <p>Drop your <code>pushup_data.json</code> file below, or click to browse. Keep both files in the same folder.</p>
-    <div class="load-zone" id="load-zone" onclick="document.getElementById('file-input').click()">
-      <div class="load-icon">📂</div>
-      <p><strong>Click to browse</strong> or drag &amp; drop your JSON file here</p>
-      <p style="margin-top:6px;font-size:11px;color:var(--muted)">pushup_data.json</p>
-    </div>
-    <input type="file" id="file-input" accept=".json">
-    <br>
-    <button class="btn-load-demo" onclick="loadDemoData()">▶ Continue with demo data (no file)</button>
+<main id="main">
+  <div class="loading-screen" id="loading">
+    <div class="spinner"></div>
+    Loading pushup_data.json…
   </div>
-
-  <!-- MAIN APP (hidden until data loaded) -->
-  <div class="app-content" id="app-content">
-
-    <div class="stats-grid">
-      <div class="stat-card sc-blue"><div class="pill"></div><span class="icon">💪</span><div class="value" id="stat-total">—</div><div class="label">Total Done</div></div>
-      <div class="stat-card sc-orange"><div class="pill"></div><span class="icon">🎯</span><div class="value" id="stat-remaining">—</div><div class="label">Remaining</div></div>
-      <div class="stat-card sc-dark"><div class="pill"></div><span class="icon">📊</span><div class="value" id="stat-avg">—</div><div class="label">Daily Average</div></div>
-      <div class="stat-card" id="card-needed"><div class="pill"></div><span class="icon">📅</span><div class="value" id="stat-needed">—</div><div class="label">Needed / Day</div></div>
-      <div class="stat-card" id="card-surplus"><div class="pill"></div><span class="icon">⚡</span><div class="value" id="stat-surplus">—</div><div class="label">Surplus / (Deficit)</div></div>
-      <div class="stat-card sc-purple"><div class="pill"></div><span class="icon">🔥</span><div class="value" id="stat-streak">—</div><div class="label">Active Streak</div></div>
-    </div>
-
-    <div class="progress-card">
-      <div class="progress-header">
-        <h2>Overall Progress to 100,000</h2>
-        <span class="progress-pct" id="progress-pct">0%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-        <div class="progress-target-line" id="target-line"></div>
-      </div>
-      <div class="progress-footer">
-        <span>0</span><span id="pace-label">calculating…</span><span>100,000</span>
-      </div>
-    </div>
-
-    <div class="log-card">
-      <div class="log-header">
-        <div class="dot"></div>
-        <h2>Log Push-Ups</h2>
-        <button class="btn-save-json" id="btn-save-json" onclick="saveJSON()">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Save JSON
-        </button>
-      </div>
-      <div class="log-form">
-        <div class="field"><label>Date</label><input type="date" id="input-date"></div>
-        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
-        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
-        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
-        <button class="btn-log" onclick="logEntry()">Log It</button>
-      </div>
-      <div class="log-message" id="log-message"></div>
-    </div>
-
-    <div class="section-title">Overview Chart</div>
-    <div class="chart-card">
-      <div class="chart-card-header">
-        <h3>100,000 Astin Challenge — Daily &amp; Running Totals</h3>
-        <div class="range-group">
-          <button class="range-btn active" onclick="setMainRange(30,this)">Last 30</button>
-          <button class="range-btn" onclick="setMainRange(60,this)">Last 60</button>
-          <button class="range-btn" onclick="setMainRange(0,this)">All</button>
-        </div>
-      </div>
-      <div class="chart-body"><div class="chart-inner"><canvas id="chart-main"></canvas></div></div>
-      <div class="chart-legend">
-        <div class="legend-item"><div class="l-bar" style="background:var(--c-bar-h)"></div>Daily Total</div>
-        <div class="legend-item"><div class="l-dashed" style="border-top:2px dashed var(--c-avg)"></div>Avg / Day</div>
-        <div class="legend-item"><div class="l-line" style="background:var(--c-run)"></div>Running Total</div>
-        <div class="legend-item"><div class="l-line" style="background:var(--c-no)"></div>Target — No Rest</div>
-        <div class="legend-item"><div class="l-line" style="background:var(--c-1r)"></div>Target — 1 Rest/wk</div>
-        <div class="legend-item"><div class="l-line" style="background:var(--c-2r)"></div>Target — 2 Rest/wk</div>
-        <div class="legend-item"><div class="l-dashed" style="border-top:2px dashed var(--c-ma)"></div>14-Day MA</div>
-      </div>
-    </div>
-
-    <div class="section-title">Detail Charts</div>
-    <div class="tabs-card">
-      <div class="tab-bar">
-        <button class="chart-tab active" onclick="switchTab('daily',this)">Daily Totals</button>
-        <button class="chart-tab" onclick="switchTab('avg',this)">Daily Average</button>
-        <button class="chart-tab" onclick="switchTab('running',this)">Running Total</button>
-      </div>
-      <div class="chart-panels">
-        <div class="chart-panel active" id="panel-daily">
-          <div class="panel-controls">
-            <div class="range-group"><button class="range-btn active" onclick="setRange('daily',30,this)">Last 30</button><button class="range-btn" onclick="setRange('daily',60,this)">Last 60</button><button class="range-btn" onclick="setRange('daily',0,this)">All</button></div>
-            <div class="panel-legend"><div class="legend-item"><div class="l-bar" style="background:var(--green)"></div>On/Ahead</div><div class="legend-item"><div class="l-bar" style="background:var(--red)"></div>Behind</div><div class="legend-item"><div class="l-dashed" style="border-top:2px dashed #aaa"></div>Required/day</div></div>
-          </div>
-          <canvas id="chart-daily" height="200"></canvas>
-        </div>
-        <div class="chart-panel" id="panel-avg">
-          <div class="panel-controls">
-            <div class="range-group"><button class="range-btn active" onclick="setRange('avg',30,this)">Last 30</button><button class="range-btn" onclick="setRange('avg',60,this)">Last 60</button><button class="range-btn" onclick="setRange('avg',0,this)">All</button></div>
-            <div class="panel-legend"><div class="legend-item"><div class="l-line" style="background:var(--accent)"></div>Avg/Day</div><div class="legend-item"><div class="l-dashed" style="border-top:2px dashed #aaa"></div>Required ~274</div></div>
-          </div>
-          <canvas id="chart-avg" height="200"></canvas>
-        </div>
-        <div class="chart-panel" id="panel-running">
-          <div class="panel-controls">
-            <div class="range-group"><button class="range-btn active" onclick="setRange('running',30,this)">Last 30</button><button class="range-btn" onclick="setRange('running',60,this)">Last 60</button><button class="range-btn" onclick="setRange('running',0,this)">All</button></div>
-            <div class="panel-legend"><div class="legend-item"><div class="l-line" style="background:var(--accent)"></div>Running Total</div><div class="legend-item"><div class="l-dashed" style="border-top:2px dashed #aaa"></div>Required Pace</div></div>
-          </div>
-          <canvas id="chart-running" height="200"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="table-card">
-      <div class="table-header">
-        <h3>Activity Log</h3>
-        <button class="btn-toggle active" onclick="setFilter('all',this)">All Days</button>
-        <button class="btn-toggle" onclick="setFilter('logged',this)">Logged Only</button>
-        <button class="btn-toggle" onclick="setFilter('rest',this)">Rest Days</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Day #</th><th>AM</th><th>PM</th><th>Night</th><th>Daily Total</th><th>14d MA</th><th>Running Total</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
-          <tbody id="table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div><!-- /app-content -->
 </main>
+
 <footer>100,000 Astin Challenge 2026 · Track. Log. Crush It.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-// ── CONSTANTS ─────────────────────────────────────────────────────────────────
-const GOAL=100000, TOTAL_DAYS=365;
-const START=new Date('2026-01-01T00:00:00'), END=new Date('2026-12-31T00:00:00');
-const AVG_NO_REST=GOAL/TOTAL_DAYS;
-const AVG_1_REST=GOAL/(TOTAL_DAYS*6/7);
-const AVG_2_REST=GOAL/(TOTAL_DAYS*5/7);
+// ── CONSTANTS ──────────────────────────────────────────────────────────────────
+const GOAL = 100000, TOTAL_DAYS = 365;
+const START = new Date('2026-01-01T00:00:00');
+const END   = new Date('2026-12-31T00:00:00');
+const AVG_NO_REST = GOAL / TOTAL_DAYS;
+const AVG_1_REST  = GOAL / (TOTAL_DAYS * 6 / 7);
+const AVG_2_REST  = GOAL / (TOTAL_DAYS * 5 / 7);
+const LS_KEY = 'pushup_local_2026';
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let jsonData = null;        // the full parsed JSON object
-let entryMap = {};          // date string → {am,pm,night}
-let hasUnsaved = false;
-let filterMode='all';
-let rangeState={main:30,daily:30,avg:30,running:30};
-let charts={main:null,daily:null,avg:null,running:null};
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let jsonEntries = {};    // from pushup_data.json  { date → {am,pm,night} }
+let localEntries = {};   // from localStorage       { date → {am,pm,night} }
+let filterMode = 'all';
+let rangeState = { main:30, daily:30, avg:30, running:30 };
+let charts = { main:null, daily:null, avg:null, running:null };
 
-// ── JSON LOAD / SAVE ──────────────────────────────────────────────────────────
-function parseJSON(text) {
-  try {
-    const data = JSON.parse(text);
-    jsonData = data;
-    entryMap = {};
-    (data.entries || []).forEach(e => {
-      entryMap[e.date] = { am: e.am||0, pm: e.pm||0, night: e.night||0 };
-    });
-    return true;
-  } catch(err) {
-    alert('Could not parse JSON file: ' + err.message);
-    return false;
-  }
+// ── MERGED VIEW ────────────────────────────────────────────────────────────────
+// localEntries override jsonEntries for the same date
+function mergedEntries() {
+  return Object.assign({}, jsonEntries, localEntries);
 }
 
-function buildJSONOutput() {
-  // Rebuild entries array from entryMap, sorted by date
+// ── LOCALSTORAGE ───────────────────────────────────────────────────────────────
+function loadLocal() {
+  try { localEntries = JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
+  catch(e) { localEntries = {}; }
+}
+function saveLocal() {
+  localStorage.setItem(LS_KEY, JSON.stringify(localEntries));
+}
+
+// ── FETCH JSON ─────────────────────────────────────────────────────────────────
+async function fetchJSON() {
+  const res = await fetch('pushup_data.json?t=' + Date.now());
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const data = await res.json();
+  jsonEntries = {};
+  (data.entries || []).forEach(e => {
+    jsonEntries[e.date] = { am: e.am || 0, pm: e.pm || 0, night: e.night || 0 };
+  });
+}
+
+// ── EXPORT JSON ────────────────────────────────────────────────────────────────
+// Merges localStorage on top of json entries and downloads a clean JSON file.
+// Replace the hosted pushup_data.json with this to persist new entries permanently.
+function exportJSON() {
+  const merged = mergedEntries();
   const days = buildDays();
-  const logged = days.filter(d => d.hasData);
-  const lastLogged = logged.length ? logged[logged.length-1] : null;
+  const lastLogged = days.filter(d => d.hasData).pop();
   const total = lastLogged ? lastLogged.running : 0;
   const elapsed = lastLogged ? lastLogged.dayNum : 1;
-  const avg = (total>0 && elapsed>0) ? Math.round(total/elapsed) : 0;
-  const todayNum = days.find(d=>d.date===dStr(new Date()))?.dayNum || 1;
+  const avg = total > 0 ? Math.round(total / elapsed) : 0;
+  const todayNum = days.find(d => d.date === dStr(new Date()))?.dayNum || 1;
   const daysLeft = TOTAL_DAYS - todayNum;
-  const needed = daysLeft>0 ? Math.round((GOAL-total)/daysLeft) : 0;
-  const restDays = logged.filter(d=>d.daily===0).length;
-
-  // Project finish date
+  const restDays = days.filter(d => d.hasData && d.daily === 0).length;
   let projFinish = '—';
   if (avg > 0 && total < GOAL) {
-    const daysNeeded = Math.ceil((GOAL - total) / avg);
-    const proj = new Date();
-    proj.setDate(proj.getDate() + daysNeeded);
-    projFinish = dStr(proj);
+    const p = new Date(); p.setDate(p.getDate() + Math.ceil((GOAL - total) / avg));
+    projFinish = dStr(p);
   }
 
-  const entries = Object.entries(entryMap)
+  const entries = Object.entries(merged)
     .sort(([a],[b]) => a.localeCompare(b))
     .map(([date, e]) => {
       const d = days.find(x => x.date === date);
-      const daily = (e.am||0)+(e.pm||0)+(e.night||0);
-      const obj = {
-        date,
-        day: d ? d.dayNum : null,
-        am: e.am||0,
-        pm: e.pm||0,
-        night: e.night||0,
-        daily_total: daily,
-        running_total: d ? d.running : null
-      };
-      if (daily === 0) obj.rest_day = true;
+      const obj = { date, am: e.am||0, pm: e.pm||0, night: e.night||0 };
+      if (d && (e.am||0)+(e.pm||0)+(e.night||0) === 0) obj.rest_day = true;
       return obj;
     });
 
-  return {
-    challenge: jsonData?.challenge || {
-      name: '100,000 Astin Challenge',
-      year: 2026, goal: GOAL, total_days: TOTAL_DAYS,
-      start_date: '2026-01-01', end_date: '2026-12-31',
-      targets: {
-        no_rest_days: { active_days: 365, required_per_day: +AVG_NO_REST.toFixed(2) },
-        one_rest_day_per_week: { active_days: 313, required_per_day: +AVG_1_REST.toFixed(2) },
-        two_rest_days_per_week: { active_days: 261, required_per_day: +AVG_2_REST.toFixed(2) }
-      }
+  const out = {
+    challenge: {
+      name: '100,000 Astin Challenge', year: 2026, goal: GOAL,
+      total_days: TOTAL_DAYS, start_date: '2026-01-01', end_date: '2026-12-31'
     },
     entries,
     summary: {
-      last_updated: lastLogged ? lastLogged.date : '—',
-      days_logged: logged.length,
-      total_pushups: total,
-      remaining: Math.max(0, GOAL - total),
+      last_updated: lastLogged?.date || '—',
+      days_logged: days.filter(d=>d.hasData).length,
+      total_pushups: total, remaining: Math.max(0, GOAL - total),
       daily_average: avg,
-      target_no_rest_pace: lastLogged ? lastLogged.tgt_no : 0,
       surplus_vs_no_rest_target: lastLogged ? lastLogged.surplus : 0,
-      rest_days: restDays,
-      projected_finish_at_current_pace: projFinish
+      rest_days: restDays, projected_finish_at_current_pace: projFinish
     }
   };
-}
 
-function saveJSON() {
-  const output = buildJSONOutput();
-  const blob = new Blob([JSON.stringify(output, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
+  const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = url;
-  a.download = 'pushup_data.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  hasUnsaved = false;
-  updateSaveBtn();
-  showMsg('✓ pushup_data.json downloaded — replace your old file with this one', '#16a34a');
+  a.href = URL.createObjectURL(blob); a.download = 'pushup_data.json'; a.click();
+  URL.revokeObjectURL(a.href);
+  showMsg('✓ pushup_data.json downloaded — replace the hosted file to persist these entries', '#16a34a');
 }
 
-function markUnsaved() {
-  hasUnsaved = true;
-  updateSaveBtn();
-  updateStatusBadge();
-}
+// ── BUILD DAY ARRAY ────────────────────────────────────────────────────────────
+function dStr(d) { return d.toISOString().split('T')[0]; }
 
-function updateSaveBtn() {
-  const btn = document.getElementById('btn-save-json');
-  if (hasUnsaved) {
-    btn.classList.add('unsaved');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save JSON ●`;
-  } else {
-    btn.classList.remove('unsaved');
-    btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save JSON`;
-  }
-}
-
-function updateStatusBadge(filename) {
-  const el = document.getElementById('json-status');
-  const txt = document.getElementById('json-status-text');
-  if (!jsonData) { el.className='json-status'; txt.textContent='No file loaded'; return; }
-  if (hasUnsaved) {
-    el.className='json-status unsaved';
-    txt.textContent = (filename || 'pushup_data.json') + ' • unsaved changes';
-  } else {
-    el.className='json-status loaded';
-    txt.textContent = filename || 'pushup_data.json';
-  }
-}
-
-// ── FILE INPUT HANDLING ───────────────────────────────────────────────────────
-document.getElementById('file-input').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    if (parseJSON(ev.target.result)) {
-      showApp(file.name);
-    }
-  };
-  reader.readAsText(file);
-});
-
-const loadZone = document.getElementById('load-zone');
-loadZone.addEventListener('dragover', e => { e.preventDefault(); loadZone.classList.add('drag-over'); });
-loadZone.addEventListener('dragleave', () => loadZone.classList.remove('drag-over'));
-loadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  loadZone.classList.remove('drag-over');
-  const file = e.dataTransfer.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    if (parseJSON(ev.target.result)) showApp(file.name);
-  };
-  reader.readAsText(file);
-});
-
-function loadDemoData() {
-  // Build a minimal jsonData from built-in raw data
-  jsonData = { challenge: null };
-  entryMap = {};
-  RAW.forEach(([date,am,pm,n]) => { entryMap[date] = {am:am||0,pm:pm||0,night:n||0}; });
-  showApp('demo data');
-}
-
-function showApp(filename) {
-  document.getElementById('load-panel').style.display = 'none';
-  document.getElementById('app-content').style.display = 'block';
-  updateStatusBadge(filename);
-  render();
-}
-
-// ── RAW FALLBACK DATA (for demo / base entries) ───────────────────────────────
-const RAW=[
-  ['2026-01-01',100,100,100],['2026-01-02',50,150,100],['2026-01-03',100,200,0],
-  ['2026-01-04',300,0,0],['2026-01-05',160,150,0],['2026-01-06',160,140,0],
-  ['2026-01-07',200,150,0],['2026-01-08',200,100,0],['2026-01-09',160,150,0],
-  ['2026-01-10',300,0,0],['2026-01-11',300,0,0],['2026-01-12',160,140,0],
-  ['2026-01-13',320,0,0],['2026-01-14',150,150,0],['2026-01-15',250,160,0],
-  ['2026-01-16',250,150,0],['2026-01-17',200,100,0],['2026-01-18',0,0,0],
-  ['2026-01-19',300,0,0],['2026-01-20',150,150,0],['2026-01-21',250,150,0],
-  ['2026-01-22',330,160,0],['2026-01-23',200,150,0],['2026-01-24',350,0,0],
-  ['2026-01-25',0,0,0],['2026-01-26',150,0,0],['2026-01-27',150,160,160],
-  ['2026-01-28',250,180,150],['2026-01-29',200,150,0],['2026-01-30',200,210,0],
-  ['2026-01-31',0,0,0],['2026-02-01',200,200,0],['2026-02-02',200,160,0],
-  ['2026-02-03',250,150,0],['2026-02-04',210,170,0],['2026-02-05',200,190,0],
-  ['2026-02-06',200,150,0],['2026-02-07',220,170,0],['2026-02-08',0,0,0],
-  ['2026-02-09',200,260,0],['2026-02-10',240,200,0],['2026-02-11',200,220,0],
-  ['2026-02-12',250,170,0],['2026-02-13',210,200,0],['2026-02-14',200,250,0],
-  ['2026-02-15',230,230,0],['2026-02-16',0,0,0],['2026-02-17',190,290,0],
-  ['2026-02-18',210,240,0],['2026-02-19',170,390,0],['2026-02-20',240,300,0],
-  ['2026-02-21',330,210,0],['2026-02-22',180,180,0],['2026-02-23',0,0,0],
-  ['2026-02-24',260,320,0],['2026-02-25',180,360,0],['2026-02-26',180,360,0],
-  ['2026-02-27',240,360,0],['2026-02-28',100,0,0],['2026-03-01',0,0,0],
-  ['2026-03-02',180,360,0],['2026-03-03',260,400,0],
-];
-
-// ── DATA HELPERS ──────────────────────────────────────────────────────────────
-function dStr(d){return d.toISOString().split('T')[0];}
-
-function buildDays(){
-  const days=[],cur=new Date(START);
-  let running=0,idx=0;
-  while(cur<=END){
+function buildDays() {
+  const em = mergedEntries();
+  const days = []; let running = 0, idx = 0;
+  const cur = new Date(START);
+  while (cur <= END) {
     idx++;
-    const ds=dStr(cur),e=entryMap[ds],hasData=!!e;
-    const am=hasData?(e.am||0):0,pm=hasData?(e.pm||0):0,night=hasData?(e.night||0):0;
-    const daily=am+pm+night;
-    if(hasData) running+=daily;
-    const tgt_no=Math.round(idx*GOAL/TOTAL_DAYS);
-    const tgt_1r=Math.round(idx*AVG_1_REST);
-    const tgt_2r=Math.round(idx*AVG_2_REST);
-    const surplus=running-tgt_no;
-    const avg=(running>0&&idx>0)?Math.round(running/idx):0;
-    days.push({date:ds,dayNum:idx,am,pm,night,daily,running,tgt_no,tgt_1r,tgt_2r,surplus,avg,hasData});
-    cur.setDate(cur.getDate()+1);
+    const ds = dStr(cur), e = em[ds], hasData = !!e;
+    const am = e?.am||0, pm = e?.pm||0, night = e?.night||0;
+    const daily = am + pm + night;
+    if (hasData) running += daily;
+    const tgt_no = Math.round(idx * GOAL / TOTAL_DAYS);
+    const tgt_1r = Math.round(idx * AVG_1_REST);
+    const tgt_2r = Math.round(idx * AVG_2_REST);
+    const surplus = running - tgt_no;
+    const avg = (running > 0 && idx > 0) ? Math.round(running / idx) : 0;
+    const isLocal = !!localEntries[ds] && !jsonEntries[ds];
+    days.push({ date:ds, dayNum:idx, am, pm, night, daily, running, tgt_no, tgt_1r, tgt_2r, surplus, avg, hasData, isLocal });
+    cur.setDate(cur.getDate() + 1);
   }
-  for(let i=0;i<days.length;i++){
-    const s=Math.max(0,i-13);
-    const w=days.slice(s,i+1).filter(d=>d.hasData);
-    days[i].ma14=w.length>0?Math.round(w.reduce((a,d)=>a+d.daily,0)/w.length):null;
+  // 14-day moving average over logged days only
+  for (let i = 0; i < days.length; i++) {
+    const w = days.slice(Math.max(0, i-13), i+1).filter(d => d.hasData);
+    days[i].ma14 = w.length ? Math.round(w.reduce((a,d) => a+d.daily, 0) / w.length) : null;
   }
   return days;
 }
 
-// ── CHART HELPERS ─────────────────────────────────────────────────────────────
-Chart.defaults.color='#1a2030';
-Chart.defaults.font.family='DM Sans';
-Chart.defaults.font.size=12;
+// ── CHART HELPERS ──────────────────────────────────────────────────────────────
+Chart.defaults.color = '#1a2030';
+Chart.defaults.font.family = 'DM Sans';
+Chart.defaults.font.size = 12;
 
-function sliceDays(days,range){const l=days.filter(d=>d.hasData);return(!range||range===0)?l:l.slice(-range);}
-function fmtShort(ds){return new Date(ds+'T00:00:00').toLocaleDateString('en-AU',{month:'short',day:'numeric'});}
-function ttCfg(){return{backgroundColor:'#fff',titleColor:'#111827',bodyColor:'#4b5668',borderColor:'#dde2ea',borderWidth:1,padding:10};}
-function xScaleCfg(){return{ticks:{color:'#374151',font:{size:12,weight:'500'},maxRotation:45,maxTicksLimit:20},grid:{display:false},border:{color:'#9ca3af'}};}
-function yScaleCfg(pos='left',color='#374151'){return{position:pos,ticks:{color,font:{size:12,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v},grid:{color:'#e5e7eb'},border:{display:false}};}
+function sliceDays(days, range) {
+  const l = days.filter(d => d.hasData);
+  return (!range || range === 0) ? l : l.slice(-range);
+}
+function fmtShort(ds) {
+  return new Date(ds+'T00:00:00').toLocaleDateString('en-AU', { month:'short', day:'numeric' });
+}
+function ttCfg() {
+  return { backgroundColor:'#fff', titleColor:'#111827', bodyColor:'#4b5668', borderColor:'#dde2ea', borderWidth:1, padding:10 };
+}
+function xCfg() {
+  return { ticks:{color:'#374151',font:{size:11,weight:'500'},maxRotation:45,maxTicksLimit:18}, grid:{display:false}, border:{color:'#9ca3af'} };
+}
+function yCfg(pos='left', color='#374151') {
+  return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false} };
+}
 
-function renderMain(days){
-  const data=sliceDays(days,rangeState.main);
-  const labels=data.map(d=>{const dt=new Date(d.date+'T00:00:00');return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'\n'+d.dayNum;});
-  if(charts.main) charts.main.destroy();
-  const ctx=document.getElementById('chart-main').getContext('2d');
-  charts.main=new Chart(ctx,{data:{labels,datasets:[
-    {type:'bar',label:'Daily Total',yAxisID:'yL',data:data.map(d=>d.daily),backgroundColor:'rgba(59,130,246,0.45)',borderColor:'rgba(59,130,246,0.7)',borderWidth:1,borderRadius:3,order:10},
-    {type:'line',label:'Avg per day',yAxisID:'yL',data:data.map(d=>d.avg),borderColor:'#2563eb',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0.3,order:4},
-    {type:'line',label:'Running Total',yAxisID:'yR',data:data.map(d=>d.running),borderColor:'#111827',borderWidth:2.5,pointRadius:0,pointHoverRadius:5,fill:false,tension:0.2,order:1},
-    {type:'line',label:'Day Target No Rest Day',yAxisID:'yR',data:data.map(d=>d.tgt_no),borderColor:'#f59e0b',borderWidth:2,pointRadius:0,fill:false,tension:0,order:3},
-    {type:'line',label:'Day Target 1 Rest Day',yAxisID:'yR',data:data.map(d=>d.tgt_1r),borderColor:'#3b82f6',borderWidth:2,pointRadius:0,fill:false,tension:0,order:3},
-    {type:'line',label:'Day Target 2 Rest Days',yAxisID:'yR',data:data.map(d=>d.tgt_2r),borderColor:'#16a34a',borderWidth:2,pointRadius:0,fill:false,tension:0,order:3},
-    {type:'line',label:'14 day MA',yAxisID:'yL',data:data.map(d=>d.ma14),borderColor:'#ea580c',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0.4,order:2,spanGaps:true},
-  ]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:600},interaction:{mode:'index',intersect:false},
-    plugins:{legend:{display:false},tooltip:{...ttCfg(),callbacks:{title:items=>{const d=data[items[0].dataIndex];return fmtShort(d.date)+' — Day '+d.dayNum;},label:item=>{const v=item.parsed.y;if(v===null||v===undefined)return null;return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`;}}}},
-    scales:{x:{...xScaleCfg()},yL:{...yScaleCfg('left','#1d4ed8'),title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:13,weight:'600'}}},yR:{...yScaleCfg('right','#374151'),grid:{display:false},title:{display:true,text:'Running Total',color:'#374151',font:{size:13,weight:'600'}}}}}
+function renderMain(days) {
+  const data = sliceDays(days, rangeState.main);
+  const labels = data.map(d => {
+    const dt = new Date(d.date+'T00:00:00');
+    return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'\n'+d.dayNum;
+  });
+  if (charts.main) charts.main.destroy();
+  const ctx = document.getElementById('chart-main').getContext('2d');
+  charts.main = new Chart(ctx, {
+    data: { labels, datasets: [
+      { type:'bar', label:'Daily Total', yAxisID:'yL', data:data.map(d=>d.daily), backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
+      { type:'line', label:'Avg per day', yAxisID:'yL', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
+      { type:'line', label:'Running Total', yAxisID:'yR', data:data.map(d=>d.running), borderColor:'#111827', borderWidth:2.5, pointRadius:0, pointHoverRadius:4, fill:false, tension:0.2, order:1 },
+      { type:'line', label:'No Rest Day', yAxisID:'yR', data:data.map(d=>d.tgt_no), borderColor:'#f59e0b', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
+      { type:'line', label:'1 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_1r), borderColor:'#3b82f6', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
+      { type:'line', label:'2 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_2r), borderColor:'#16a34a', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
+      { type:'line', label:'14-Day MA', yAxisID:'yL', data:data.map(d=>d.ma14), borderColor:'#ea580c', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.4, order:2, spanGaps:true },
+    ]},
+    options: {
+      responsive:true, maintainAspectRatio:false, animation:{duration:500},
+      interaction:{mode:'index',intersect:false},
+      plugins:{ legend:{display:false}, tooltip:{...ttCfg(), callbacks:{
+        title: items => { const d=data[items[0].dataIndex]; return fmtShort(d.date)+' — Day '+d.dayNum; },
+        label: item => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
+      }}},
+      scales: {
+        x: xCfg(),
+        yL: { ...yCfg('left','#1d4ed8'), title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:12,weight:'600'}} },
+        yR: { ...yCfg('right','#374151'), grid:{display:false}, title:{display:true,text:'Running Total',color:'#374151',font:{size:12,weight:'600'}} }
+      }
+    }
   });
 }
 
-function renderChartDaily(days){
-  const data=sliceDays(days,rangeState.daily);
-  if(charts.daily) charts.daily.destroy();
-  const ctx=document.getElementById('chart-daily').getContext('2d');
-  charts.daily=new Chart(ctx,{data:{labels:data.map(d=>fmtShort(d.date)),datasets:[
-    {type:'bar',label:'Daily Total',data:data.map(d=>d.daily),backgroundColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.6)':'rgba(220,38,38,0.6)'),borderColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.9)':'rgba(220,38,38,0.9)'),borderWidth:1,borderRadius:3,order:2},
-    {type:'line',label:'Target/Day',data:data.map(()=>Math.round(AVG_NO_REST)),borderColor:'#9ca3af',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0,order:1}
-  ]},options:{responsive:true,animation:{duration:400},plugins:{legend:{display:false},tooltip:{...ttCfg(),callbacks:{label:c=>c.datasetIndex===0?`${c.parsed.y.toLocaleString()} push-ups`:`Target: ${Math.round(AVG_NO_REST)}/day`}}},scales:{x:{...xScaleCfg()},y:{...yScaleCfg()}}}});
+function renderChartDaily(days) {
+  const data = sliceDays(days, rangeState.daily);
+  if (charts.daily) charts.daily.destroy();
+  const ctx = document.getElementById('chart-daily').getContext('2d');
+  charts.daily = new Chart(ctx, { data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+    { type:'bar', label:'Daily Total', data:data.map(d=>d.daily),
+      backgroundColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.55)':'rgba(220,38,38,0.55)'),
+      borderColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.85)':'rgba(220,38,38,0.85)'),
+      borderWidth:1, borderRadius:3, order:2 },
+    { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
+      borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
-function renderChartAvg(days){
-  const data=sliceDays(days,rangeState.avg);
-  if(charts.avg) charts.avg.destroy();
-  const ctx=document.getElementById('chart-avg').getContext('2d');
-  const g=ctx.createLinearGradient(0,0,0,200);g.addColorStop(0,'rgba(37,99,235,0.15)');g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.avg=new Chart(ctx,{type:'line',data:{labels:data.map(d=>fmtShort(d.date)),datasets:[
-    {label:'Avg/Day',data:data.map(d=>d.avg),borderColor:'#2563eb',borderWidth:2,pointRadius:0,pointHoverRadius:5,fill:true,backgroundColor:g,tension:0.4,order:2},
-    {label:'Required',data:data.map(()=>Math.round(AVG_NO_REST)),borderColor:'#9ca3af',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0,order:1}
-  ]},options:{responsive:true,animation:{duration:400},plugins:{legend:{display:false},tooltip:{...ttCfg(),callbacks:{label:c=>c.datasetIndex===0?`Avg: ${c.parsed.y.toLocaleString()}/day`:`Required: ${Math.round(AVG_NO_REST)}/day`}}},scales:{x:{...xScaleCfg()},y:{...yScaleCfg()}}}});
+function renderChartAvg(days) {
+  const data = sliceDays(days, rangeState.avg);
+  if (charts.avg) charts.avg.destroy();
+  const ctx = document.getElementById('chart-avg').getContext('2d');
+  const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
+  charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+    { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
+    { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
-function renderChartRunning(days){
-  const data=sliceDays(days,rangeState.running);
-  if(charts.running) charts.running.destroy();
-  const ctx=document.getElementById('chart-running').getContext('2d');
-  const g=ctx.createLinearGradient(0,0,0,200);g.addColorStop(0,'rgba(37,99,235,0.15)');g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.running=new Chart(ctx,{type:'line',data:{labels:data.map(d=>fmtShort(d.date)),datasets:[
-    {label:'Running Total',data:data.map(d=>d.running),borderColor:'#2563eb',borderWidth:2.5,pointRadius:0,pointHoverRadius:5,fill:true,backgroundColor:g,tension:0.3,order:2},
-    {label:'Required Pace',data:data.map(d=>d.tgt_no),borderColor:'#9ca3af',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0,order:1}
-  ]},options:{responsive:true,animation:{duration:400},plugins:{legend:{display:false},tooltip:{...ttCfg(),callbacks:{label:c=>c.datasetIndex===0?`Total: ${c.parsed.y.toLocaleString()}`:`Pace: ${c.parsed.y.toLocaleString()}`}}},scales:{x:{...xScaleCfg()},y:{...yScaleCfg()}}}});
+function renderChartRunning(days) {
+  const data = sliceDays(days, rangeState.running);
+  if (charts.running) charts.running.destroy();
+  const ctx = document.getElementById('chart-running').getContext('2d');
+  const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
+  charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+    { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
+    { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
+  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
-function setMainRange(range,btn){rangeState.main=range;btn.closest('.range-group').querySelectorAll('.range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderMain(buildDays());}
-function switchTab(tab,btn){document.querySelectorAll('.chart-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.chart-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+tab).classList.add('active');}
-function setRange(tab,range,btn){rangeState[tab]=range;btn.closest('.range-group').querySelectorAll('.range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const days=buildDays();if(tab==='daily')renderChartDaily(days);if(tab==='avg')renderChartAvg(days);if(tab==='running')renderChartRunning(days);}
+function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
+function switchTab(tab, btn) { document.querySelectorAll('.ct').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.cp').forEach(p=>p.classList.remove('active')); document.getElementById('cp-'+tab).classList.add('active'); }
+function setRange(tab, range, btn) { rangeState[tab]=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const days=buildDays(); if(tab==='daily')renderChartDaily(days); if(tab==='avg')renderChartAvg(days); if(tab==='running')renderChartRunning(days); }
 
-function renderStats(days){
-  const today=dStr(new Date()),td=days.find(d=>d.date===today);
-  const todayNum=td?td.dayNum:1;
-  const logged=days.filter(d=>d.hasData),last=logged.length?logged[logged.length-1]:null;
-  const total=last?last.running:0,elapsed=last?last.dayNum:1;
-  const daysLeft=TOTAL_DAYS-todayNum;
-  const avg=(elapsed>0&&total>0)?Math.round(total/elapsed):0;
-  const needed=daysLeft>0?Math.round((GOAL-total)/daysLeft):0;
-  const surplus=total-Math.round(todayNum*GOAL/TOTAL_DAYS);
-  const pct=Math.min(100,total/GOAL*100);
-  let streak=0;for(let i=logged.length-1;i>=0;i--){if(logged[i].daily>0)streak++;else break;}
+function renderStats(days) {
+  const today = dStr(new Date()), td = days.find(d=>d.date===today);
+  const todayNum = td?.dayNum || 1;
+  const logged = days.filter(d=>d.hasData), last = logged[logged.length-1];
+  const total = last?.running || 0, elapsed = last?.dayNum || 1;
+  const avg = (total>0&&elapsed>0) ? Math.round(total/elapsed) : 0;
+  const daysLeft = TOTAL_DAYS - todayNum;
+  const needed = daysLeft>0 ? Math.round((GOAL-total)/daysLeft) : 0;
+  const surplus = total - Math.round(todayNum*GOAL/TOTAL_DAYS);
+  const pct = Math.min(100, total/GOAL*100);
+  let streak=0; for(let i=logged.length-1;i>=0;i--){if(logged[i].daily>0)streak++;else break;}
 
-  document.getElementById('headerTotal').textContent=total.toLocaleString();
-  document.getElementById('stat-total').textContent=total.toLocaleString();
-  document.getElementById('stat-remaining').textContent=Math.max(0,GOAL-total).toLocaleString();
-  document.getElementById('stat-avg').textContent=avg.toLocaleString();
-  document.getElementById('stat-needed').textContent=needed>0?needed.toLocaleString():'✓';
-  document.getElementById('stat-streak').textContent=streak+' days';
-  document.getElementById('stat-surplus').textContent=(surplus>=0?'+':'')+surplus.toLocaleString();
+  document.getElementById('headerTotal').textContent = total.toLocaleString();
+  document.getElementById('s-total').textContent = total.toLocaleString();
+  document.getElementById('s-remain').textContent = Math.max(0,GOAL-total).toLocaleString();
+  document.getElementById('s-avg').textContent = avg.toLocaleString();
+  document.getElementById('s-needed').textContent = needed>0 ? needed.toLocaleString() : '✓';
+  document.getElementById('s-surplus').textContent = (surplus>=0?'+':'')+surplus.toLocaleString();
+  document.getElementById('s-streak').textContent = streak+' days';
+
   document.getElementById('card-surplus').className='stat-card '+(surplus>=0?'sc-green':'sc-red');
   document.getElementById('card-needed').className='stat-card '+(needed<=AVG_NO_REST?'sc-green':'sc-red');
-  document.getElementById('progress-pct').textContent=pct.toFixed(1)+'%';
-  setTimeout(()=>{document.getElementById('progress-fill').style.width=pct+'%';},100);
-  document.getElementById('target-line').style.left=Math.min(100,todayNum/TOTAL_DAYS*100)+'%';
-  document.getElementById('pace-label').textContent=surplus>=0?`+${surplus.toLocaleString()} ahead of pace`:`${Math.abs(surplus).toLocaleString()} behind pace`;
-  document.querySelectorAll('.stat-card').forEach(c=>setTimeout(()=>c.classList.add('loaded'),100));
+
+  document.getElementById('progress-pct').textContent = pct.toFixed(1)+'%';
+  setTimeout(()=>{ document.getElementById('progress-fill').style.width=pct+'%'; }, 80);
+  document.getElementById('target-line').style.left = Math.min(100,todayNum/TOTAL_DAYS*100)+'%';
+  document.getElementById('pace-label').textContent = surplus>=0
+    ? `+${surplus.toLocaleString()} ahead of pace`
+    : `${Math.abs(surplus).toLocaleString()} behind pace`;
+
+  document.querySelectorAll('.stat-card').forEach(c=>setTimeout(()=>c.classList.add('loaded'),80));
+
+  // show notice if there are localStorage entries not yet in the JSON
+  const localCount = Object.keys(localEntries).length;
+  const noticeEl = document.getElementById('log-notice');
+  if (localCount > 0) {
+    noticeEl.innerHTML = `⚠ ${localCount} entr${localCount===1?'y':'ies'} saved locally (not yet in hosted JSON). Click <strong>Export JSON</strong> to merge and update the file.`;
+  } else {
+    noticeEl.textContent = '';
+  }
 }
 
-function renderTable(days){
-  const today=dStr(new Date());
-  const cutoff=new Date(today);cutoff.setDate(cutoff.getDate()+7);
-  let filtered=days.filter(d=>new Date(d.date+'T00:00:00')<=cutoff);
-  if(filterMode==='logged')filtered=filtered.filter(d=>d.hasData);
-  if(filterMode==='rest')filtered=filtered.filter(d=>d.hasData&&d.daily===0);
-  filtered=[...filtered].reverse();
-  document.getElementById('table-body').innerHTML=filtered.map(d=>{
-    const isToday=d.date===today,isRest=d.hasData&&d.daily===0;
-    const surStr=d.surplus>=0?`<span class="surplus">+${d.surplus.toLocaleString()}</span>`:`<span class="deficit">${d.surplus.toLocaleString()}</span>`;
-    const dateStr=new Date(d.date+'T00:00:00').toLocaleDateString('en-AU',{weekday:'short',month:'short',day:'numeric'});
-    const cell=v=>v>0?v:`<span class="dimmed">—</span>`;
-    if(!d.hasData)return`<tr><td>${dateStr}</td><td>${d.dayNum}</td><td colspan="8" class="dimmed">Not logged</td><td></td></tr>`;
-    return`<tr class="${isToday?'today-row':''}">
-      <td>${dateStr}${isToday?'<span class="tag-today">TODAY</span>':''}</td>
-      <td>${d.dayNum}</td><td>${cell(d.am)}</td><td>${cell(d.pm)}</td><td>${cell(d.night)}</td>
-      <td>${isRest?'<span class="tag-rest">Rest</span>':`<strong>${d.daily.toLocaleString()}</strong>`}</td>
-      <td style="color:#ea580c">${d.ma14!==null?d.ma14:'—'}</td>
+function renderTable(days) {
+  const today = dStr(new Date());
+  const cutoff = new Date(today); cutoff.setDate(cutoff.getDate()+7);
+  let filtered = days.filter(d => new Date(d.date+'T00:00:00') <= cutoff);
+  if (filterMode==='logged') filtered = filtered.filter(d=>d.hasData);
+  if (filterMode==='rest')   filtered = filtered.filter(d=>d.hasData&&d.daily===0);
+  filtered = [...filtered].reverse();
+
+  document.getElementById('table-body').innerHTML = filtered.map(d => {
+    const isToday = d.date===today, isRest = d.hasData&&d.daily===0;
+    const surStr = d.surplus>=0
+      ? `<span class="sur">+${d.surplus.toLocaleString()}</span>`
+      : `<span class="def">${d.surplus.toLocaleString()}</span>`;
+    const dateStr = new Date(d.date+'T00:00:00').toLocaleDateString('en-AU',{weekday:'short',month:'short',day:'numeric'});
+    const cell = v => v>0 ? v : `<span class="dim">—</span>`;
+    if (!d.hasData) return `<tr><td>${dateStr}</td><td>${d.dayNum}</td><td colspan="8" class="dim">—</td><td></td></tr>`;
+    return `<tr class="${isToday?'today-row':''}">
+      <td>${dateStr}${isToday?'<span class="tag-today">TODAY</span>':''}${d.isLocal?'<span class="tag-local">LOCAL</span>':''}</td>
+      <td>${d.dayNum}</td>
+      <td>${cell(d.am)}</td><td>${cell(d.pm)}</td><td>${cell(d.night)}</td>
+      <td>${isRest?`<span class="dim">Rest</span>`:`<strong>${d.daily.toLocaleString()}</strong>`}</td>
+      <td style="color:#ea580c">${d.ma14!=null?d.ma14:'—'}</td>
       <td><strong>${d.running.toLocaleString()}</strong></td>
-      <td style="color:#2563eb">${d.avg>0?d.avg:'—'}</td>
+      <td style="color:#2563eb">${d.avg||'—'}</td>
       <td style="color:#9ca3af">${d.tgt_no.toLocaleString()}</td>
       <td>${surStr}</td>
     </tr>`;
   }).join('');
 }
 
-function logEntry(){
-  const dv=document.getElementById('input-date').value;
-  const am=parseInt(document.getElementById('input-am').value)||0;
-  const pm=parseInt(document.getElementById('input-pm').value)||0;
-  const night=parseInt(document.getElementById('input-night').value)||0;
-  if(!dv){showMsg('Please select a date.','#dc2626');return;}
-  entryMap[dv]={am,pm,night};
-  markUnsaved();
-  showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv} — click Save JSON to update your file`,'#16a34a');
-  ['input-am','input-pm','input-night'].forEach(id=>document.getElementById(id).value='');
+function logEntry() {
+  const dv = document.getElementById('input-date').value;
+  const am = parseInt(document.getElementById('input-am').value)||0;
+  const pm = parseInt(document.getElementById('input-pm').value)||0;
+  const night = parseInt(document.getElementById('input-night').value)||0;
+  if (!dv) { showMsg('Please select a date.','#dc2626'); return; }
+  localEntries[dv] = { am, pm, night };
+  saveLocal();
+  showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv}`, '#16a34a');
+  ['input-am','input-pm','input-night'].forEach(id => document.getElementById(id).value='');
   render();
 }
 
-function showMsg(msg,color){
-  const el=document.getElementById('log-message');
-  el.style.color=color;el.textContent=msg;
-  setTimeout(()=>el.textContent='',6000);
-}
-function setFilter(mode,btn){filterMode=mode;document.querySelectorAll('.btn-toggle').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTable(buildDays());}
-
-function render(){
-  const days=buildDays();
-  renderStats(days);renderMain(days);renderChartDaily(days);renderChartAvg(days);renderChartRunning(days);renderTable(days);
+function showMsg(msg, color) {
+  const el = document.getElementById('log-msg');
+  el.style.color=color; el.textContent=msg;
+  setTimeout(()=>el.textContent='', 5000);
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-const todayStr=dStr(new Date());
-document.getElementById('input-date').value=todayStr;
-document.getElementById('input-date').max=dStr(END);
-document.getElementById('input-date').min=dStr(START);
-window.addEventListener('resize',()=>{if(jsonData){const d=buildDays();renderMain(d);renderChartDaily(d);renderChartAvg(d);renderChartRunning(d);}});
+function setFilter(mode, btn) {
+  filterMode=mode;
+  document.querySelectorAll('.bt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable(buildDays());
+}
+
+function render() {
+  const days = buildDays();
+  renderStats(days);
+  renderMain(days);
+  renderChartDaily(days);
+  renderChartAvg(days);
+  renderChartRunning(days);
+  renderTable(days);
+}
+
+// ── BUILD DOM & INIT ───────────────────────────────────────────────────────────
+function buildApp() {
+  const today = dStr(new Date());
+  document.getElementById('main').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Done</div></div>
+      <div class="stat-card sc-orange"><div class="pill"></div><span class="ico">🎯</span><div class="val" id="s-remain">—</div><div class="lbl">Remaining</div></div>
+      <div class="stat-card sc-dark"><div class="pill"></div><span class="ico">📊</span><div class="val" id="s-avg">—</div><div class="lbl">Daily Average</div></div>
+      <div class="stat-card" id="card-needed"><div class="pill"></div><span class="ico">📅</span><div class="val" id="s-needed">—</div><div class="lbl">Needed / Day</div></div>
+      <div class="stat-card" id="card-surplus"><div class="pill"></div><span class="ico">⚡</span><div class="val" id="s-surplus">—</div><div class="lbl">Surplus / (Deficit)</div></div>
+      <div class="stat-card sc-purple"><div class="pill"></div><span class="ico">🔥</span><div class="val" id="s-streak">—</div><div class="lbl">Active Streak</div></div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-header"><h2>Overall Progress to 100,000</h2><span class="progress-pct" id="progress-pct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div><div class="progress-target-line" id="target-line"></div></div>
+      <div class="progress-footer"><span>0</span><span id="pace-label">calculating…</span><span>100,000</span></div>
+    </div>
+
+    <div class="log-card">
+      <div class="log-header"><div class="dot"></div><h2>Log Push-Ups</h2></div>
+      <div class="log-form">
+        <div class="field"><label>Date</label><input type="date" id="input-date" value="${today}" min="2026-01-01" max="2026-12-31"></div>
+        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
+        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
+        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
+        <button class="btn-log" onclick="logEntry()">Log It</button>
+      </div>
+      <div class="log-msg" id="log-msg"></div>
+      <div class="log-notice" id="log-notice"></div>
+    </div>
+
+    <div class="sec">Overview Chart</div>
+    <div class="chart-card">
+      <div class="chart-head">
+        <h3>Daily &amp; Running Totals</h3>
+        <div class="rg">
+          <button class="rb active" onclick="setMainRange(30,this)">Last 30</button>
+          <button class="rb" onclick="setMainRange(60,this)">Last 60</button>
+          <button class="rb" onclick="setMainRange(0,this)">All</button>
+        </div>
+      </div>
+      <div class="chart-body"><div class="chart-inner"><canvas id="chart-main"></canvas></div></div>
+      <div class="chart-legend">
+        <div class="li"><div class="lb" style="background:rgba(59,130,246,0.6)"></div>Daily Total</div>
+        <div class="li"><div class="ld" style="border-top:2px dashed #2563eb"></div>Avg/Day</div>
+        <div class="li"><div class="ll" style="background:#111827"></div>Running Total</div>
+        <div class="li"><div class="ll" style="background:#f59e0b"></div>Target No Rest</div>
+        <div class="li"><div class="ll" style="background:#3b82f6"></div>Target 1 Rest/wk</div>
+        <div class="li"><div class="ll" style="background:#16a34a"></div>Target 2 Rest/wk</div>
+        <div class="li"><div class="ld" style="border-top:2px dashed #ea580c"></div>14-Day MA</div>
+      </div>
+    </div>
+
+    <div class="sec">Detail Charts</div>
+    <div class="tabs-card">
+      <div class="tab-bar">
+        <button class="ct active" onclick="switchTab('daily',this)">Daily Totals</button>
+        <button class="ct" onclick="switchTab('avg',this)">Daily Average</button>
+        <button class="ct" onclick="switchTab('running',this)">Running Total</button>
+      </div>
+      <div class="chart-panels">
+        <div class="cp active" id="cp-daily">
+          <div class="pc">
+            <div class="rg"><button class="rb active" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb" onclick="setRange('daily',0,this)">All</button></div>
+            <div class="pl"><div class="li"><div class="lb" style="background:#16a34a"></div>On/Ahead</div><div class="li"><div class="lb" style="background:#dc2626"></div>Behind</div></div>
+          </div>
+          <canvas id="chart-daily" height="200"></canvas>
+        </div>
+        <div class="cp" id="cp-avg">
+          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb" onclick="setRange('avg',0,this)">All</button></div></div>
+          <canvas id="chart-avg" height="200"></canvas>
+        </div>
+        <div class="cp" id="cp-running">
+          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb" onclick="setRange('running',0,this)">All</button></div></div>
+          <canvas id="chart-running" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">Activity Log</div>
+    <div class="table-card">
+      <div class="table-head">
+        <h3>All Entries</h3>
+        <button class="bt active" onclick="setFilter('all',this)">All Days</button>
+        <button class="bt" onclick="setFilter('logged',this)">Logged Only</button>
+        <button class="bt" onclick="setFilter('rest',this)">Rest Days</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Day#</th><th>AM</th><th>PM</th><th>Night</th><th>Daily</th><th>14d MA</th><th>Running</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// ── STARTUP ────────────────────────────────────────────────────────────────────
+(async function init() {
+  loadLocal();
+  try {
+    await fetchJSON();
+  } catch(e) {
+    // If fetch fails (e.g. running from file://) just show an error hint
+    document.getElementById('loading').innerHTML = `
+      <div class="error-screen">
+        <h2>Could not load pushup_data.json</h2>
+        <p>Make sure <code>pushup_data.json</code> is in the same folder as this HTML file and served over HTTP.</p>
+        <p style="margin-top:8px;font-size:11px;">${e.message}</p>
+      </div>`;
+    return;
+  }
+  buildApp();
+  render();
+  window.addEventListener('resize', () => {
+    const d = buildDays();
+    renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
+  });
+})();
 </script>
 </body>
 </html>
