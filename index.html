@@ -28,9 +28,10 @@
   /* sync badge */
   .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
   .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
-  .sync-badge.ok   .sync-dot{background:var(--green);}
-  .sync-badge.saving .sync-dot{background:var(--orange);animation:pulse 0.8s infinite;}
-  .sync-badge.error  .sync-dot{background:var(--red);}
+  .sync-badge.ok         .sync-dot{background:var(--green);}
+  .sync-badge.saving     .sync-dot{background:var(--orange);animation:pulse 0.8s infinite;}
+  .sync-badge.error      .sync-dot{background:var(--red);}
+  .sync-badge.connecting .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
 
   main{max-width:1320px;margin:0 auto;padding:28px 40px 80px;}
 
@@ -166,9 +167,9 @@
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
   </div>
   <div class="header-right">
-    <div class="sync-badge" id="sync-badge">
+    <div class="sync-badge connecting" id="sync-badge">
       <div class="sync-dot"></div>
-      <span id="sync-text">Loading…</span>
+      <span id="sync-text">Connecting…</span>
     </div>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
@@ -610,7 +611,10 @@ function buildApp() {
     </div>`;
 }
 
+
+// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
 const ADMIN_PW = 'Mark67';
+// admin state is purely in-memory — resets on every page load/refresh
 
 let _adminUnlocked = false;
 function isUnlocked() {
@@ -625,7 +629,7 @@ function unlockAdmin() {
   } else {
     input.value = '';
     input.classList.remove('shake');
-    void input.offsetWidth; 
+    void input.offsetWidth; // reflow to restart animation
     input.classList.add('shake');
     setTimeout(() => input.classList.remove('shake'), 400);
   }
