@@ -38,6 +38,22 @@
   .loading-screen .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  /* admin lock */
+  .admin-lock{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+  .admin-lock h2{font-weight:600;font-size:13px;color:var(--text);}
+  .admin-pw-form{display:flex;gap:8px;align-items:center;}
+  .admin-pw-form input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
+  .admin-pw-form input:focus{border-color:var(--accent);}
+  .admin-pw-form input.shake{animation:shake 0.35s ease;}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .btn-unlock{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:7px 14px;cursor:pointer;border-radius:6px;transition:background 0.15s;}
+  .btn-unlock:hover{background:#1d4ed8;}
+  .btn-logout{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
+  .btn-logout:hover{border-color:var(--red);color:var(--red);}
+  .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
+  .log-locked{padding:18px 22px 20px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
+  .log-locked .lock-icon{font-size:28px;margin-bottom:8px;}
+
 
   .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
@@ -497,13 +513,17 @@ function buildApp() {
     </div>
 
     <div class="log-card">
-      <div class="log-header"><div class="dot"></div><h2>Log Push-Ups</h2></div>
-      <div class="log-form">
-        <div class="field"><label>Date</label><input type="date" id="input-date" value="${today}" min="2026-01-01" max="2026-12-31"></div>
-        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
-        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
-        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
-        <button class="btn-log" onclick="logEntry()">Log It</button>
+      <div class="admin-lock" id="admin-lock">
+        <h2>Log Push-Ups</h2>
+        <div id="admin-lock-right">
+          <div class="admin-pw-form" id="pw-form">
+            <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
+            <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
+          </div>
+        </div>
+      </div>
+      <div id="log-body">
+        <div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>
       </div>
       <div class="log-msg" id="log-msg"></div>
     </div>
@@ -573,12 +593,71 @@ function buildApp() {
     </div>`;
 }
 
+
+// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
+const ADMIN_PW = 'Mark67';
+const ADMIN_SK = 'pushup_admin_2026';
+
+function isUnlocked() {
+  return sessionStorage.getItem(ADMIN_SK) === '1';
+}
+
+function unlockAdmin() {
+  const input = document.getElementById('admin-pw');
+  if (input.value === ADMIN_PW) {
+    sessionStorage.setItem(ADMIN_SK, '1');
+    renderAdminState();
+  } else {
+    input.value = '';
+    input.classList.remove('shake');
+    void input.offsetWidth; // reflow to restart animation
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 400);
+  }
+}
+
+function lockAdmin() {
+  sessionStorage.removeItem(ADMIN_SK);
+  renderAdminState();
+}
+
+function renderAdminState() {
+  const lockRight = document.getElementById('admin-lock-right');
+  const logBody   = document.getElementById('log-body');
+  if (!lockRight || !logBody) return;
+
+  if (isUnlocked()) {
+    lockRight.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="admin-badge">🔓 Admin</span>
+        <button class="btn-logout" onclick="lockAdmin()">Lock</button>
+      </div>`;
+    const today = dStr(new Date());
+    logBody.innerHTML = `
+      <div class="log-form">
+        <div class="field"><label>Date</label><input type="date" id="input-date" value="${today}" min="2026-01-01" max="2026-12-31"></div>
+        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
+        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
+        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
+        <button class="btn-log" onclick="logEntry()">Log It</button>
+      </div>`;
+  } else {
+    lockRight.innerHTML = `
+      <div class="admin-pw-form" id="pw-form">
+        <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
+        <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
+      </div>`;
+    logBody.innerHTML = `<div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>`;
+  }
+}
+
 // ── STARTUP ────────────────────────────────────────────────────────────────────
 (async function init() {
   try {
     await fetchBin();
     buildApp();
     render();
+    renderAdminState();
     setSyncBadge('ok', 'In sync');
     window.addEventListener('resize', () => {
       const d = buildDays();
