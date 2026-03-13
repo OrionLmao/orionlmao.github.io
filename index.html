@@ -200,7 +200,7 @@ function saveLocal() {
 
 // ── FETCH JSON ─────────────────────────────────────────────────────────────────
 async function fetchJSON() {
-  const res = await fetch('pushup_data.json?t=' + Date.now());
+  const res = await fetch('pushup_data1.json?t=' + Date.now());
   if (!res.ok) throw new Error('HTTP ' + res.status);
   const data = await res.json();
   jsonEntries = {};
