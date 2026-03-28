@@ -125,7 +125,7 @@
   .dim{color:var(--border2);}
   .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
-  footer{text-align:center;padding:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
+  footer{border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex-wrap:wrap;gap:10px;}
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
@@ -154,6 +154,77 @@
     thead th{padding:6px 8px;font-size:9px;}
     tbody td{padding:6px 8px;}
   }
+  /* about button */
+  .btn-about{background:none;color:var(--accent);border:2px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
+  .btn-about:hover{background:var(--accent-lt);}
+  /* about section */
+  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
+  .about-section p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
+  .about-section p:last-child{margin-bottom:0;}
+  /* footer visitors */
+  .footer-visitors{display:flex;align-items:center;gap:7px;}
+  .footer-visitors .vdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:24px 20px;}footer{padding:16px 20px;}}
+
+  /* admin unlock */
+  .admin-unlock-row{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+  .admin-pw-input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
+  .admin-pw-input:focus{border-color:var(--accent);}
+  .admin-pw-input.shake{animation:shake 0.35s ease;}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .btn-unlock{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:7px 14px;cursor:pointer;border-radius:6px;transition:background 0.15s;}
+  .btn-unlock:hover{background:#1d4ed8;}
+  .btn-lock{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
+  .btn-lock:hover{border-color:var(--red);color:var(--red);}
+  .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
+
+  /* photo gallery */
+  .photo-sec{margin-top:28px;}
+  .photo-sec-title{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
+  .photo-sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+  .photo-item{position:relative;border-radius:8px;overflow:hidden;background:var(--surface2);border:1px solid var(--border);}
+  .photo-item .photo-img-wrap{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer;}
+  .photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;display:block;}
+  .photo-item:hover img{transform:scale(1.05);}
+  .photo-item .photo-del{position:absolute;top:6px;right:6px;background:rgba(220,38,38,0.85);color:#fff;border:none;border-radius:4px;width:24px;height:24px;font-size:12px;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1;z-index:2;}
+  .photo-item:hover .photo-del{display:flex;}
+  .photo-caption{padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text2);line-height:1.4;min-height:36px;cursor:text;}
+  .photo-caption.empty{color:var(--muted);font-style:italic;}
+  .photo-caption-input{width:100%;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--bg);border:none;border-top:1px solid var(--border);outline:none;resize:none;line-height:1.4;}
+  .photo-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:24px 0;text-align:center;grid-column:1/-1;}
+
+  /* admin photo panel */
+  .photo-admin{margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;display:none;}
+  .photo-admin.visible{display:block;}
+  .photo-admin-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .photo-add-row{display:flex;gap:8px;align-items:center;}
+  .photo-add-row input{flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:8px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;}
+  .photo-add-row input:focus{border-color:var(--accent);}
+  .photo-add-row input::placeholder{color:var(--muted);}
+  .btn-photo-add{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:8px 16px;cursor:pointer;border-radius:6px;transition:background 0.15s;white-space:nowrap;}
+  .btn-photo-add:hover{background:#1d4ed8;}
+  .photo-hint{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px;}
+
+  /* lightbox */
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:none;align-items:center;justify-content:center;cursor:pointer;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;cursor:default;}
+  .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.7;}
+  .lightbox-close:hover{opacity:1;}
+
+  /* back to top */
+  #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:200;display:flex;align-items:center;justify-content:center;}
+  #back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+  #back-to-top:hover{background:#1d4ed8;}
+
+  /* who am i */
+  .whoami-inner{display:flex;gap:28px;align-items:flex-start;margin-top:4px;}
+  .whoami-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px;}
+  .whoami-bio p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:680px;}
+  .whoami-bio p:last-child{margin-bottom:0;}
+  @media(max-width:600px){.whoami-inner{flex-direction:column;gap:16px;}.whoami-avatar{width:56px;height:56px;font-size:28px;}}
 </style>
 </head>
 <body>
@@ -163,6 +234,7 @@
     <h1>100,000 Astin Challenge</h1>
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
     <div class="subtitle">274 / day · Needed for 365 days</div>
+    <button class="btn-about" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</button>
   </div>
   <div class="header-right">
     <div class="header-total">
@@ -187,7 +259,13 @@
 </div>
 
 <main id="main"></main>
-<footer>100,000 Astin Challenge 2026 · Data synced from Dropbox</footer>
+<footer>
+  <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
+  <div class="footer-visitors">
+    <div class="vdot"></div>
+    <span id="visitor-count">— visitors</span>
+  </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -678,7 +756,198 @@ function buildApp() {
           <tbody id="table-body"></tbody>
         </table>
       </div>
+
+    <div class="about-section" id="about">
+      <h2>About This Challenge</h2>
+      <p>This tracker follows Astin's mission to complete <strong>100,000 push-ups in 2026</strong> — 365 days of dedication, discipline, and serious upper body work. Every set logged in the spreadsheet shows up here in real time.</p>
+      <p>The challenge began on January 1st, 2026. Data is pulled automatically from a live Dropbox spreadsheet and updates whenever the page is loaded. No shortcuts, no skipped days — just the numbers.</p>
+
+      <div class="admin-unlock-row">
+        <div id="admin-ui"></div>
+      </div>
+      <div class="photo-sec">
+        <div class="photo-sec-title">Photos</div>
+        <div class="photo-grid" id="photo-grid"></div>
+        <div class="photo-admin" id="photo-admin">
+          <div class="photo-admin-title">Add Photo</div>
+          <div class="photo-add-row">
+            <input type="text" id="photo-filename" placeholder="photo.jpg" onkeydown="if(event.key==='Enter')addPhoto()">
+            <button class="btn-photo-add" onclick="addPhoto()">Add</button>
+          </div>
+          <div class="photo-hint">Enter the filename of an image in your site folder (e.g. photo1.jpg or images/gym.png)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section" id="who-am-i">
+      <h2>Who Am I</h2>
+      <div class="whoami-inner">
+        <div class="whoami-avatar">A</div>
+        <div class="whoami-bio">
+          <p>Hey, I'm Astin — a fitness enthusiast, competitor, and someone who believes that big goals are built one rep at a time. I've been training consistently for years, but 2026 is the year I decided to put a real number on it: 100,000 push-ups before December 31st.</p>
+          <p>Outside of training I'm into staying active, pushing limits, and proving to myself that consistency beats motivation every single time. This tracker keeps me honest — every set goes in the spreadsheet, every number shows up here.</p>
+          <p>Follow along, get inspired, or just check in to see if I'm still on pace. Either way, I'm not stopping.</p>
+        </div>
+      </div>
+    </div>
     </div>`;
+}
+
+
+
+
+// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
+const ADMIN_PW = 'password';
+let _adminUnlocked = false;
+
+function renderAdminUI() {
+  const el = document.getElementById('admin-ui');
+  if (!el) return;
+  if (_adminUnlocked) {
+    el.innerHTML = `<span class="admin-badge">🔓 Admin</span> <button class="btn-lock" onclick="lockAdmin()">Lock</button>`;
+  } else {
+    el.innerHTML = `
+      <input class="admin-pw-input" id="admin-pw" type="password" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlockAdmin()">
+      <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>`;
+  }
+}
+
+function unlockAdmin() {
+  const input = document.getElementById('admin-pw');
+  if (!input) return;
+  if (input.value === ADMIN_PW) {
+    _adminUnlocked = true;
+    renderAdminUI();
+    renderAdminUI();
+    renderPhotos();
+  } else {
+    input.value = '';
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 400);
+  }
+}
+
+function lockAdmin() {
+  _adminUnlocked = false;
+  renderAdminUI();
+  renderPhotos();
+}
+
+// ── PHOTO GALLERY ──────────────────────────────────────────────────────────────
+const PHOTO_KEY = 'pushup_photos_2026';
+
+function loadPhotos() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(PHOTO_KEY) || '[]');
+    // Migrate old plain-string format to {src, caption} objects
+    return raw.map(p => typeof p === 'string' ? { src: p, caption: '' } : p);
+  } catch(e) { return []; }
+}
+function savePhotos(photos) {
+  localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
+}
+
+function renderPhotos() {
+  const grid = document.getElementById('photo-grid');
+  if (!grid) return;
+  const photos = loadPhotos();
+  const adminMode = _adminUnlocked;
+
+  if (photos.length === 0) {
+    grid.innerHTML = '<div class="photo-empty">No photos yet.</div>';
+  } else {
+    grid.innerHTML = photos.map((p, i) => `
+      <div class="photo-item">
+        <div class="photo-img-wrap" onclick="openLightbox('${p.src}')">
+          <img src="${p.src}" alt="${p.caption || 'Photo ' + (i+1)}" loading="lazy">
+          ${adminMode ? `<button class="photo-del" onclick="event.stopPropagation();removePhoto(${i})" title="Remove">✕</button>` : ''}
+        </div>
+        ${adminMode
+          ? `<textarea class="photo-caption-input" rows="2" placeholder="Add a caption…" onblur="saveCaption(${i},this.value)">${p.caption || ''}</textarea>`
+          : `<div class="photo-caption ${p.caption ? '' : 'empty'}">${p.caption || 'No caption'}</div>`
+        }
+      </div>`).join('');
+  }
+
+  const panel = document.getElementById('photo-admin');
+  if (panel) panel.classList.toggle('visible', adminMode);
+}
+
+function saveCaption(idx, val) {
+  const photos = loadPhotos();
+  if (photos[idx]) {
+    photos[idx].caption = val.trim();
+    savePhotos(photos);
+    // Re-render only the caption display — no full re-render to avoid losing focus
+    const items = document.querySelectorAll('.photo-item');
+    if (items[idx]) {
+      const ta = items[idx].querySelector('.photo-caption-input');
+      if (ta) ta.value = photos[idx].caption;
+    }
+  }
+}
+
+function addPhoto() {
+  const input = document.getElementById('photo-filename');
+  const val = input.value.trim();
+  if (!val) return;
+  const photos = loadPhotos();
+  if (!photos.find(p => p.src === val)) {
+    photos.push({ src: val, caption: '' });
+    savePhotos(photos);
+  }
+  input.value = '';
+  renderPhotos();
+}
+
+function removePhoto(idx) {
+  const photos = loadPhotos();
+  photos.splice(idx, 1);
+  savePhotos(photos);
+  renderPhotos();
+}
+
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  if (!lb || !img) return;
+  img.src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+
+// ── VISITOR TRACKER ────────────────────────────────────────────────────────────
+// Uses a free countapi.xyz hit counter keyed to this page
+async function trackVisitors() {
+  try {
+    // Use localStorage to store visit count locally — no external service needed
+    const key = 'pushup_visits';
+    let count = parseInt(localStorage.getItem(key) || '0') + 1;
+    localStorage.setItem(key, count);
+
+    // Also ping a free hit counter for total across all visitors
+    const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge/up', { method: 'GET' });
+    if (res.ok) {
+      const data = await res.json();
+      const el = document.getElementById('visitor-count');
+      if (el && data.count) {
+        el.textContent = Number(data.count).toLocaleString() + ' visitors';
+      }
+    }
+  } catch(e) {
+    // silently fail — visitor count is non-critical
+  }
 }
 
 // ── STARTUP ────────────────────────────────────────────────────────────────────
@@ -689,8 +958,16 @@ function buildApp() {
     const loader = document.getElementById('loading');
     if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
     render();
+    renderAdminUI();
+    renderPhotos();
     setSyncBadge('ok', `${count} days loaded`);
     setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
+    trackVisitors();
+    renderPhotos();
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('back-to-top');
+      if (btn) btn.classList.toggle('visible', window.scrollY > 300);
+    });
     window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
   } catch(e) {
     console.error('Load failed:', e);
@@ -704,5 +981,10 @@ function buildApp() {
   }
 })();
 </script>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" onclick="event.stopPropagation()" alt="">
+</div>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 </body>
 </html>
