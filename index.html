@@ -135,10 +135,7 @@
   <div class="logo-area">
     <h1>100,000 Astin Challenge</h1>
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
-  </div>
-  <div style="margin:0 auto;text-align:center;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--text);line-height:1;">274 / day</div>
-    <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Needed for 365 days</div>
+    <div class="subtitle">274 / day · Needed for 365 days</div>
   </div>
   <div class="header-right">
     <div class="sync-badge loading" id="sync-badge">
@@ -147,7 +144,7 @@
     </div>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
-      <div class="label">Total Push-Ups</div>
+      <div class="label">Total Push-Ups To Date</div>
     </div>
   </div>
 </header>
@@ -320,7 +317,7 @@ function xCfg() {
   return { ticks:{color:'#374151',font:{size:11,weight:'500'},maxRotation:45,maxTicksLimit:18}, grid:{display:false}, border:{color:'#9ca3af'} };
 }
 function yCfg(pos='left', color='#374151') {
-  return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false} };
+  return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
 }
 
 function renderMain(days) {
@@ -364,8 +361,9 @@ function renderChartDaily(days) {
     { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
       borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
   ]}, options:{ responsive:true, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+    scales:{ x:xCfg(), y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartAvg(days) {
@@ -377,8 +375,9 @@ function renderChartAvg(days) {
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
   ]}, options:{ responsive:true, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+    scales:{ x:xCfg(), y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartRunning(days) {
@@ -390,8 +389,9 @@ function renderChartRunning(days) {
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
   ]}, options:{ responsive:true, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:yCfg() }}});
+    scales:{ x:xCfg(), y:{ ...yCfg(), min:0, max:100000 } }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
@@ -515,15 +515,15 @@ function buildApp() {
             <div class="rg"><button class="rb" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb active" onclick="setRange('daily',0,this)">All</button></div>
             <div class="pl"><div class="li"><div class="lb" style="background:#16a34a"></div>On/Ahead</div><div class="li"><div class="lb" style="background:#dc2626"></div>Behind</div></div>
           </div>
-          <canvas id="chart-daily" height="200"></canvas>
+          <canvas id="chart-daily" height="80"></canvas>
         </div>
         <div class="cp" id="cp-avg">
           <div class="pc"><div class="rg"><button class="rb" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb active" onclick="setRange('avg',0,this)">All</button></div></div>
-          <canvas id="chart-avg" height="200"></canvas>
+          <canvas id="chart-avg" height="80"></canvas>
         </div>
         <div class="cp" id="cp-running">
           <div class="pc"><div class="rg"><button class="rb" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb active" onclick="setRange('running',0,this)">All</button></div></div>
-          <canvas id="chart-running" height="200"></canvas>
+          <canvas id="chart-running" height="80"></canvas>
         </div>
       </div>
     </div>
