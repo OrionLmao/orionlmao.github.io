@@ -349,28 +349,66 @@ function ttCfg() {
 function xScales(showTitle=false) {
   const mobile = window.innerWidth < 600;
   const fontSize = mobile ? 9 : 11;
-  // Measured width of widest label "00/00" in px at given font size
-  const labelPx = fontSize * 4.0 + 14;
+  const GAP = 5; // fixed px gap between labels
   const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size:16,weight:'700'}} : {display:false};
-  const step = { val: 1 };
+
+  // Which tick indices should show a label — computed by collision detection
+  const shown = new Set();
+  let lastAxisWidth = 0;
   let updating = false;
+
+  function recompute(chart) {
+    const xAxis = chart.scales['x'];
+    if (!xAxis || !xAxis.ticks.length) return false;
+
+    // Use the chart canvas to measure real rendered text width
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.font = `600 ${fontSize}px 'DM Mono', monospace`;
+    const labelW = ctx.measureText('00/00').width; // widest date label
+    ctx.restore();
+
+    const n = xAxis.ticks.length;
+    const axisW = xAxis.width;
+
+    // If axis width hasn't changed, skip (avoids thrash on identical redraws)
+    if (axisW === lastAxisWidth && shown.size > 0) return false;
+    lastAxisWidth = axisW;
+
+    // Compute pixel centre of each tick
+    const positions = [];
+    for (let i = 0; i < n; i++) {
+      positions.push(xAxis.getPixelForTick(i));
+    }
+
+    // Greedy collision detection: walk left→right, show a label only if it
+    // doesn't overlap the previous shown label (centre ± labelW/2 + GAP)
+    const half = labelW / 2;
+    let prevRight = -Infinity;
+    const newShown = new Set();
+    for (let i = 0; i < n; i++) {
+      const cx = positions[i];
+      if (cx - half >= prevRight + GAP) {
+        newShown.add(i);
+        prevRight = cx + half;
+      }
+    }
+
+    // Check if anything changed
+    if (newShown.size === shown.size && [...newShown].every(i => shown.has(i))) return false;
+    shown.clear();
+    newShown.forEach(i => shown.add(i));
+    return true;
+  }
 
   const plugin = {
     id: 'dynamicTick_' + Math.random(),
-    // afterLayout fires after axis sizes are known but before draw — perfect timing
-    afterLayout(chart) {
-      const xAxis = chart.scales['x'];
-      if (!xAxis || xAxis.ticks.length === 0) return;
-      const barPx = xAxis.width / xAxis.ticks.length;
-      const newStep = Math.max(1, Math.ceil(labelPx / barPx));
-      if (newStep !== step.val && !updating) {
-        step.val = newStep;
+    afterRender(chart) {
+      if (updating) return;
+      const changed = recompute(chart);
+      if (changed) {
         updating = true;
-        // Use requestAnimationFrame to avoid updating mid-render
-        requestAnimationFrame(() => {
-          chart.update('none');
-          updating = false;
-        });
+        requestAnimationFrame(() => { chart.update('none'); updating = false; });
       }
     }
   };
@@ -379,11 +417,11 @@ function xScales(showTitle=false) {
     x: {
       offset: true,
       ticks: {
-        callback(val) {
+        callback(val, idx) {
           const l = this.getLabelForValue(val);
           if (!Array.isArray(l)) return null;
-          const dayNum = parseInt(l[2]);
-          return (dayNum - 1) % step.val === 0 ? [l[0], l[1]] : null;
+          // On very first render shown is empty — show every bar so afterRender has real pixel data
+          return (shown.size === 0 || shown.has(val)) ? [l[0], l[1]] : null;
         },
         color: '#9ca3af', font: {size: fontSize, weight: '400'}, maxRotation: 0, autoSkip: false, align: 'center'
       },
@@ -393,19 +431,16 @@ function xScales(showTitle=false) {
       position: 'bottom',
       offset: true,
       ticks: {
-        callback(val) {
+        callback(val, idx) {
           const l = this.getLabelForValue(val);
           if (!Array.isArray(l)) return null;
-          const dayNum = parseInt(l[2]);
-          return (dayNum - 1) % step.val === 0 ? l[2] : null;
+          return (shown.size === 0 || shown.has(val)) ? l[2] : null;
         },
         color: '#111827', font: {size: fontSize, weight: '700'}, maxRotation: 0, autoSkip: false, align: 'center'
       },
       afterBuildTicks(axis) {
         const xAxis = axis.chart.scales['x'];
-        if (xAxis && xAxis.ticks) {
-          axis.ticks = xAxis.ticks.map(t => ({...t}));
-        }
+        if (xAxis && xAxis.ticks) axis.ticks = xAxis.ticks.map(t => ({...t}));
       },
       grid: {display: false}, border: {color: '#9ca3af'}, title
     }
