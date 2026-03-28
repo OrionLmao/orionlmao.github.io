@@ -101,6 +101,8 @@
   .ct.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
   .chart-panels{padding:18px;}
   .cp{display:none;}.cp.active{display:block;}
+  .detail-chart-inner{position:relative;width:100%;height:416px;}
+  .detail-chart-inner canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;}
   .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
   .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
@@ -127,13 +129,18 @@
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
-    header{flex-wrap:wrap;gap:10px;padding:10px 14px;}
-    .logo-area h1{font-size:20px;}
-    .logo-area .subtitle{font-size:9px;}
-    .header-right{margin-left:auto;}
-    .header-total .count{font-size:24px;}
+    header{flex-wrap:nowrap;gap:8px;padding:8px 12px;align-items:center;}
+    .logo-area{min-width:0;flex:1;}
+    .logo-area h1{font-size:16px;letter-spacing:1px;}
+    .logo-area .subtitle{font-size:8px;letter-spacing:0.5px;}
+    .header-right{flex-shrink:0;}
+    .header-total .count{font-size:22px;}
+    .header-total .label{font-size:8px;}
+    .sync-badge{font-size:9px;padding:3px 7px;}
+    .sync-dot{width:6px;height:6px;}
     .stats-grid{grid-template-columns:repeat(2,1fr);}
     .chart-inner{height:180px;}
+    .detail-chart-inner{height:180px;}
     main{padding:10px 10px 40px;}
     .chart-body{padding:8px;}
     .chart-head{padding:8px 12px;}
@@ -327,17 +334,69 @@ function sliceDays(days, range) {
   return (!range || range === 0) ? l : l.slice(-range);
 }
 function fmtShort(ds) {
-  return new Date(ds+'T00:00:00').toLocaleDateString('en-AU', { month:'short', day:'numeric' });
+  const d = new Date(ds+'T00:00:00');
+  return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
 }
 function fmtWithDay(d) {
-  return [fmtShort(d.date), 'Day ' + d.dayNum];
+  const dt = new Date(d.date+'T00:00:00');
+  const day = String(dt.getDate()).padStart(2,'0');
+  const month = String(dt.getMonth()+1).padStart(2,'0');
+  return [day, month, String(d.dayNum)];
 }
 function ttCfg() {
   return { backgroundColor:'#fff', titleColor:'#111827', bodyColor:'#4b5668', borderColor:'#dde2ea', borderWidth:1, padding:10 };
 }
-function xCfg() {
+function xScales(showTitle=false) {
   const mobile = window.innerWidth < 600;
-  return { ticks:{color:'#374151',font:{size:mobile?9:11,weight:'500'},maxRotation:45,maxTicksLimit:mobile?8:18}, grid:{display:false}, border:{color:'#9ca3af'} };
+  const fontSize = mobile ? 9 : 11;
+  // Approximate max label width: "00/00" ~5 chars at fontSize px
+  const labelPx = fontSize * 3.5 + 10;
+  const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size:16,weight:'700'}} : {display:false};
+  // Per-call step object so each chart instance computes its own interval independently
+  const step = { val: 5 };
+  return {
+    x: {
+      offset:true,
+      ticks:{
+        callback(val){
+          const l=this.getLabelForValue(val);
+          if(!Array.isArray(l)) return null;
+          const dayNum=parseInt(l[2]);
+          return (dayNum-1) % step.val === 0 ? [l[0],l[1]] : null;
+        },
+        color:'#9ca3af', font:{size:fontSize,weight:'400'}, maxRotation:0, autoSkip:false, align:'center'
+      },
+      afterFit(axis){
+        const totalBars = axis.ticks.length;
+        if(totalBars > 0){
+          const barPx = axis.width / totalBars;
+          step.val = Math.max(1, Math.ceil(labelPx / barPx));
+        }
+      },
+      grid:{display:false}, border:{display:false}
+    },
+    xDay: {
+      position:'bottom',
+      offset:true,
+      ticks:{
+        callback(val){
+          const l=this.getLabelForValue(val);
+          if(!Array.isArray(l)) return null;
+          const dayNum=parseInt(l[2]);
+          return (dayNum-1) % step.val === 0 ? l[2] : null;
+        },
+        color:'#111827', font:{size:fontSize,weight:'700'}, maxRotation:0,
+        autoSkip:false, align:'center'
+      },
+      afterBuildTicks(axis) {
+        const xAxis = axis.chart.scales['x'];
+        if (xAxis && xAxis.ticks) {
+          axis.ticks = xAxis.ticks.map(t => ({ ...t }));
+        }
+      },
+      grid:{display:false}, border:{color:'#9ca3af'}, title
+    }
+  };
 }
 function yCfg(pos='left', color='#374151') {
   return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
@@ -364,7 +423,7 @@ function renderMain(days) {
         label: item  => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
       }}},
       scales: {
-        x: xCfg(),
+        ...xScales(true),
         yL: { ...yCfg('left','#1d4ed8'), title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:12,weight:'600'}} },
         yR: { ...yCfg('right','#374151'), grid:{display:false}, title:{display:true,text:'Running Total',color:'#374151',font:{size:12,weight:'600'}} }
       }
@@ -383,10 +442,10 @@ function renderChartDaily(days) {
       borderWidth:1, borderRadius:3, order:2 },
     { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
       borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
-  ]}, options:{ responsive:true, animation:{duration:400},
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:{ ...yCfg(), min:0 } }}});
+    scales:{ ...xScales(true), y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartAvg(days) {
@@ -397,10 +456,10 @@ function renderChartAvg(days) {
   charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400},
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:{ ...yCfg(), min:0 } }}});
+    scales:{ ...xScales(true), y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartRunning(days) {
@@ -411,10 +470,10 @@ function renderChartRunning(days) {
   charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400},
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ x:xCfg(), y:{ ...yCfg(), min:0, max:100000 } }}});
+    scales:{ ...xScales(true), y:{ ...yCfg(), min:0, max:100000 } }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
@@ -538,15 +597,15 @@ function buildApp() {
             <div class="rg"><button class="rb" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb active" onclick="setRange('daily',0,this)">All</button></div>
             <div class="pl"><div class="li"><div class="lb" style="background:#16a34a"></div>On/Ahead</div><div class="li"><div class="lb" style="background:#dc2626"></div>Behind</div></div>
           </div>
-          <canvas id="chart-daily" height="80"></canvas>
+          <div class="detail-chart-inner"><canvas id="chart-daily"></canvas></div>
         </div>
         <div class="cp" id="cp-avg">
           <div class="pc"><div class="rg"><button class="rb" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb active" onclick="setRange('avg',0,this)">All</button></div></div>
-          <canvas id="chart-avg" height="80"></canvas>
+          <div class="detail-chart-inner"><canvas id="chart-avg"></canvas></div>
         </div>
         <div class="cp" id="cp-running">
           <div class="pc"><div class="rg"><button class="rb" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb active" onclick="setRange('running',0,this)">All</button></div></div>
-          <canvas id="chart-running" height="80"></canvas>
+          <div class="detail-chart-inner"><canvas id="chart-running"></canvas></div>
         </div>
       </div>
     </div>
