@@ -349,65 +349,84 @@ function ttCfg() {
 function xScales(showTitle=false) {
   const mobile = window.innerWidth < 600;
   const fontSize = mobile ? 9 : 11;
-  // Approximate max label width: "00/00" ~5 chars at fontSize px
-  const labelPx = fontSize * 3.5 + 10;
+  // Measured width of widest label "00/00" in px at given font size
+  const labelPx = fontSize * 4.0 + 14;
   const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size:16,weight:'700'}} : {display:false};
-  // Per-call step object so each chart instance computes its own interval independently
-  const step = { val: 5 };
-  return {
+  const step = { val: 1 };
+  let updating = false;
+
+  const plugin = {
+    id: 'dynamicTick_' + Math.random(),
+    // afterLayout fires after axis sizes are known but before draw — perfect timing
+    afterLayout(chart) {
+      const xAxis = chart.scales['x'];
+      if (!xAxis || xAxis.ticks.length === 0) return;
+      const barPx = xAxis.width / xAxis.ticks.length;
+      const newStep = Math.max(1, Math.ceil(labelPx / barPx));
+      if (newStep !== step.val && !updating) {
+        step.val = newStep;
+        updating = true;
+        // Use requestAnimationFrame to avoid updating mid-render
+        requestAnimationFrame(() => {
+          chart.update('none');
+          updating = false;
+        });
+      }
+    }
+  };
+
+  const scales = {
     x: {
-      offset:true,
-      ticks:{
-        callback(val){
-          const l=this.getLabelForValue(val);
-          if(!Array.isArray(l)) return null;
-          const dayNum=parseInt(l[2]);
-          return (dayNum-1) % step.val === 0 ? [l[0],l[1]] : null;
+      offset: true,
+      ticks: {
+        callback(val) {
+          const l = this.getLabelForValue(val);
+          if (!Array.isArray(l)) return null;
+          const dayNum = parseInt(l[2]);
+          return (dayNum - 1) % step.val === 0 ? [l[0], l[1]] : null;
         },
-        color:'#9ca3af', font:{size:fontSize,weight:'400'}, maxRotation:0, autoSkip:false, align:'center'
+        color: '#9ca3af', font: {size: fontSize, weight: '400'}, maxRotation: 0, autoSkip: false, align: 'center'
       },
-      afterFit(axis){
-        const totalBars = axis.ticks.length;
-        if(totalBars > 0){
-          const barPx = axis.width / totalBars;
-          step.val = Math.max(1, Math.ceil(labelPx / barPx));
-        }
-      },
-      grid:{display:false}, border:{display:false}
+      grid: {display: false}, border: {display: false}
     },
     xDay: {
-      position:'bottom',
-      offset:true,
-      ticks:{
-        callback(val){
-          const l=this.getLabelForValue(val);
-          if(!Array.isArray(l)) return null;
-          const dayNum=parseInt(l[2]);
-          return (dayNum-1) % step.val === 0 ? l[2] : null;
+      position: 'bottom',
+      offset: true,
+      ticks: {
+        callback(val) {
+          const l = this.getLabelForValue(val);
+          if (!Array.isArray(l)) return null;
+          const dayNum = parseInt(l[2]);
+          return (dayNum - 1) % step.val === 0 ? l[2] : null;
         },
-        color:'#111827', font:{size:fontSize,weight:'700'}, maxRotation:0,
-        autoSkip:false, align:'center'
+        color: '#111827', font: {size: fontSize, weight: '700'}, maxRotation: 0, autoSkip: false, align: 'center'
       },
       afterBuildTicks(axis) {
         const xAxis = axis.chart.scales['x'];
         if (xAxis && xAxis.ticks) {
-          axis.ticks = xAxis.ticks.map(t => ({ ...t }));
+          axis.ticks = xAxis.ticks.map(t => ({...t}));
         }
       },
-      grid:{display:false}, border:{color:'#9ca3af'}, title
+      grid: {display: false}, border: {color: '#9ca3af'}, title
     }
   };
+  return { scales, plugin };
 }
+
 function yCfg(pos='left', color='#374151') {
   return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
 }
+
 
 function renderMain(days) {
   const data = sliceDays(days, rangeState.main);
   const labels = data.map(d => fmtWithDay(d));
   if (charts.main) charts.main.destroy();
   const ctx = document.getElementById('chart-main').getContext('2d');
+  const xs = xScales(true);
+  const { scales, plugin } = xs;
   charts.main = new Chart(ctx, {
+    plugins: [plugin],
     data: { labels, datasets: [
       { type:'bar',  label:'Daily Total',       yAxisID:'yL', data:data.map(d=>d.daily),   backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
       { type:'line', label:'Avg per day',        yAxisID:'yL', data:data.map(d=>d.avg),     borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
@@ -423,7 +442,7 @@ function renderMain(days) {
         label: item  => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
       }}},
       scales: {
-        ...xScales(true),
+        ...scales,
         yL: { ...yCfg('left','#1d4ed8'), title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:12,weight:'600'}} },
         yR: { ...yCfg('right','#374151'), grid:{display:false}, title:{display:true,text:'Running Total',color:'#374151',font:{size:12,weight:'600'}} }
       }
@@ -435,7 +454,8 @@ function renderChartDaily(days) {
   const data = sliceDays(days, rangeState.daily);
   if (charts.daily) charts.daily.destroy();
   const ctx = document.getElementById('chart-daily').getContext('2d');
-  charts.daily = new Chart(ctx, { data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.daily = new Chart(ctx, { plugins:[plugin], data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { type:'bar', label:'Daily Total', data:data.map(d=>d.daily),
       backgroundColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.55)':'rgba(220,38,38,0.55)'),
       borderColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.85)':'rgba(220,38,38,0.85)'),
@@ -445,7 +465,7 @@ function renderChartDaily(days) {
   ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ ...xScales(true), y:{ ...yCfg(), min:0 } }}});
+    scales:{ ...scales, y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartAvg(days) {
@@ -453,13 +473,14 @@ function renderChartAvg(days) {
   if (charts.avg) charts.avg.destroy();
   const ctx = document.getElementById('chart-avg').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.avg = new Chart(ctx, { plugins:[plugin], type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
   ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ ...xScales(true), y:{ ...yCfg(), min:0 } }}});
+    scales:{ ...scales, y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartRunning(days) {
@@ -467,13 +488,14 @@ function renderChartRunning(days) {
   if (charts.running) charts.running.destroy();
   const ctx = document.getElementById('chart-running').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.running = new Chart(ctx, { plugins:[plugin], type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
   ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
     layout:{ padding:{ left:10 } },
     plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
-    scales:{ ...xScales(true), y:{ ...yCfg(), min:0, max:100000 } }}});
+    scales:{ ...scales, y:{ ...yCfg(), min:0, max:100000 } }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
