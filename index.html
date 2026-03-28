@@ -13,7 +13,6 @@
     --orange:#ea580c; --green:#16a34a;
     --red:#dc2626; --purple:#7c3aed;
     --text:#1a2030; --text2:#4b5668; --muted:#8a95a8;
-    --c-no:#f59e0b; --c-1r:#3b82f6; --c-2r:#16a34a; --c-ma:#ea580c;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
@@ -25,52 +24,32 @@
   .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
   .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
-  /* sync badge */
   .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
   .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
   .sync-badge.ok         .sync-dot{background:var(--green);}
-  .sync-badge.saving     .sync-dot{background:var(--orange);animation:pulse 0.8s infinite;}
+  .sync-badge.loading    .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
   .sync-badge.error      .sync-dot{background:var(--red);}
-  .sync-badge.connecting .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
 
-  main{max-width:1320px;margin:0 auto;padding:28px 40px 80px;}
+  main{max-width:1320px;margin:0 auto;padding:28px 40px 60px;}
 
-  .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:0;}
+  /* loading screen */
+  .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
   .loading-screen.fade-out{animation:fadeOut 0.5s ease forwards;}
   @keyframes fadeOut{to{opacity:0;pointer-events:none;}}
   .loading-bars{display:flex;align-items:flex-end;gap:5px;height:48px;margin-bottom:20px;}
   .loading-bars span{width:8px;border-radius:4px;background:var(--accent);animation:barBounce 1s ease-in-out infinite;}
-  .loading-bars span:nth-child(1){animation-delay:0s;}
-  .loading-bars span:nth-child(2){animation-delay:0.1s;}
-  .loading-bars span:nth-child(3){animation-delay:0.2s;}
-  .loading-bars span:nth-child(4){animation-delay:0.3s;}
-  .loading-bars span:nth-child(5){animation-delay:0.4s;}
-  .loading-bars span:nth-child(6){animation-delay:0.5s;}
+  .loading-bars span:nth-child(1){animation-delay:0s;}   .loading-bars span:nth-child(2){animation-delay:0.1s;}
+  .loading-bars span:nth-child(3){animation-delay:0.2s;} .loading-bars span:nth-child(4){animation-delay:0.3s;}
+  .loading-bars span:nth-child(5){animation-delay:0.4s;} .loading-bars span:nth-child(6){animation-delay:0.5s;}
   .loading-bars span:nth-child(7){animation-delay:0.6s;}
   @keyframes barBounce{0%,100%{height:10px;opacity:0.4;}50%{height:46px;opacity:1;}}
   .loading-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--accent);margin-bottom:6px;}
   .loading-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;animation:fadePulse 1.5s ease-in-out infinite;}
   @keyframes fadePulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
-  @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-  /* admin lock */
-  .admin-lock{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
-  .admin-lock h2{font-weight:600;font-size:13px;color:var(--text);}
-  .admin-pw-form{display:flex;gap:8px;align-items:center;}
-  .admin-pw-form input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
-  .admin-pw-form input:focus{border-color:var(--accent);}
-  .admin-pw-form input.shake{animation:shake 0.35s ease;}
-  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-  .btn-unlock{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:7px 14px;cursor:pointer;border-radius:6px;transition:background 0.15s;}
-  .btn-unlock:hover{background:#1d4ed8;}
-  .btn-logout{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
-  .btn-logout:hover{border-color:var(--red);color:var(--red);}
-  .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
-  .log-locked{padding:18px 22px 20px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
-  .log-locked .lock-icon{font-size:28px;margin-bottom:8px;}
 
-
-  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+  /* stats */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
   .stat-card.loaded .pill{transform:scaleX(1);}
@@ -84,6 +63,7 @@
   .sc-purple .pill{background:var(--purple);}.sc-purple .val{color:var(--purple);}
   .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
+  /* progress */
   .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
@@ -93,23 +73,11 @@
   .progress-target-line{position:absolute;top:-2px;width:2px;height:14px;background:var(--border2);border-radius:1px;}
   .progress-footer{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
 
-  .log-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);overflow:hidden;}
-  .log-header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--surface2);}
-  .log-header h2{font-weight:600;font-size:13px;color:var(--text);}
-  .dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  .log-form{padding:18px 22px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
-  .field label{display:block;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-  .field input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:15px;padding:9px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;-moz-appearance:textfield;}
-  .field input::-webkit-inner-spin-button,.field input::-webkit-outer-spin-button{-webkit-appearance:none;}
-  .field input:focus{border-color:var(--accent);}
-  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;cursor:pointer;border-radius:6px;transition:background 0.2s,opacity 0.2s;white-space:nowrap;}
-  .btn-log:hover{background:#1d4ed8;}
-  .btn-log:disabled{opacity:0.5;cursor:not-allowed;}
-  .log-msg{padding:4px 22px 12px;font-size:11px;font-family:'DM Mono',monospace;min-height:22px;}
-
+  /* section title */
   .sec{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
+  /* charts */
   .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
   .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
@@ -126,6 +94,7 @@
   .ll{width:20px;height:3px;flex-shrink:0;border-radius:2px;}
   .ld{width:20px;height:0;flex-shrink:0;}
 
+  /* tabs */
   .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
   .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
@@ -135,7 +104,8 @@
   .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
   .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
-  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  /* table */
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .table-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;background:var(--surface2);flex-wrap:wrap;}
   .table-head h3{font-weight:600;font-size:13px;color:var(--text);margin-right:6px;}
   .bt{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
@@ -155,8 +125,8 @@
 
   footer{text-align:center;padding:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
 
-  @media(max-width:1000px){main{padding:18px 18px 60px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.log-form{grid-template-columns:1fr 1fr;}.log-form .btn-log{grid-column:span 2;}.chart-inner{height:250px;}header{padding:14px 18px;}}
-  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);}.chart-inner{height:200px;}main{padding:12px 12px 60px;}}
+  @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
+  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);}.chart-inner{height:200px;}main{padding:12px 12px 40px;}}
 </style>
 </head>
 <body>
@@ -166,10 +136,14 @@
     <h1>100,000 Astin Challenge</h1>
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
   </div>
+  <div style="margin:0 auto;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--text);line-height:1;">274 / day</div>
+    <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Needed for 365 days</div>
+  </div>
   <div class="header-right">
-    <div class="sync-badge connecting" id="sync-badge">
+    <div class="sync-badge loading" id="sync-badge">
       <div class="sync-dot"></div>
-      <span id="sync-text">Connecting…</span>
+      <span id="sync-text">Loading…</span>
     </div>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
@@ -178,24 +152,23 @@
   </div>
 </header>
 
-<main id="main">
-  <div class="loading-screen" id="loading">
-    <div class="loading-bars">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="loading-title">100K Astin Challenge</div>
-    <div class="loading-sub">Loading data…</div>
+<div class="loading-screen" id="loading">
+  <div class="loading-bars">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
-</main>
+  <div class="loading-title">100K Astin Challenge</div>
+  <div class="loading-sub">Loading spreadsheet…</div>
+</div>
 
-<footer>100,000 Astin Challenge 2026 · Track. Log. Crush It.</footer>
+<main id="main"></main>
+<footer>100,000 Astin Challenge 2026 · Data synced from Dropbox</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// ── JSONBIN CONFIG ─────────────────────────────────────────────────────────────
-const BIN_ID    = '69b3b588c3097a1dd51f9207';
-const MASTER_KEY = '$2a$10$GPI2z2xnBtJJFAqKOvJOC.N2NIj1q5FnVmkpvCrJLrH3.HEzsjT1e';
-const BIN_URL   = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+// ── CONFIG ─────────────────────────────────────────────────────────────────────
+const WORKER_URL = 'https://square-shape-a0ba.oriongerstl.workers.dev/';
+const SHEET_NAME  = '2026 Challenge 100,000';
 
 // ── CONSTANTS ──────────────────────────────────────────────────────────────────
 const GOAL = 100000, TOTAL_DAYS = 365;
@@ -206,87 +179,100 @@ const AVG_1_REST  = GOAL / (TOTAL_DAYS * 6 / 7);
 const AVG_2_REST  = GOAL / (TOTAL_DAYS * 5 / 7);
 
 // ── STATE ──────────────────────────────────────────────────────────────────────
-let entries = {};   // date → {am, pm, night}
-let filterMode = 'all';
-let rangeState = { main:30, daily:30, avg:30, running:30 };
+let entries = {};  // date string → { am, pm, night }
+let filterMode = 'logged';
+let rangeState = { main:0, daily:0, avg:0, running:0 };
 let charts = { main:null, daily:null, avg:null, running:null };
-let saving = false;
 
-// ── JSONBIN API ────────────────────────────────────────────────────────────────
-async function fetchBin() {
-  const res = await fetch(BIN_URL + '/latest', {
-    headers: {
-      'X-Master-Key': MASTER_KEY,
-      'X-Access-Key': MASTER_KEY
-    }
-  });
-  if (!res.ok) throw new Error('Fetch failed: ' + res.status);
-  const data = await res.json();
-  const record = data.record;
+// ── FETCH & PARSE DROPBOX EXCEL ────────────────────────────────────────────────
+async function loadDropbox() {
+  const res = await fetch(WORKER_URL);
+  if (!res.ok) throw new Error('Could not fetch spreadsheet (HTTP ' + res.status + ')');
+  const buf = await res.arrayBuffer();
+  const wb   = XLSX.read(buf, { type:'array', cellDates:false });
+
+  const sheet = wb.Sheets[SHEET_NAME] || wb.Sheets[wb.SheetNames[0]];
+  const rows  = XLSX.utils.sheet_to_json(sheet, { header:1, defval:'' });
+
+  // Find header row dynamically — look for row containing 'Date' in first cell
+  let headerIdx = -1;
+  for (let i = 0; i < Math.min(rows.length, 10); i++) {
+    if (String(rows[i][0]).trim().toLowerCase() === 'date') { headerIdx = i; break; }
+  }
+  if (headerIdx === -1) throw new Error('Could not find header row (looking for "Date" in column A)');
+
+  // Log first few rows for debugging
+  console.log('Header row index:', headerIdx);
+  console.log('Header:', rows[headerIdx]);
+  console.log('First data row:', rows[headerIdx + 1]);
+
+  // Columns: Date(0), Day No.(1), SET 1(2), Set 2(3), Set 3/4(4), Daily Total(5)
+  const dateCol = 0, set1Col = 2, set2Col = 3, set3Col = 4, dailyCol = 5;
+
   entries = {};
-  (record.entries || []).forEach(e => {
-    entries[e.date] = { am: e.am||0, pm: e.pm||0, night: e.night||0 };
-  });
-}
+  let count = 0;
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const row = rows[i];
+    const raw = row[dateCol];
+    if (raw === '' || raw === null || raw === undefined) continue;
 
-async function saveBin() {
-  // Build full record to PUT back
-  const days = buildDays();
-  const lastLogged = days.filter(d => d.hasData).pop();
-  const total = lastLogged?.running || 0;
-  const elapsed = lastLogged?.dayNum || 1;
-  const avg = total > 0 ? Math.round(total / elapsed) : 0;
-  const todayNum = days.find(d => d.date === dStr(new Date()))?.dayNum || 1;
-  const restDays = days.filter(d => d.hasData && d.daily === 0).length;
-  let projFinish = '—';
-  if (avg > 0 && total < GOAL) {
-    const p = new Date(); p.setDate(p.getDate() + Math.ceil((GOAL - total) / avg));
-    projFinish = dStr(p);
+    // Parse date — with cellDates:false, Excel dates are serial numbers
+    let ds;
+    if (typeof raw === 'number') {
+      // Convert Excel serial to date using UTC to avoid any timezone shift
+      const utcMs = Math.round((raw - 25569) * 86400 * 1000);
+      const d = new Date(utcMs);
+      ds = d.getUTCFullYear() + '-' +
+           String(d.getUTCMonth()+1).padStart(2,'0') + '-' +
+           String(d.getUTCDate()).padStart(2,'0');
+    } else if (raw instanceof Date) {
+      ds = raw.getUTCFullYear() + '-' +
+           String(raw.getUTCMonth()+1).padStart(2,'0') + '-' +
+           String(raw.getUTCDate()).padStart(2,'0');
+    } else {
+      // String date — parse as local date by splitting manually
+      const str = String(raw).trim().split('T')[0].split(' ')[0];
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) continue;
+      ds = str;
+    }
+
+    if (!ds.startsWith('2026')) continue;
+
+    // Use Daily Total column from spreadsheet directly if available
+    const dailyRaw = parseFloat(row[dailyCol]);
+    const set1  = parseFloat(row[set1Col]) || 0;
+    const set2  = parseFloat(row[set2Col]) || 0;
+    const set3  = parseFloat(row[set3Col]) || 0;
+
+    // Only store rows that have been actually logged (daily total > 0, or it's a rest day with explicit 0s)
+    const hasEntry = !isNaN(dailyRaw) && (dailyRaw > 0 || (set1 === 0 && set2 === 0 && set3 === 0 && row[set1Col] !== '' && row[set1Col] !== undefined));
+    if (!hasEntry && dailyRaw === 0 && row[set1Col] === '') continue; // future blank rows
+    if (isNaN(dailyRaw) && set1 === 0 && set2 === 0 && set3 === 0) continue; // truly empty
+
+    entries[ds] = { am: set1, pm: set2, night: set3 };
+    count++;
   }
 
-  const entriesArr = Object.entries(entries)
-    .sort(([a],[b]) => a.localeCompare(b))
-    .map(([date, e]) => ({ date, am: e.am||0, pm: e.pm||0, night: e.night||0 }));
-
-  const record = {
-    challenge: {
-      name: '100,000 Astin Challenge', year: 2026, goal: GOAL,
-      total_days: TOTAL_DAYS, start_date: '2026-01-01', end_date: '2026-12-31'
-    },
-    entries: entriesArr,
-    summary: {
-      last_updated: lastLogged?.date || '—',
-      days_logged: days.filter(d => d.hasData).length,
-      total_pushups: total,
-      remaining: Math.max(0, GOAL - total),
-      daily_average: avg,
-      surplus_vs_no_rest_target: lastLogged?.surplus || 0,
-      rest_days: restDays,
-      projected_finish_at_current_pace: projFinish
-    }
-  };
-
-  const res = await fetch(BIN_URL, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': MASTER_KEY
-    },
-    body: JSON.stringify(record)
-  });
-  if (!res.ok) throw new Error('Save failed: ' + res.status);
+  console.log('Imported entries:', count, 'Last few:', Object.entries(entries).slice(-3));
+  if (count === 0) throw new Error('No 2026 rows found in spreadsheet');
+  return count;
 }
 
 // ── SYNC BADGE ─────────────────────────────────────────────────────────────────
 function setSyncBadge(state, text) {
   const badge = document.getElementById('sync-badge');
   const label = document.getElementById('sync-text');
+  if (!badge || !label) return;
   badge.className = 'sync-badge ' + state;
   label.textContent = text;
 }
 
 // ── DATA HELPERS ───────────────────────────────────────────────────────────────
-function dStr(d) { return d.toISOString().split('T')[0]; }
+function dStr(d) {
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+}
 
 function buildDays() {
   const days = []; let running = 0, idx = 0;
@@ -312,7 +298,7 @@ function buildDays() {
   return days;
 }
 
-// ── CHARTS ─────────────────────────────────────────────────────────────────────
+// ── CHART HELPERS ──────────────────────────────────────────────────────────────
 Chart.defaults.color = '#1a2030';
 Chart.defaults.font.family = 'DM Sans';
 Chart.defaults.font.size = 12;
@@ -323,6 +309,9 @@ function sliceDays(days, range) {
 }
 function fmtShort(ds) {
   return new Date(ds+'T00:00:00').toLocaleDateString('en-AU', { month:'short', day:'numeric' });
+}
+function fmtWithDay(d) {
+  return [fmtShort(d.date), 'Day ' + d.dayNum];
 }
 function ttCfg() {
   return { backgroundColor:'#fff', titleColor:'#111827', bodyColor:'#4b5668', borderColor:'#dde2ea', borderWidth:1, padding:10 };
@@ -336,28 +325,23 @@ function yCfg(pos='left', color='#374151') {
 
 function renderMain(days) {
   const data = sliceDays(days, rangeState.main);
-  const labels = data.map(d => {
-    const dt = new Date(d.date+'T00:00:00');
-    return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'\n'+d.dayNum;
-  });
+  const labels = data.map(d => fmtWithDay(d));
   if (charts.main) charts.main.destroy();
   const ctx = document.getElementById('chart-main').getContext('2d');
   charts.main = new Chart(ctx, {
     data: { labels, datasets: [
-      { type:'bar', label:'Daily Total', yAxisID:'yL', data:data.map(d=>d.daily), backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
-      { type:'line', label:'Avg per day', yAxisID:'yL', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
-      { type:'line', label:'Running Total', yAxisID:'yR', data:data.map(d=>d.running), borderColor:'#111827', borderWidth:2.5, pointRadius:0, pointHoverRadius:4, fill:false, tension:0.2, order:1 },
-      { type:'line', label:'No Rest Day', yAxisID:'yR', data:data.map(d=>d.tgt_no), borderColor:'#f59e0b', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'1 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_1r), borderColor:'#3b82f6', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'2 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_2r), borderColor:'#16a34a', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'14-Day MA', yAxisID:'yL', data:data.map(d=>d.ma14), borderColor:'#ea580c', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.4, order:2, spanGaps:true },
+      { type:'bar',  label:'Daily Total',       yAxisID:'yL', data:data.map(d=>d.daily),   backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
+      { type:'line', label:'Avg per day',        yAxisID:'yL', data:data.map(d=>d.avg),     borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
+      { type:'line', label:'Running Total',      yAxisID:'yR', data:data.map(d=>d.running), borderColor:'#111827', borderWidth:2.5, pointRadius:0, pointHoverRadius:4, fill:false, tension:0.2, order:1 },
+      { type:'line', label:'Target No Rest Day', yAxisID:'yR', data:data.map(d=>d.tgt_no), borderColor:'#f59e0b', borderWidth:2,   pointRadius:0, fill:false, tension:0, order:3 },
+      { type:'line', label:'14-Day MA',           yAxisID:'yL', data:data.map(d=>d.ma14),   borderColor:'#ea580c', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.4, order:2, spanGaps:true },
     ]},
     options: {
       responsive:true, maintainAspectRatio:false, animation:{duration:500},
       interaction:{mode:'index',intersect:false},
       plugins:{ legend:{display:false}, tooltip:{...ttCfg(), callbacks:{
         title: items => { const d=data[items[0].dataIndex]; return fmtShort(d.date)+' — Day '+d.dayNum; },
-        label: item => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
+        label: item  => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
       }}},
       scales: {
         x: xCfg(),
@@ -372,14 +356,16 @@ function renderChartDaily(days) {
   const data = sliceDays(days, rangeState.daily);
   if (charts.daily) charts.daily.destroy();
   const ctx = document.getElementById('chart-daily').getContext('2d');
-  charts.daily = new Chart(ctx, { data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  charts.daily = new Chart(ctx, { data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { type:'bar', label:'Daily Total', data:data.map(d=>d.daily),
       backgroundColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.55)':'rgba(220,38,38,0.55)'),
       borderColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.85)':'rgba(220,38,38,0.85)'),
       borderWidth:1, borderRadius:3, order:2 },
     { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
       borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400},
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function renderChartAvg(days) {
@@ -387,10 +373,12 @@ function renderChartAvg(days) {
   if (charts.avg) charts.avg.destroy();
   const ctx = document.getElementById('chart-avg').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400},
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function renderChartRunning(days) {
@@ -398,10 +386,12 @@ function renderChartRunning(days) {
   if (charts.running) charts.running.destroy();
   const ctx = document.getElementById('chart-running').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, animation:{duration:400},
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ x:xCfg(), y:yCfg() }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
@@ -421,14 +411,12 @@ function renderStats(days) {
   let streak=0; for(let i=logged.length-1;i>=0;i--){if(logged[i].daily>0)streak++;else break;}
 
   document.getElementById('headerTotal').textContent = total.toLocaleString();
-  document.getElementById('s-total').textContent = total.toLocaleString();
-  document.getElementById('s-remain').textContent = Math.max(0,GOAL-total).toLocaleString();
-  document.getElementById('s-avg').textContent = avg.toLocaleString();
-  document.getElementById('s-needed').textContent = needed>0 ? needed.toLocaleString() : '✓';
+  document.getElementById('s-total').textContent   = total.toLocaleString();
+  document.getElementById('s-remain').textContent  = Math.max(0,GOAL-total).toLocaleString();
+  document.getElementById('s-avg').textContent     = avg.toLocaleString();
   document.getElementById('s-surplus').textContent = (surplus>=0?'+':'')+surplus.toLocaleString();
-  document.getElementById('s-streak').textContent = streak+' days';
   document.getElementById('card-surplus').className = 'stat-card '+(surplus>=0?'sc-green':'sc-red');
-  document.getElementById('card-needed').className  = 'stat-card '+(needed<=AVG_NO_REST?'sc-green':'sc-red');
+
   document.getElementById('progress-pct').textContent = pct.toFixed(1)+'%';
   setTimeout(()=>{ document.getElementById('progress-fill').style.width=pct+'%'; }, 80);
   document.getElementById('target-line').style.left = Math.min(100,todayNum/TOTAL_DAYS*100)+'%';
@@ -467,64 +455,25 @@ function renderTable(days) {
   }).join('');
 }
 
-async function logEntry() {
-  const dv    = document.getElementById('input-date').value;
-  const am    = parseInt(document.getElementById('input-am').value)||0;
-  const pm    = parseInt(document.getElementById('input-pm').value)||0;
-  const night = parseInt(document.getElementById('input-night').value)||0;
-  if (!dv) { showMsg('Please select a date.','#dc2626'); return; }
-  if (saving) return;
-
-  // Update local state immediately so UI feels instant
-  entries[dv] = { am, pm, night };
-  render();
-  ['input-am','input-pm','input-night'].forEach(id => document.getElementById(id).value='');
-
-  // Save to JSONBin
-  saving = true;
-  document.querySelector('.btn-log').disabled = true;
-  setSyncBadge('saving', 'Saving…');
-  try {
-    await saveBin();
-    setSyncBadge('ok', 'Saved ✓');
-    showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv}`, '#16a34a');
-    setTimeout(() => setSyncBadge('ok', 'In sync'), 2000);
-  } catch(e) {
-    setSyncBadge('error', 'Save failed');
-    showMsg('⚠ Could not save to JSONBin: ' + e.message, '#dc2626');
-  } finally {
-    saving = false;
-    document.querySelector('.btn-log').disabled = false;
-  }
-}
-
-function showMsg(msg, color) {
-  const el = document.getElementById('log-msg');
-  el.style.color = color; el.textContent = msg;
-  setTimeout(()=>el.textContent='', 5000);
-}
 function setFilter(mode, btn) {
   filterMode=mode;
   document.querySelectorAll('.bt').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTable(buildDays());
 }
+
 function render() {
   const days = buildDays();
   renderStats(days); renderMain(days); renderChartDaily(days); renderChartAvg(days); renderChartRunning(days); renderTable(days);
 }
 
-// ── BUILD DOM ──────────────────────────────────────────────────────────────────
 function buildApp() {
-  const today = dStr(new Date());
   document.getElementById('main').innerHTML = `
     <div class="stats-grid">
       <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Done</div></div>
       <div class="stat-card sc-orange"><div class="pill"></div><span class="ico">🎯</span><div class="val" id="s-remain">—</div><div class="lbl">Remaining</div></div>
       <div class="stat-card sc-dark"><div class="pill"></div><span class="ico">📊</span><div class="val" id="s-avg">—</div><div class="lbl">Daily Average</div></div>
-      <div class="stat-card" id="card-needed"><div class="pill"></div><span class="ico">📅</span><div class="val" id="s-needed">—</div><div class="lbl">Needed / Day</div></div>
       <div class="stat-card" id="card-surplus"><div class="pill"></div><span class="ico">⚡</span><div class="val" id="s-surplus">—</div><div class="lbl">Surplus / (Deficit)</div></div>
-      <div class="stat-card sc-purple"><div class="pill"></div><span class="ico">🔥</span><div class="val" id="s-streak">—</div><div class="lbl">Active Streak</div></div>
     </div>
 
     <div class="progress-card">
@@ -538,9 +487,9 @@ function buildApp() {
       <div class="chart-head">
         <h3>Daily &amp; Running Totals</h3>
         <div class="rg">
-          <button class="rb active" onclick="setMainRange(30,this)">Last 30</button>
+          <button class="rb" onclick="setMainRange(30,this)">Last 30</button>
           <button class="rb" onclick="setMainRange(60,this)">Last 60</button>
-          <button class="rb" onclick="setMainRange(0,this)">All</button>
+          <button class="rb active" onclick="setMainRange(0,this)">All</button>
         </div>
       </div>
       <div class="chart-body"><div class="chart-inner"><canvas id="chart-main"></canvas></div></div>
@@ -549,8 +498,6 @@ function buildApp() {
         <div class="li"><div class="ld" style="border-top:2px dashed #2563eb"></div>Avg/Day</div>
         <div class="li"><div class="ll" style="background:#111827"></div>Running Total</div>
         <div class="li"><div class="ll" style="background:#f59e0b"></div>Target No Rest</div>
-        <div class="li"><div class="ll" style="background:#3b82f6"></div>Target 1 Rest/wk</div>
-        <div class="li"><div class="ll" style="background:#16a34a"></div>Target 2 Rest/wk</div>
         <div class="li"><div class="ld" style="border-top:2px dashed #ea580c"></div>14-Day MA</div>
       </div>
     </div>
@@ -565,17 +512,17 @@ function buildApp() {
       <div class="chart-panels">
         <div class="cp active" id="cp-daily">
           <div class="pc">
-            <div class="rg"><button class="rb active" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb" onclick="setRange('daily',0,this)">All</button></div>
+            <div class="rg"><button class="rb" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb active" onclick="setRange('daily',0,this)">All</button></div>
             <div class="pl"><div class="li"><div class="lb" style="background:#16a34a"></div>On/Ahead</div><div class="li"><div class="lb" style="background:#dc2626"></div>Behind</div></div>
           </div>
           <canvas id="chart-daily" height="200"></canvas>
         </div>
         <div class="cp" id="cp-avg">
-          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb" onclick="setRange('avg',0,this)">All</button></div></div>
+          <div class="pc"><div class="rg"><button class="rb" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb active" onclick="setRange('avg',0,this)">All</button></div></div>
           <canvas id="chart-avg" height="200"></canvas>
         </div>
         <div class="cp" id="cp-running">
-          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb" onclick="setRange('running',0,this)">All</button></div></div>
+          <div class="pc"><div class="rg"><button class="rb" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb active" onclick="setRange('running',0,this)">All</button></div></div>
           <canvas id="chart-running" height="200"></canvas>
         </div>
       </div>
@@ -584,120 +531,36 @@ function buildApp() {
     <div class="sec">Activity Log</div>
     <div class="table-card">
       <div class="table-head">
-        <h3>All Entries</h3>
-        <button class="bt active" onclick="setFilter('all',this)">All Days</button>
-        <button class="bt" onclick="setFilter('logged',this)">Logged Only</button>
-        <button class="bt" onclick="setFilter('rest',this)">Rest Days</button>
+        <h3>Logged Entries</h3>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Date</th><th>Day#</th><th>AM</th><th>PM</th><th>Night</th><th>Daily</th><th>14d MA</th><th>Running</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
+          <thead><tr><th>Date</th><th>Day#</th><th>Set 1</th><th>Set 2</th><th>Set 3</th><th>Daily</th><th>14d MA</th><th>Running</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
           <tbody id="table-body"></tbody>
         </table>
       </div>
-    </div>
-
-    <div class="log-card">
-      <div class="admin-lock" id="admin-lock">
-        <h2>Log Push-Ups</h2>
-        <div id="admin-lock-right">
-          <div class="admin-pw-form" id="pw-form">
-            <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
-            <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
-          </div>
-        </div>
-      </div>
-      <div id="log-body">
-        <div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>
-      </div>
-      <div class="log-msg" id="log-msg"></div>
     </div>`;
-}
-
-
-// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
-const ADMIN_PW = 'Mark67';
-// admin state is purely in-memory — resets on every page load/refresh
-
-let _adminUnlocked = false;
-function isUnlocked() {
-  return _adminUnlocked;
-}
-
-function unlockAdmin() {
-  const input = document.getElementById('admin-pw');
-  if (input.value === ADMIN_PW) {
-    _adminUnlocked = true;
-    renderAdminState();
-  } else {
-    input.value = '';
-    input.classList.remove('shake');
-    void input.offsetWidth; // reflow to restart animation
-    input.classList.add('shake');
-    setTimeout(() => input.classList.remove('shake'), 400);
-  }
-}
-
-function lockAdmin() {
-  _adminUnlocked = false;
-  renderAdminState();
-}
-
-function renderAdminState() {
-  const lockRight = document.getElementById('admin-lock-right');
-  const logBody   = document.getElementById('log-body');
-  if (!lockRight || !logBody) return;
-
-  if (isUnlocked()) {
-    lockRight.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="admin-badge">🔓 Admin</span>
-        <button class="btn-logout" onclick="lockAdmin()">Lock</button>
-      </div>`;
-    const today = dStr(new Date());
-    logBody.innerHTML = `
-      <div class="log-form">
-        <div class="field"><label>Date</label><input type="date" id="input-date" value="${today}" min="2026-01-01" max="2026-12-31"></div>
-        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
-        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
-        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
-        <button class="btn-log" onclick="logEntry()">Log It</button>
-      </div>`;
-  } else {
-    lockRight.innerHTML = `
-      <div class="admin-pw-form" id="pw-form">
-        <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
-        <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
-      </div>`;
-    logBody.innerHTML = `<div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>`;
-  }
 }
 
 // ── STARTUP ────────────────────────────────────────────────────────────────────
 (async function init() {
   try {
-    await fetchBin();
+    const count = await loadDropbox();
     buildApp();
     const loader = document.getElementById('loading');
-    if (loader) { loader.classList.add('fade-out'); setTimeout(() => { if(loader) loader.style.display='none'; }, 500); }
+    if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
     render();
-    renderAdminState();
-    setSyncBadge('ok', 'In sync');
-    window.addEventListener('resize', () => {
-      const d = buildDays();
-      renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
-    });
+    setSyncBadge('ok', `${count} days loaded`);
+    setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
+    window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
   } catch(e) {
-    console.error('Init failed:', e);
-    buildApp();
-    render();
-    renderAdminState();
-    // Fade out loader first, then update badge
-    const loader = document.getElementById('loading');
-    if (loader) {
-      loader.classList.add('fade-out');
-      setTimeout(() => { if(loader) loader.style.display='none'; }, 500);
-    }
+    console.error('Load failed:', e);
+    document.getElementById('loading').innerHTML = `
+      <div style="text-align:center;font-family:'DM Mono',monospace;">
+        <div style="font-size:36px;margin-bottom:16px;">⚠️</div>
+        <div style="color:#dc2626;font-size:14px;margin-bottom:8px;">Could not load spreadsheet</div>
+        <div style="color:#8a95a8;font-size:11px;max-width:320px;">${e.message}</div>
+      </div>`;
     setSyncBadge('error', 'Load failed');
   }
 })();
