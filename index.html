@@ -233,8 +233,8 @@
 <header>
   <div class="logo-area">
     <h1>100,000 Astin Challenge</h1>
-    <div class="subtitle">2026: 100,000 push-ups</div>
-    <div class="subtitle">274 / day for 365 days</div>
+    <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
+    <div class="subtitle">365 days - 100,000 pushups</div>
     <button class="btn-about" onclick="const el=document.getElementById('about');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">About</button>
     <button class="btn-about" onclick="const el=document.getElementById('who-am-i');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">Astin</button>
   </div>
@@ -242,7 +242,7 @@
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
       <div class="label" style="margin-top:2px;">Current Total</div>
-      <div class="label" style="margin-top:1px;"><span id="header-date"></span></div>
+      <div class="label" style="margin-top:1px;">Push-Ups To: <span id="header-date"></span></div>
       <div style="display:flex;justify-content:flex-end;margin-top:4px;">
         <div class="sync-badge loading" id="sync-badge">
           <div class="sync-dot"></div>
@@ -419,9 +419,9 @@ function ttCfg() {
 }
 function xScales(showTitle=false) {
   const mobile = window.innerWidth < 600;
-  const fontSize = mobile ? 9 : 11;
+  const fontSize = mobile ? 11 : 14;
   const GAP = 5;
-  const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size:16,weight:'700'}} : {display:false};
+  const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size: mobile ? 11 : 14,weight:'500'}} : {display:false};
 
   const shown = new Set();
   let lastAxisWidth = 0;
@@ -512,7 +512,8 @@ function xScales(showTitle=false) {
 }
 
 function yCfg(pos='left', color='#374151') {
-  return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
+  const mobile = window.innerWidth < 600;
+  return { position:pos, ticks:{color,font:{size: mobile ? 11 : 14,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
 }
 
 function renderMain(days) {
@@ -702,7 +703,7 @@ function buildApp() {
       <div class="chart-legend">
         <div class="li"><div class="lb" style="background:rgba(59,130,246,0.6)"></div>Daily Total</div>
         <div class="li"><div class="ld" style="border-top:2px dashed #2563eb"></div>Avg/Day</div>
-        <div class="li"><div class="ll" style="background:#111827"></div>Running Total</div>
+        <div class="li" style="margin-left:auto;">Running Total<div class="ll" style="background:#111827"></div></div>
         <div class="li"><div class="ll" style="background:#f59e0b"></div>Target No Rest</div>
         <div class="li"><div class="ld" style="border-top:2px dashed #ea580c"></div>14-Day MA</div>
       </div>
