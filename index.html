@@ -130,7 +130,7 @@
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
-    header{flex-wrap:nowrap;gap:8px;padding:8px 12px;align-items:center;}
+    header{flex-wrap:nowrap;gap:8px;padding:8px 12px;align-items:flex-start;}
     .logo-area{min-width:0;flex:1;}
     .logo-area h1{font-size:24px;letter-spacing:1px;}
     .logo-area .subtitle{font-size:11px;letter-spacing:0.5px;}
@@ -234,14 +234,14 @@
   <div class="logo-area">
     <h1>100,000 Astin Challenge</h1>
     <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
-    <div class="subtitle">274 / day · Needed for 365 days</div>
+    <div class="subtitle">365 days - 100,000 pushups</div>
     <button class="btn-about" onclick="const el=document.getElementById('about');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">About</button>
     <button class="btn-about" onclick="const el=document.getElementById('who-am-i');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">Astin</button>
   </div>
   <div class="header-right">
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
-      <div class="label">Total Push-Ups</div>
+      <div class="label" style="margin-top:2px;">Push-Ups To: <span id="header-date"></span></div>
       <div style="display:flex;justify-content:flex-end;margin-top:4px;">
         <div class="sync-badge loading" id="sync-badge">
           <div class="sync-dot"></div>
@@ -611,6 +611,9 @@ function renderStats(days) {
   let streak=0; for(let i=logged.length-1;i>=0;i--){if(logged[i].daily>0)streak++;else break;}
 
   document.getElementById('headerTotal').textContent = total.toLocaleString();
+  const now = new Date();
+  const dateEl = document.getElementById('header-date');
+  if (dateEl) dateEl.textContent = now.toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' });
   document.getElementById('s-total').textContent   = total.toLocaleString();
   document.getElementById('s-remain').textContent  = Math.max(0,GOAL-total).toLocaleString();
   document.getElementById('s-avg').textContent     = avg.toLocaleString();
