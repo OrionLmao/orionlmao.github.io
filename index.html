@@ -32,7 +32,7 @@
 
   main{max-width:1320px;margin:0 auto;padding:28px 40px 60px;}
 
-  /* loading screen */
+  
   .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
   .loading-screen.fade-out{animation:fadeOut 0.5s ease forwards;}
   @keyframes fadeOut{to{opacity:0;pointer-events:none;}}
@@ -48,7 +48,7 @@
   @keyframes fadePulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
-  /* stats */
+  
   .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
@@ -63,7 +63,7 @@
   .sc-purple .pill{background:var(--purple);}.sc-purple .val{color:var(--purple);}
   .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
-  /* progress */
+  
   .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
@@ -73,11 +73,11 @@
   .progress-target-line{position:absolute;top:-2px;width:2px;height:14px;background:var(--border2);border-radius:1px;}
   .progress-footer{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
 
-  /* section title */
+  
   .sec{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  /* charts */
+  
   .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
   .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
@@ -94,7 +94,7 @@
   .ll{width:20px;height:3px;flex-shrink:0;border-radius:2px;}
   .ld{width:20px;height:0;flex-shrink:0;}
 
-  /* tabs */
+  
   .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
   .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
@@ -106,7 +106,7 @@
   .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
   .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
-  /* table */
+  
   .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .table-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;background:var(--surface2);flex-wrap:wrap;}
   .table-head h3{font-weight:600;font-size:13px;color:var(--text);margin-right:6px;}
@@ -154,20 +154,20 @@
     thead th{padding:6px 8px;font-size:9px;}
     tbody td{padding:6px 8px;}
   }
-  /* about button */
+  
   .btn-about{background:none;color:var(--accent);border:2px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
   .btn-about:hover{background:var(--accent-lt);}
-  /* about section */
+  
   .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
   .about-section p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
   .about-section p:last-child{margin-bottom:0;}
-  /* footer visitors */
+  
   .footer-visitors{display:flex;align-items:center;gap:7px;}
   .footer-visitors .vdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
   @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:24px 20px;}footer{padding:16px 20px;}}
 
-  /* admin unlock */
+  
   .admin-unlock-row{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
   .admin-pw-input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
   .admin-pw-input:focus{border-color:var(--accent);}
@@ -179,7 +179,7 @@
   .btn-lock:hover{border-color:var(--red);color:var(--red);}
   .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
 
-  /* photo gallery */
+  
   .photo-sec{margin-top:28px;}
   .photo-sec-title{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .photo-sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
@@ -195,7 +195,7 @@
   .photo-caption-input{width:100%;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--bg);border:none;border-top:1px solid var(--border);outline:none;resize:none;line-height:1.4;}
   .photo-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:24px 0;text-align:center;grid-column:1/-1;}
 
-  /* admin photo panel */
+  
   .photo-admin{margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;display:none;}
   .photo-admin.visible{display:block;}
   .photo-admin-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
@@ -207,19 +207,19 @@
   .btn-photo-add:hover{background:#1d4ed8;}
   .photo-hint{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px;}
 
-  /* lightbox */
+  
   .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:none;align-items:center;justify-content:center;cursor:pointer;}
   .lightbox.open{display:flex;}
   .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;cursor:default;}
   .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.7;}
   .lightbox-close:hover{opacity:1;}
 
-  /* back to top */
+  
   #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:200;display:flex;align-items:center;justify-content:center;}
   #back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
   #back-to-top:hover{background:#1d4ed8;}
 
-  /* who am i */
+  
   .whoami-inner{display:flex;gap:28px;align-items:flex-start;margin-top:4px;}
   .whoami-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px;}
   .whoami-bio p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:680px;}
@@ -270,11 +270,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// ── CONFIG ─────────────────────────────────────────────────────────────────────
 const WORKER_URL = 'https://square-shape-a0ba.oriongerstl.workers.dev/';
 const SHEET_NAME  = '2026 Challenge 100,000';
 
-// ── CONSTANTS ──────────────────────────────────────────────────────────────────
 const GOAL = 100000, TOTAL_DAYS = 365;
 const START = new Date('2026-01-01T00:00:00');
 const END   = new Date('2026-12-31T00:00:00');
@@ -282,13 +280,11 @@ const AVG_NO_REST = GOAL / TOTAL_DAYS;
 const AVG_1_REST  = GOAL / (TOTAL_DAYS * 6 / 7);
 const AVG_2_REST  = GOAL / (TOTAL_DAYS * 5 / 7);
 
-// ── STATE ──────────────────────────────────────────────────────────────────────
-let entries = {};  // date string → { am, pm, night }
+let entries = {};
 let filterMode = 'logged';
 let rangeState = { main:0, daily:0, avg:0, running:0 };
 let charts = { main:null, daily:null, avg:null, running:null };
 
-// ── FETCH & PARSE DROPBOX EXCEL ────────────────────────────────────────────────
 async function loadDropbox() {
   const res = await fetch(WORKER_URL);
   if (!res.ok) throw new Error('Could not fetch spreadsheet (HTTP ' + res.status + ')');
@@ -298,19 +294,16 @@ async function loadDropbox() {
   const sheet = wb.Sheets[SHEET_NAME] || wb.Sheets[wb.SheetNames[0]];
   const rows  = XLSX.utils.sheet_to_json(sheet, { header:1, defval:'' });
 
-  // Find header row dynamically — look for row containing 'Date' in first cell
   let headerIdx = -1;
   for (let i = 0; i < Math.min(rows.length, 10); i++) {
     if (String(rows[i][0]).trim().toLowerCase() === 'date') { headerIdx = i; break; }
   }
   if (headerIdx === -1) throw new Error('Could not find header row (looking for "Date" in column A)');
 
-  // Log first few rows for debugging
   console.log('Header row index:', headerIdx);
   console.log('Header:', rows[headerIdx]);
   console.log('First data row:', rows[headerIdx + 1]);
 
-  // Columns: Date(0), Day No.(1), SET 1(2), Set 2(3), Set 3/4(4), Daily Total(5)
   const dateCol = 0, set1Col = 2, set2Col = 3, set3Col = 4, dailyCol = 5;
 
   entries = {};
@@ -320,10 +313,8 @@ async function loadDropbox() {
     const raw = row[dateCol];
     if (raw === '' || raw === null || raw === undefined) continue;
 
-    // Parse date — with cellDates:false, Excel dates are serial numbers
     let ds;
     if (typeof raw === 'number') {
-      // Convert Excel serial to date using UTC to avoid any timezone shift
       const utcMs = Math.round((raw - 25569) * 86400 * 1000);
       const d = new Date(utcMs);
       ds = d.getUTCFullYear() + '-' +
@@ -334,7 +325,6 @@ async function loadDropbox() {
            String(raw.getUTCMonth()+1).padStart(2,'0') + '-' +
            String(raw.getUTCDate()).padStart(2,'0');
     } else {
-      // String date — parse as local date by splitting manually
       const str = String(raw).trim().split('T')[0].split(' ')[0];
       if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) continue;
       ds = str;
@@ -342,16 +332,14 @@ async function loadDropbox() {
 
     if (!ds.startsWith('2026')) continue;
 
-    // Use Daily Total column from spreadsheet directly if available
     const dailyRaw = parseFloat(row[dailyCol]);
     const set1  = parseFloat(row[set1Col]) || 0;
     const set2  = parseFloat(row[set2Col]) || 0;
     const set3  = parseFloat(row[set3Col]) || 0;
 
-    // Only store rows that have been actually logged (daily total > 0, or it's a rest day with explicit 0s)
     const hasEntry = !isNaN(dailyRaw) && (dailyRaw > 0 || (set1 === 0 && set2 === 0 && set3 === 0 && row[set1Col] !== '' && row[set1Col] !== undefined));
-    if (!hasEntry && dailyRaw === 0 && row[set1Col] === '') continue; // future blank rows
-    if (isNaN(dailyRaw) && set1 === 0 && set2 === 0 && set3 === 0) continue; // truly empty
+    if (!hasEntry && dailyRaw === 0 && row[set1Col] === '') continue;
+    if (isNaN(dailyRaw) && set1 === 0 && set2 === 0 && set3 === 0) continue;
 
     entries[ds] = { am: set1, pm: set2, night: set3 };
     count++;
@@ -362,7 +350,6 @@ async function loadDropbox() {
   return count;
 }
 
-// ── SYNC BADGE ─────────────────────────────────────────────────────────────────
 function setSyncBadge(state, text) {
   const badge = document.getElementById('sync-badge');
   const label = document.getElementById('sync-text');
@@ -371,7 +358,6 @@ function setSyncBadge(state, text) {
   label.textContent = text;
 }
 
-// ── DATA HELPERS ───────────────────────────────────────────────────────────────
 function dStr(d) {
   return d.getFullYear() + '-' +
     String(d.getMonth()+1).padStart(2,'0') + '-' +
@@ -402,7 +388,6 @@ function buildDays() {
   return days;
 }
 
-// ── CHART HELPERS ──────────────────────────────────────────────────────────────
 Chart.defaults.color = '#1a2030';
 Chart.defaults.font.family = 'DM Sans';
 Chart.defaults.font.size = 12;
@@ -427,10 +412,9 @@ function ttCfg() {
 function xScales(showTitle=false) {
   const mobile = window.innerWidth < 600;
   const fontSize = mobile ? 9 : 11;
-  const GAP = 5; // fixed px gap between labels
+  const GAP = 5;
   const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size:16,weight:'700'}} : {display:false};
 
-  // Which tick indices should show a label — computed by collision detection
   const shown = new Set();
   let lastAxisWidth = 0;
   let updating = false;
@@ -439,28 +423,23 @@ function xScales(showTitle=false) {
     const xAxis = chart.scales['x'];
     if (!xAxis || !xAxis.ticks.length) return false;
 
-    // Use the chart canvas to measure real rendered text width
     const ctx = chart.ctx;
     ctx.save();
     ctx.font = `600 ${fontSize}px 'DM Mono', monospace`;
-    const labelW = ctx.measureText('00/00').width; // widest date label
+    const labelW = ctx.measureText('00/00').width;
     ctx.restore();
 
     const n = xAxis.ticks.length;
     const axisW = xAxis.width;
 
-    // If axis width hasn't changed, skip (avoids thrash on identical redraws)
     if (axisW === lastAxisWidth && shown.size > 0) return false;
     lastAxisWidth = axisW;
 
-    // Compute pixel centre of each tick
     const positions = [];
     for (let i = 0; i < n; i++) {
       positions.push(xAxis.getPixelForTick(i));
     }
 
-    // Greedy collision detection: walk left→right, show a label only if it
-    // doesn't overlap the previous shown label (centre ± labelW/2 + GAP)
     const half = labelW / 2;
     let prevRight = -Infinity;
     const newShown = new Set();
@@ -472,7 +451,6 @@ function xScales(showTitle=false) {
       }
     }
 
-    // Check if anything changed
     if (newShown.size === shown.size && [...newShown].every(i => shown.has(i))) return false;
     shown.clear();
     newShown.forEach(i => shown.add(i));
@@ -498,7 +476,6 @@ function xScales(showTitle=false) {
         callback(val, idx) {
           const l = this.getLabelForValue(val);
           if (!Array.isArray(l)) return null;
-          // On very first render shown is empty — show every bar so afterRender has real pixel data
           return (shown.size === 0 || shown.has(val)) ? [l[0], l[1]] : null;
         },
         color: '#9ca3af', font: {size: fontSize, weight: '400'}, maxRotation: 0, autoSkip: false, align: 'center'
@@ -529,7 +506,6 @@ function xScales(showTitle=false) {
 function yCfg(pos='left', color='#374151') {
   return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
 }
-
 
 function renderMain(days) {
   const data = sliceDays(days, rangeState.main);
@@ -762,20 +738,9 @@ function buildApp() {
       <p>This tracker follows Astin's mission to complete <strong>100,000 push-ups in 2026</strong> — 365 days of dedication, discipline, and serious upper body work. Every set logged in the spreadsheet shows up here in real time.</p>
       <p>The challenge began on January 1st, 2026. Data is pulled automatically from a live Dropbox spreadsheet and updates whenever the page is loaded. No shortcuts, no skipped days — just the numbers.</p>
 
-      <div class="admin-unlock-row">
-        <div id="admin-ui"></div>
-      </div>
       <div class="photo-sec">
         <div class="photo-sec-title">Photos</div>
         <div class="photo-grid" id="photo-grid"></div>
-        <div class="photo-admin" id="photo-admin">
-          <div class="photo-admin-title">Add Photo</div>
-          <div class="photo-add-row">
-            <input type="text" id="photo-filename" placeholder="photo.jpg" onkeydown="if(event.key==='Enter')addPhoto()">
-            <button class="btn-photo-add" onclick="addPhoto()">Add</button>
-          </div>
-          <div class="photo-hint">Enter the filename of an image in your site folder (e.g. photo1.jpg or images/gym.png)</div>
-        </div>
       </div>
     </div>
 
@@ -793,120 +758,32 @@ function buildApp() {
     </div>`;
 }
 
+const PHOTOS = [
+    { src: 'astin8.jpg', caption: 'Astin 18 years old - School Formal' },
+    { src: 'astin7.jpg', caption: "Astin's Finished school " },
+    { src: 'astin6.jpeg', caption: "Astin's last day of school" },
+    { src: 'astin5.jpg', caption: "Astin's skydiving on 16th Birthday" },
+    { src: 'astin4.jpg', caption: "Astin's start school at Tudor House - 2015" },
+    { src: 'astin3.jpg', caption: "Astin posing on the stairs - 2012" },
+    { src: 'astin2.jpg', caption: "Astin's first day of school at Cranbook - 2011" },
+    { src: 'astin1.jpg', caption: "Astin at 3 months old - 2007" }
 
-
-
-// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
-const ADMIN_PW = 'password';
-let _adminUnlocked = false;
-
-function renderAdminUI() {
-  const el = document.getElementById('admin-ui');
-  if (!el) return;
-  if (_adminUnlocked) {
-    el.innerHTML = `<span class="admin-badge">🔓 Admin</span> <button class="btn-lock" onclick="lockAdmin()">Lock</button>`;
-  } else {
-    el.innerHTML = `
-      <input class="admin-pw-input" id="admin-pw" type="password" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlockAdmin()">
-      <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>`;
-  }
-}
-
-function unlockAdmin() {
-  const input = document.getElementById('admin-pw');
-  if (!input) return;
-  if (input.value === ADMIN_PW) {
-    _adminUnlocked = true;
-    renderAdminUI();
-    renderAdminUI();
-    renderPhotos();
-  } else {
-    input.value = '';
-    input.classList.remove('shake');
-    void input.offsetWidth;
-    input.classList.add('shake');
-    setTimeout(() => input.classList.remove('shake'), 400);
-  }
-}
-
-function lockAdmin() {
-  _adminUnlocked = false;
-  renderAdminUI();
-  renderPhotos();
-}
-
-// ── PHOTO GALLERY ──────────────────────────────────────────────────────────────
-const PHOTO_KEY = 'pushup_photos_2026';
-
-function loadPhotos() {
-  try {
-    const raw = JSON.parse(localStorage.getItem(PHOTO_KEY) || '[]');
-    // Migrate old plain-string format to {src, caption} objects
-    return raw.map(p => typeof p === 'string' ? { src: p, caption: '' } : p);
-  } catch(e) { return []; }
-}
-function savePhotos(photos) {
-  localStorage.setItem(PHOTO_KEY, JSON.stringify(photos));
-}
+];
 
 function renderPhotos() {
   const grid = document.getElementById('photo-grid');
   if (!grid) return;
-  const photos = loadPhotos();
-  const adminMode = _adminUnlocked;
-
-  if (photos.length === 0) {
+  if (PHOTOS.length === 0) {
     grid.innerHTML = '<div class="photo-empty">No photos yet.</div>';
   } else {
-    grid.innerHTML = photos.map((p, i) => `
+    grid.innerHTML = PHOTOS.map((p, i) => `
       <div class="photo-item">
         <div class="photo-img-wrap" onclick="openLightbox('${p.src}')">
           <img src="${p.src}" alt="${p.caption || 'Photo ' + (i+1)}" loading="lazy">
-          ${adminMode ? `<button class="photo-del" onclick="event.stopPropagation();removePhoto(${i})" title="Remove">✕</button>` : ''}
         </div>
-        ${adminMode
-          ? `<textarea class="photo-caption-input" rows="2" placeholder="Add a caption…" onblur="saveCaption(${i},this.value)">${p.caption || ''}</textarea>`
-          : `<div class="photo-caption ${p.caption ? '' : 'empty'}">${p.caption || 'No caption'}</div>`
-        }
+        <div class="photo-caption ${p.caption ? '' : 'empty'}">${p.caption || 'No caption'}</div>
       </div>`).join('');
   }
-
-  const panel = document.getElementById('photo-admin');
-  if (panel) panel.classList.toggle('visible', adminMode);
-}
-
-function saveCaption(idx, val) {
-  const photos = loadPhotos();
-  if (photos[idx]) {
-    photos[idx].caption = val.trim();
-    savePhotos(photos);
-    // Re-render only the caption display — no full re-render to avoid losing focus
-    const items = document.querySelectorAll('.photo-item');
-    if (items[idx]) {
-      const ta = items[idx].querySelector('.photo-caption-input');
-      if (ta) ta.value = photos[idx].caption;
-    }
-  }
-}
-
-function addPhoto() {
-  const input = document.getElementById('photo-filename');
-  const val = input.value.trim();
-  if (!val) return;
-  const photos = loadPhotos();
-  if (!photos.find(p => p.src === val)) {
-    photos.push({ src: val, caption: '' });
-    savePhotos(photos);
-  }
-  input.value = '';
-  renderPhotos();
-}
-
-function removePhoto(idx) {
-  const photos = loadPhotos();
-  photos.splice(idx, 1);
-  savePhotos(photos);
-  renderPhotos();
 }
 
 function openLightbox(src) {
@@ -926,17 +803,12 @@ function closeLightbox() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-
-// ── VISITOR TRACKER ────────────────────────────────────────────────────────────
-// Uses a free countapi.xyz hit counter keyed to this page
 async function trackVisitors() {
   try {
-    // Use localStorage to store visit count locally — no external service needed
     const key = 'pushup_visits';
     let count = parseInt(localStorage.getItem(key) || '0') + 1;
     localStorage.setItem(key, count);
 
-    // Also ping a free hit counter for total across all visitors
     const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge/up', { method: 'GET' });
     if (res.ok) {
       const data = await res.json();
@@ -946,11 +818,9 @@ async function trackVisitors() {
       }
     }
   } catch(e) {
-    // silently fail — visitor count is non-critical
   }
 }
 
-// ── STARTUP ────────────────────────────────────────────────────────────────────
 (async function init() {
   try {
     const count = await loadDropbox();
@@ -958,12 +828,10 @@ async function trackVisitors() {
     const loader = document.getElementById('loading');
     if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
     render();
-    renderAdminUI();
     renderPhotos();
     setSyncBadge('ok', `${count} days loaded`);
     setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
     trackVisitors();
-    renderPhotos();
     window.addEventListener('scroll', () => {
       const btn = document.getElementById('back-to-top');
       if (btn) btn.classList.toggle('visible', window.scrollY > 300);
