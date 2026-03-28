@@ -17,7 +17,7 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 
-  header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+  header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:flex-start;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
   .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
   .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0;}
@@ -125,7 +125,8 @@
   .dim{color:var(--border2);}
   .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
-  footer{border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex-wrap:wrap;gap:10px;}
+  footer{border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+  .footer-inner{max-width:1320px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
@@ -260,11 +261,15 @@
 
 <main id="main"></main>
 <footer>
-  <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
-  <span>Built by Orion Gerstl</span>
-  <div class="footer-visitors">
-    <div class="vdot"></div>
-    <span id="visitor-count">— visitors</span>
+  <div class="footer-inner">
+    <div>
+      <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
+      <div class="footer-visitors" style="margin-top:4px;">
+        <div class="vdot"></div>
+        <span id="visitor-count">— visitors</span>
+      </div>
+    </div>
+    <span><strong>Built by Orion Gerstl</strong></span>
   </div>
 </footer>
 
@@ -760,15 +765,6 @@ function buildApp() {
 }
 
 const PHOTOS = [
-    { src: 'astin8.jpg', caption: 'Astin 18 years old - School Formal' },
-    { src: 'astin7.jpg', caption: "Astin's Finished school " },
-    { src: 'astin6.jpeg', caption: "Astin's last day of school" },
-    { src: 'astin5.JPG', caption: "Astin's skydiving on 16th Birthday" },
-    { src: 'astin4.jpg', caption: "Astin's start school at Tudor House - 2015" },
-    { src: 'astin3.jpg', caption: "Astin posing on the stairs - 2012" },
-    { src: 'astin2.JPG', caption: "Astin's first day of school at Cranbook - 2011" },
-    { src: 'astin1.JPG', caption: "Astin at 3 months old - 2007" }
-
 ];
 
 function renderPhotos() {
