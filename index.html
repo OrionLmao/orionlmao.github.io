@@ -13,64 +13,43 @@
     --orange:#ea580c; --green:#16a34a;
     --red:#dc2626; --purple:#7c3aed;
     --text:#1a2030; --text2:#4b5668; --muted:#8a95a8;
-    --c-no:#f59e0b; --c-1r:#3b82f6; --c-2r:#16a34a; --c-ma:#ea580c;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
 
-  header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+  header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:flex-start;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
   .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
-  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:12px;color:var(-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0;}
   .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
-  .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
+  .header-total .label{font-size:12px;color:var(-muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
-  /* sync badge */
   .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
   .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
   .sync-badge.ok         .sync-dot{background:var(--green);}
-  .sync-badge.saving     .sync-dot{background:var(--orange);animation:pulse 0.8s infinite;}
+  .sync-badge.loading    .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
   .sync-badge.error      .sync-dot{background:var(--red);}
-  .sync-badge.connecting .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
 
-  main{max-width:1320px;margin:0 auto;padding:28px 40px 80px;}
+  main{max-width:1320px;margin:0 auto;padding:28px 40px 60px;}
 
-  .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:0;}
+  
+  .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
   .loading-screen.fade-out{animation:fadeOut 0.5s ease forwards;}
   @keyframes fadeOut{to{opacity:0;pointer-events:none;}}
   .loading-bars{display:flex;align-items:flex-end;gap:5px;height:48px;margin-bottom:20px;}
   .loading-bars span{width:8px;border-radius:4px;background:var(--accent);animation:barBounce 1s ease-in-out infinite;}
-  .loading-bars span:nth-child(1){animation-delay:0s;}
-  .loading-bars span:nth-child(2){animation-delay:0.1s;}
-  .loading-bars span:nth-child(3){animation-delay:0.2s;}
-  .loading-bars span:nth-child(4){animation-delay:0.3s;}
-  .loading-bars span:nth-child(5){animation-delay:0.4s;}
-  .loading-bars span:nth-child(6){animation-delay:0.5s;}
+  .loading-bars span:nth-child(1){animation-delay:0s;}   .loading-bars span:nth-child(2){animation-delay:0.1s;}
+  .loading-bars span:nth-child(3){animation-delay:0.2s;} .loading-bars span:nth-child(4){animation-delay:0.3s;}
+  .loading-bars span:nth-child(5){animation-delay:0.4s;} .loading-bars span:nth-child(6){animation-delay:0.5s;}
   .loading-bars span:nth-child(7){animation-delay:0.6s;}
   @keyframes barBounce{0%,100%{height:10px;opacity:0.4;}50%{height:46px;opacity:1;}}
   .loading-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--accent);margin-bottom:6px;}
   .loading-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;animation:fadePulse 1.5s ease-in-out infinite;}
   @keyframes fadePulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
-  @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-  /* admin lock */
-  .admin-lock{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
-  .admin-lock h2{font-weight:600;font-size:13px;color:var(--text);}
-  .admin-pw-form{display:flex;gap:8px;align-items:center;}
-  .admin-pw-form input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
-  .admin-pw-form input:focus{border-color:var(--accent);}
-  .admin-pw-form input.shake{animation:shake 0.35s ease;}
-  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-  .btn-unlock{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:7px 14px;cursor:pointer;border-radius:6px;transition:background 0.15s;}
-  .btn-unlock:hover{background:#1d4ed8;}
-  .btn-logout{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
-  .btn-logout:hover{border-color:var(--red);color:var(--red);}
-  .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
-  .log-locked{padding:18px 22px 20px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);}
-  .log-locked .lock-icon{font-size:28px;margin-bottom:8px;}
 
-
-  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
+  
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
   .stat-card.loaded .pill{transform:scaleX(1);}
@@ -84,6 +63,7 @@
   .sc-purple .pill{background:var(--purple);}.sc-purple .val{color:var(--purple);}
   .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
+  
   .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
@@ -93,23 +73,11 @@
   .progress-target-line{position:absolute;top:-2px;width:2px;height:14px;background:var(--border2);border-radius:1px;}
   .progress-footer{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);}
 
-  .log-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);overflow:hidden;}
-  .log-header{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--surface2);}
-  .log-header h2{font-weight:600;font-size:13px;color:var(--text);}
-  .dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
-  .log-form{padding:18px 22px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;}
-  .field label{display:block;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-  .field input{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:15px;padding:9px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;-moz-appearance:textfield;}
-  .field input::-webkit-inner-spin-button,.field input::-webkit-outer-spin-button{-webkit-appearance:none;}
-  .field input:focus{border-color:var(--accent);}
-  .btn-log{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;cursor:pointer;border-radius:6px;transition:background 0.2s,opacity 0.2s;white-space:nowrap;}
-  .btn-log:hover{background:#1d4ed8;}
-  .btn-log:disabled{opacity:0.5;cursor:not-allowed;}
-  .log-msg{padding:4px 22px 12px;font-size:11px;font-family:'DM Mono',monospace;min-height:22px;}
-
+  
   .sec{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
+  
   .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
   .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
@@ -118,7 +86,7 @@
   .rb.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .rb:hover:not(.active){border-color:var(--accent);color:var(--accent);}
   .chart-body{padding:18px;}
-  .chart-inner{position:relative;width:100%;height:320px;}
+  .chart-inner{position:relative;width:100%;height:416px;}
   .chart-inner canvas{position:absolute;top:0;left:0;}
   .chart-legend{display:flex;flex-wrap:wrap;gap:10px 18px;padding:10px 18px;border-top:1px solid var(--border);background:var(--surface2);}
   .li{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text2);}
@@ -126,16 +94,20 @@
   .ll{width:20px;height:3px;flex-shrink:0;border-radius:2px;}
   .ld{width:20px;height:0;flex-shrink:0;}
 
+  
   .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
   .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
   .ct.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
   .chart-panels{padding:18px;}
   .cp{display:none;}.cp.active{display:block;}
+  .detail-chart-inner{position:relative;width:100%;height:416px;}
+  .detail-chart-inner canvas{position:absolute;top:0;left:0;width:100%!important;height:100%!important;}
   .pc{display:flex;gap:6px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
   .pl{display:flex;gap:12px;margin-left:auto;align-items:center;flex-wrap:wrap;}
 
-  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  
+  .table-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .table-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;background:var(--surface2);flex-wrap:wrap;}
   .table-head h3{font-weight:600;font-size:13px;color:var(--text);margin-right:6px;}
   .bt{background:var(--surface);border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
@@ -153,10 +125,110 @@
   .dim{color:var(--border2);}
   .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
-  footer{text-align:center;padding:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;border-top:1px solid var(--border);}
+  .dedication-banner{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 40px;text-align:center;font-family:'DM Sans',sans-serif;font-size:18px;font-weight:500;color:var(--text2);line-height:1.5;}
+  @media(max-width:600px){.dedication-banner{font-size:14px;padding:14px 16px;}}
 
-  @media(max-width:1000px){main{padding:18px 18px 60px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.log-form{grid-template-columns:1fr 1fr;}.log-form .btn-log{grid-column:span 2;}.chart-inner{height:250px;}header{padding:14px 18px;}}
-  @media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr);}.chart-inner{height:200px;}main{padding:12px 12px 60px;}}
+  footer{border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+  .footer-inner{max-width:1320px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
+  @media(max-width:600px){
+    header{flex-wrap:nowrap;gap:8px;padding:8px 12px;align-items:flex-start;}
+    .logo-area{min-width:0;flex:1;}
+    .logo-area h1{font-size:24px;letter-spacing:1px;}
+    .logo-area .subtitle{font-size:11px;letter-spacing:0.5px;}
+    .header-right{flex-shrink:0;}
+    .header-total .count{font-size:22px;}
+    .header-total .label{font-size:8px;}
+    .sync-badge{font-size:9px;padding:3px 7px;}
+    .sync-dot{width:6px;height:6px;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .chart-inner{height:180px;}
+    .detail-chart-inner{height:180px;}
+    main{padding:10px 10px 40px;}
+    .chart-body{padding:8px;}
+    .chart-head{padding:8px 12px;}
+    .chart-legend{gap:6px 12px;padding:8px 12px;font-size:9px;}
+    .tab-bar{overflow-x:auto;}
+    .ct{padding:9px 12px;font-size:9px;}
+    .chart-panels{padding:10px;}
+    .rb{font-size:9px;padding:3px 7px;}
+    .table-wrap{max-height:320px;}
+    table{font-size:10px;}
+    thead th{padding:6px 8px;font-size:9px;}
+    tbody td{padding:6px 8px;}
+  }
+  
+  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
+  .btn-about:hover{background:var(--accent-lt);}
+  
+  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
+  .about-section p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
+  .about-section p:last-child{margin-bottom:0;}
+  
+  .footer-visitors{display:flex;align-items:center;gap:7px;}
+  .footer-visitors .vdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:24px 20px;}footer{padding:16px 20px;}}
+
+  
+  .admin-unlock-row{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+  .admin-pw-input{background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:7px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;width:130px;}
+  .admin-pw-input:focus{border-color:var(--accent);}
+  .admin-pw-input.shake{animation:shake 0.35s ease;}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .btn-unlock{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:7px 14px;cursor:pointer;border-radius:6px;transition:background 0.15s;}
+  .btn-unlock:hover{background:#1d4ed8;}
+  .btn-lock{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;cursor:pointer;border-radius:5px;transition:all 0.15s;}
+  .btn-lock:hover{border-color:var(--red);color:var(--red);}
+  .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
+
+  
+  .photo-sec{margin-top:28px;}
+  .photo-sec-title{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
+  .photo-sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
+  .photo-item{position:relative;border-radius:8px;overflow:hidden;background:var(--surface2);border:1px solid var(--border);}
+  .photo-item .photo-img-wrap{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer;}
+  .photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;display:block;}
+  .photo-item:hover img{transform:scale(1.05);}
+  .photo-item .photo-del{position:absolute;top:6px;right:6px;background:rgba(220,38,38,0.85);color:#fff;border:none;border-radius:4px;width:24px;height:24px;font-size:12px;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1;z-index:2;}
+  .photo-item:hover .photo-del{display:flex;}
+  .photo-caption{padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text2);line-height:1.4;min-height:36px;cursor:text;}
+  .photo-caption.empty{color:var(--muted);font-style:italic;}
+  .photo-caption-input{width:100%;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--bg);border:none;border-top:1px solid var(--border);outline:none;resize:none;line-height:1.4;}
+  .photo-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:24px 0;text-align:center;grid-column:1/-1;}
+
+  
+  .photo-admin{margin-top:16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;display:none;}
+  .photo-admin.visible{display:block;}
+  .photo-admin-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .photo-add-row{display:flex;gap:8px;align-items:center;}
+  .photo-add-row input{flex:1;background:var(--bg);border:1.5px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:8px 11px;outline:none;border-radius:6px;transition:border-color 0.2s;}
+  .photo-add-row input:focus{border-color:var(--accent);}
+  .photo-add-row input::placeholder{color:var(--muted);}
+  .btn-photo-add{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:8px 16px;cursor:pointer;border-radius:6px;transition:background 0.15s;white-space:nowrap;}
+  .btn-photo-add:hover{background:#1d4ed8;}
+  .photo-hint{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:8px;}
+
+  
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:none;align-items:center;justify-content:center;cursor:pointer;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw;max-height:90vh;border-radius:8px;object-fit:contain;cursor:default;}
+  .lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;line-height:1;opacity:0.7;}
+  .lightbox-close:hover{opacity:1;}
+
+  
+  #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:200;display:flex;align-items:center;justify-content:center;}
+  #back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+  #back-to-top:hover{background:#1d4ed8;}
+
+  
+  .whoami-inner{display:flex;gap:28px;align-items:flex-start;margin-top:4px;}
+  .whoami-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px;}
+  .whoami-bio p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:680px;}
+  .whoami-bio p:last-child{margin-bottom:0;}
+  @media(max-width:600px){.whoami-inner{flex-direction:column;gap:16px;}.whoami-avatar{width:56px;height:56px;font-size:28px;}}
 </style>
 </head>
 <body>
@@ -164,40 +236,56 @@
 <header>
   <div class="logo-area">
     <h1>100,000 Astin Challenge</h1>
-    <div class="subtitle">2026 · 365 days · Goal: 100,000 push-ups</div>
+    <div class="subtitle">2026: 100,000 push-ups</div>
+    <div class="subtitle">274 / day for 365 days</div>
+    <button class="btn-about" onclick="const el=document.getElementById('about');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">About</button>
+    <button class="btn-about" onclick="const el=document.getElementById('who-am-i');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">Astin</button>
   </div>
   <div class="header-right">
-    <div class="sync-badge connecting" id="sync-badge">
-      <div class="sync-dot"></div>
-      <span id="sync-text">Connecting…</span>
-    </div>
     <div class="header-total">
       <div class="count" id="headerTotal">—</div>
-      <div class="label">Total Push-Ups</div>
+      <div class="label" style="margin-top:2px;">Current Total</div>
+      <div class="label" style="margin-top:1px;"><span id="header-date"></span></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:4px;">
+        <div class="sync-badge loading" id="sync-badge">
+          <div class="sync-dot"></div>
+          <span id="sync-text">Loading…</span>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<main id="main">
-  <div class="loading-screen" id="loading">
-    <div class="loading-bars">
-      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="loading-title">100K Astin Challenge</div>
-    <div class="loading-sub">Loading data…</div>
+<div class="loading-screen" id="loading">
+  <div class="loading-bars">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
-</main>
+  <div class="loading-title">100K Astin Challenge</div>
+  <div class="loading-sub">Loading spreadsheet…</div>
+</div>
 
-<footer>100,000 Astin Challenge 2026 · Track. Log. Crush It.</footer>
+<div class="dedication-banner">100,000 push ups in one year in memory and dedicated to my son Astin… promises kept, my boy</div>
+
+<main id="main"></main>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
+      <div class="footer-visitors" style="margin-top:4px;">
+        <div class="vdot"></div>
+        <span id="visitor-count">— visitors</span>
+      </div>
+    </div>
+    <span>Built by Orion Gerstl</span>
+  </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// ── JSONBIN CONFIG ─────────────────────────────────────────────────────────────
-const BIN_ID    = '69b3b588c3097a1dd51f9207';
-const MASTER_KEY = '$2a$10$GPI2z2xnBtJJFAqKOvJOC.N2NIj1q5FnVmkpvCrJLrH3.HEzsjT1e';
-const BIN_URL   = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const WORKER_URL = 'https://square-shape-a0ba.oriongerstl.workers.dev/';
+const SHEET_NAME  = '2026 Challenge 100,000';
 
-// ── CONSTANTS ──────────────────────────────────────────────────────────────────
 const GOAL = 100000, TOTAL_DAYS = 365;
 const START = new Date('2026-01-01T00:00:00');
 const END   = new Date('2026-12-31T00:00:00');
@@ -205,88 +293,89 @@ const AVG_NO_REST = GOAL / TOTAL_DAYS;
 const AVG_1_REST  = GOAL / (TOTAL_DAYS * 6 / 7);
 const AVG_2_REST  = GOAL / (TOTAL_DAYS * 5 / 7);
 
-// ── STATE ──────────────────────────────────────────────────────────────────────
-let entries = {};   // date → {am, pm, night}
-let filterMode = 'all';
-let rangeState = { main:30, daily:30, avg:30, running:30 };
+let entries = {};
+let filterMode = 'logged';
+let rangeState = { main:0, daily:0, avg:0, running:0 };
 let charts = { main:null, daily:null, avg:null, running:null };
-let saving = false;
 
-// ── JSONBIN API ────────────────────────────────────────────────────────────────
-async function fetchBin() {
-  const res = await fetch(BIN_URL + '/latest', {
-    headers: {
-      'X-Master-Key': MASTER_KEY,
-      'X-Access-Key': MASTER_KEY
-    }
-  });
-  if (!res.ok) throw new Error('Fetch failed: ' + res.status);
-  const data = await res.json();
-  const record = data.record;
+async function loadDropbox() {
+  const res = await fetch(WORKER_URL);
+  if (!res.ok) throw new Error('Could not fetch spreadsheet (HTTP ' + res.status + ')');
+  const buf = await res.arrayBuffer();
+  const wb   = XLSX.read(buf, { type:'array', cellDates:false });
+
+  const sheet = wb.Sheets[SHEET_NAME] || wb.Sheets[wb.SheetNames[0]];
+  const rows  = XLSX.utils.sheet_to_json(sheet, { header:1, defval:'' });
+
+  let headerIdx = -1;
+  for (let i = 0; i < Math.min(rows.length, 10); i++) {
+    if (String(rows[i][0]).trim().toLowerCase() === 'date') { headerIdx = i; break; }
+  }
+  if (headerIdx === -1) throw new Error('Could not find header row (looking for "Date" in column A)');
+
+  console.log('Header row index:', headerIdx);
+  console.log('Header:', rows[headerIdx]);
+  console.log('First data row:', rows[headerIdx + 1]);
+
+  const dateCol = 0, set1Col = 2, set2Col = 3, set3Col = 4, dailyCol = 5;
+
   entries = {};
-  (record.entries || []).forEach(e => {
-    entries[e.date] = { am: e.am||0, pm: e.pm||0, night: e.night||0 };
-  });
-}
+  let count = 0;
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const row = rows[i];
+    const raw = row[dateCol];
+    if (raw === '' || raw === null || raw === undefined) continue;
 
-async function saveBin() {
-  // Build full record to PUT back
-  const days = buildDays();
-  const lastLogged = days.filter(d => d.hasData).pop();
-  const total = lastLogged?.running || 0;
-  const elapsed = lastLogged?.dayNum || 1;
-  const avg = total > 0 ? Math.round(total / elapsed) : 0;
-  const todayNum = days.find(d => d.date === dStr(new Date()))?.dayNum || 1;
-  const restDays = days.filter(d => d.hasData && d.daily === 0).length;
-  let projFinish = '—';
-  if (avg > 0 && total < GOAL) {
-    const p = new Date(); p.setDate(p.getDate() + Math.ceil((GOAL - total) / avg));
-    projFinish = dStr(p);
+    let ds;
+    if (typeof raw === 'number') {
+      const utcMs = Math.round((raw - 25569) * 86400 * 1000);
+      const d = new Date(utcMs);
+      ds = d.getUTCFullYear() + '-' +
+           String(d.getUTCMonth()+1).padStart(2,'0') + '-' +
+           String(d.getUTCDate()).padStart(2,'0');
+    } else if (raw instanceof Date) {
+      ds = raw.getUTCFullYear() + '-' +
+           String(raw.getUTCMonth()+1).padStart(2,'0') + '-' +
+           String(raw.getUTCDate()).padStart(2,'0');
+    } else {
+      const str = String(raw).trim().split('T')[0].split(' ')[0];
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) continue;
+      ds = str;
+    }
+
+    if (!ds.startsWith('2026')) continue;
+
+    const dailyRaw = parseFloat(row[dailyCol]);
+    const set1  = parseFloat(row[set1Col]) || 0;
+    const set2  = parseFloat(row[set2Col]) || 0;
+    const set3  = parseFloat(row[set3Col]) || 0;
+
+    const hasEntry = !isNaN(dailyRaw) && (dailyRaw > 0 || (set1 === 0 && set2 === 0 && set3 === 0 && row[set1Col] !== '' && row[set1Col] !== undefined));
+    if (!hasEntry && dailyRaw === 0 && row[set1Col] === '') continue;
+    if (isNaN(dailyRaw) && set1 === 0 && set2 === 0 && set3 === 0) continue;
+
+    entries[ds] = { am: set1, pm: set2, night: set3 };
+    count++;
   }
 
-  const entriesArr = Object.entries(entries)
-    .sort(([a],[b]) => a.localeCompare(b))
-    .map(([date, e]) => ({ date, am: e.am||0, pm: e.pm||0, night: e.night||0 }));
-
-  const record = {
-    challenge: {
-      name: '100,000 Astin Challenge', year: 2026, goal: GOAL,
-      total_days: TOTAL_DAYS, start_date: '2026-01-01', end_date: '2026-12-31'
-    },
-    entries: entriesArr,
-    summary: {
-      last_updated: lastLogged?.date || '—',
-      days_logged: days.filter(d => d.hasData).length,
-      total_pushups: total,
-      remaining: Math.max(0, GOAL - total),
-      daily_average: avg,
-      surplus_vs_no_rest_target: lastLogged?.surplus || 0,
-      rest_days: restDays,
-      projected_finish_at_current_pace: projFinish
-    }
-  };
-
-  const res = await fetch(BIN_URL, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': MASTER_KEY
-    },
-    body: JSON.stringify(record)
-  });
-  if (!res.ok) throw new Error('Save failed: ' + res.status);
+  console.log('Imported entries:', count, 'Last few:', Object.entries(entries).slice(-3));
+  if (count === 0) throw new Error('No 2026 rows found in spreadsheet');
+  return count;
 }
 
-// ── SYNC BADGE ─────────────────────────────────────────────────────────────────
 function setSyncBadge(state, text) {
   const badge = document.getElementById('sync-badge');
   const label = document.getElementById('sync-text');
+  if (!badge || !label) return;
   badge.className = 'sync-badge ' + state;
   label.textContent = text;
 }
 
-// ── DATA HELPERS ───────────────────────────────────────────────────────────────
-function dStr(d) { return d.toISOString().split('T')[0]; }
+function dStr(d) {
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+}
 
 function buildDays() {
   const days = []; let running = 0, idx = 0;
@@ -312,7 +401,6 @@ function buildDays() {
   return days;
 }
 
-// ── CHARTS ─────────────────────────────────────────────────────────────────────
 Chart.defaults.color = '#1a2030';
 Chart.defaults.font.family = 'DM Sans';
 Chart.defaults.font.size = 12;
@@ -322,45 +410,142 @@ function sliceDays(days, range) {
   return (!range || range === 0) ? l : l.slice(-range);
 }
 function fmtShort(ds) {
-  return new Date(ds+'T00:00:00').toLocaleDateString('en-AU', { month:'short', day:'numeric' });
+  const d = new Date(ds+'T00:00:00');
+  return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
+}
+function fmtWithDay(d) {
+  const dt = new Date(d.date+'T00:00:00');
+  const day = String(dt.getDate()).padStart(2,'0');
+  const month = String(dt.getMonth()+1).padStart(2,'0');
+  return [day, month, String(d.dayNum)];
 }
 function ttCfg() {
   return { backgroundColor:'#fff', titleColor:'#111827', bodyColor:'#4b5668', borderColor:'#dde2ea', borderWidth:1, padding:10 };
 }
-function xCfg() {
-  return { ticks:{color:'#374151',font:{size:11,weight:'500'},maxRotation:45,maxTicksLimit:18}, grid:{display:false}, border:{color:'#9ca3af'} };
+function xScales(showTitle=false) {
+  const mobile = window.innerWidth < 600;
+  const fontSize = mobile ? 11 : 14;
+  const GAP = 5;
+  const title = showTitle ? {display:true,text:'Date / Day No.',color:'#374151',font:{size: mobile ? 11 : 14,weight:'500'}} : {display:false};
+
+  const shown = new Set();
+  let lastAxisWidth = 0;
+  let updating = false;
+
+  function recompute(chart) {
+    const xAxis = chart.scales['x'];
+    if (!xAxis || !xAxis.ticks.length) return false;
+
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.font = `600 ${fontSize}px 'DM Mono', monospace`;
+    const labelW = ctx.measureText('00/00').width;
+    ctx.restore();
+
+    const n = xAxis.ticks.length;
+    const axisW = xAxis.width;
+
+    if (axisW === lastAxisWidth && shown.size > 0) return false;
+    lastAxisWidth = axisW;
+
+    const positions = [];
+    for (let i = 0; i < n; i++) {
+      positions.push(xAxis.getPixelForTick(i));
+    }
+
+    const half = labelW / 2;
+    let prevRight = -Infinity;
+    const newShown = new Set();
+    for (let i = 0; i < n; i++) {
+      const cx = positions[i];
+      if (cx - half >= prevRight + GAP) {
+        newShown.add(i);
+        prevRight = cx + half;
+      }
+    }
+
+    if (newShown.size === shown.size && [...newShown].every(i => shown.has(i))) return false;
+    shown.clear();
+    newShown.forEach(i => shown.add(i));
+    return true;
+  }
+
+  const plugin = {
+    id: 'dynamicTick_' + Math.random(),
+    afterRender(chart) {
+      if (updating) return;
+      const changed = recompute(chart);
+      if (changed) {
+        updating = true;
+        requestAnimationFrame(() => { chart.update('none'); updating = false; });
+      }
+    }
+  };
+
+  const scales = {
+    x: {
+      offset: true,
+      ticks: {
+        callback(val, idx) {
+          const l = this.getLabelForValue(val);
+          if (!Array.isArray(l)) return null;
+          return (shown.size === 0 || shown.has(val)) ? [l[0], l[1]] : null;
+        },
+        color: '#9ca3af', font: {size: fontSize, weight: '400'}, maxRotation: 0, autoSkip: false, align: 'center'
+      },
+      grid: {display: false}, border: {display: false}
+    },
+    xDay: {
+      position: 'bottom',
+      offset: true,
+      ticks: {
+        callback(val, idx) {
+          const l = this.getLabelForValue(val);
+          if (!Array.isArray(l)) return null;
+          return (shown.size === 0 || shown.has(val)) ? l[2] : null;
+        },
+        color: '#111827', font: {size: fontSize, weight: '700'}, maxRotation: 0, autoSkip: false, align: 'center'
+      },
+      afterBuildTicks(axis) {
+        const xAxis = axis.chart.scales['x'];
+        if (xAxis && xAxis.ticks) axis.ticks = xAxis.ticks.map(t => ({...t}));
+      },
+      grid: {display: false}, border: {color: '#9ca3af'}, title
+    }
+  };
+  return { scales, plugin };
 }
+
 function yCfg(pos='left', color='#374151') {
-  return { position:pos, ticks:{color,font:{size:11,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false} };
+  const mobile = window.innerWidth < 600;
+  return { position:pos, ticks:{color,font:{size: mobile ? 11 : 14,weight:'500'},callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}, grid:{color:'#e5e7eb'}, border:{display:false}, afterFit(axis){ axis.width = Math.max(axis.width, 48); } };
 }
 
 function renderMain(days) {
   const data = sliceDays(days, rangeState.main);
-  const labels = data.map(d => {
-    const dt = new Date(d.date+'T00:00:00');
-    return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'\n'+d.dayNum;
-  });
+  const labels = data.map(d => fmtWithDay(d));
   if (charts.main) charts.main.destroy();
   const ctx = document.getElementById('chart-main').getContext('2d');
+  const xs = xScales(true);
+  const { scales, plugin } = xs;
   charts.main = new Chart(ctx, {
+    plugins: [plugin],
     data: { labels, datasets: [
-      { type:'bar', label:'Daily Total', yAxisID:'yL', data:data.map(d=>d.daily), backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
-      { type:'line', label:'Avg per day', yAxisID:'yL', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
-      { type:'line', label:'Running Total', yAxisID:'yR', data:data.map(d=>d.running), borderColor:'#111827', borderWidth:2.5, pointRadius:0, pointHoverRadius:4, fill:false, tension:0.2, order:1 },
-      { type:'line', label:'No Rest Day', yAxisID:'yR', data:data.map(d=>d.tgt_no), borderColor:'#f59e0b', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'1 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_1r), borderColor:'#3b82f6', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'2 Rest/wk', yAxisID:'yR', data:data.map(d=>d.tgt_2r), borderColor:'#16a34a', borderWidth:2, pointRadius:0, fill:false, tension:0, order:3 },
-      { type:'line', label:'14-Day MA', yAxisID:'yL', data:data.map(d=>d.ma14), borderColor:'#ea580c', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.4, order:2, spanGaps:true },
+      { type:'bar',  label:'Daily Total',       yAxisID:'yL', data:data.map(d=>d.daily),   backgroundColor:'rgba(59,130,246,0.4)', borderColor:'rgba(59,130,246,0.65)', borderWidth:1, borderRadius:3, order:10 },
+      { type:'line', label:'Avg per day',        yAxisID:'yL', data:data.map(d=>d.avg),     borderColor:'#2563eb', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.3, order:4 },
+      { type:'line', label:'Running Total',      yAxisID:'yR', data:data.map(d=>d.running), borderColor:'#111827', borderWidth:2.5, pointRadius:0, pointHoverRadius:4, fill:false, tension:0.2, order:1 },
+      { type:'line', label:'Target No Rest Day', yAxisID:'yR', data:data.map(d=>d.tgt_no), borderColor:'#f59e0b', borderWidth:2,   pointRadius:0, fill:false, tension:0, order:3 },
+      { type:'line', label:'14-Day MA',           yAxisID:'yL', data:data.map(d=>d.ma14),   borderColor:'#ea580c', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0.4, order:2, spanGaps:true },
     ]},
     options: {
       responsive:true, maintainAspectRatio:false, animation:{duration:500},
       interaction:{mode:'index',intersect:false},
       plugins:{ legend:{display:false}, tooltip:{...ttCfg(), callbacks:{
         title: items => { const d=data[items[0].dataIndex]; return fmtShort(d.date)+' — Day '+d.dayNum; },
-        label: item => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
+        label: item  => { const v=item.parsed.y; if(v==null)return null; return `${item.dataset.label}: ${Math.round(v).toLocaleString()}`; }
       }}},
       scales: {
-        x: xCfg(),
+        ...scales,
         yL: { ...yCfg('left','#1d4ed8'), title:{display:true,text:'Daily Total',color:'#1d4ed8',font:{size:12,weight:'600'}} },
         yR: { ...yCfg('right','#374151'), grid:{display:false}, title:{display:true,text:'Running Total',color:'#374151',font:{size:12,weight:'600'}} }
       }
@@ -372,14 +557,18 @@ function renderChartDaily(days) {
   const data = sliceDays(days, rangeState.daily);
   if (charts.daily) charts.daily.destroy();
   const ctx = document.getElementById('chart-daily').getContext('2d');
-  charts.daily = new Chart(ctx, { data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.daily = new Chart(ctx, { plugins:[plugin], data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { type:'bar', label:'Daily Total', data:data.map(d=>d.daily),
       backgroundColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.55)':'rgba(220,38,38,0.55)'),
       borderColor:data.map(d=>d.surplus>=0?'rgba(22,163,74,0.85)':'rgba(220,38,38,0.85)'),
       borderWidth:1, borderRadius:3, order:2 },
     { type:'line', label:'Required/day', data:data.map(()=>Math.round(AVG_NO_REST)),
       borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0, order:1 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ ...scales, y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartAvg(days) {
@@ -387,10 +576,14 @@ function renderChartAvg(days) {
   if (charts.avg) charts.avg.destroy();
   const ctx = document.getElementById('chart-avg').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.avg = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.avg = new Chart(ctx, { plugins:[plugin], type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Avg/Day', data:data.map(d=>d.avg), borderColor:'#2563eb', borderWidth:2, pointRadius:0, fill:true, backgroundColor:g, tension:0.4 },
     { label:'Required', data:data.map(()=>Math.round(AVG_NO_REST)), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ ...scales, y:{ ...yCfg(), min:0 } }}});
 }
 
 function renderChartRunning(days) {
@@ -398,10 +591,14 @@ function renderChartRunning(days) {
   if (charts.running) charts.running.destroy();
   const ctx = document.getElementById('chart-running').getContext('2d');
   const g = ctx.createLinearGradient(0,0,0,200); g.addColorStop(0,'rgba(37,99,235,0.14)'); g.addColorStop(1,'rgba(37,99,235,0)');
-  charts.running = new Chart(ctx, { type:'line', data:{ labels:data.map(d=>fmtShort(d.date)), datasets:[
+  const { scales, plugin } = xScales(true);
+  charts.running = new Chart(ctx, { plugins:[plugin], type:'line', data:{ labels:data.map(d=>fmtWithDay(d)), datasets:[
     { label:'Running Total', data:data.map(d=>d.running), borderColor:'#2563eb', borderWidth:2.5, pointRadius:0, fill:true, backgroundColor:g, tension:0.3 },
     { label:'Required Pace', data:data.map(d=>d.tgt_no), borderColor:'#9ca3af', borderWidth:1.5, borderDash:[5,4], pointRadius:0, fill:false, tension:0 }
-  ]}, options:{ responsive:true, animation:{duration:400}, plugins:{ legend:{display:false}, tooltip:{...ttCfg()}}, scales:{ x:xCfg(), y:yCfg() }}});
+  ]}, options:{ responsive:true, maintainAspectRatio:false, animation:{duration:400},
+    layout:{ padding:{ left:10 } },
+    plugins:{ legend:{display:false}, tooltip:{...ttCfg()}},
+    scales:{ ...scales, y:{ ...yCfg(), min:0, max:100000 } }}});
 }
 
 function setMainRange(range, btn) { rangeState.main=range; btn.closest('.rg').querySelectorAll('.rb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderMain(buildDays()); }
@@ -421,14 +618,17 @@ function renderStats(days) {
   let streak=0; for(let i=logged.length-1;i>=0;i--){if(logged[i].daily>0)streak++;else break;}
 
   document.getElementById('headerTotal').textContent = total.toLocaleString();
-  document.getElementById('s-total').textContent = total.toLocaleString();
-  document.getElementById('s-remain').textContent = Math.max(0,GOAL-total).toLocaleString();
-  document.getElementById('s-avg').textContent = avg.toLocaleString();
-  document.getElementById('s-needed').textContent = needed>0 ? needed.toLocaleString() : '✓';
+  const now = new Date();
+  const cap = new Date('2026-12-31');
+  const displayDate = now > cap ? cap : now;
+  const dateEl = document.getElementById('header-date');
+  if (dateEl) dateEl.textContent = displayDate.toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' });
+  document.getElementById('s-total').textContent   = total.toLocaleString();
+  document.getElementById('s-remain').textContent  = Math.max(0,GOAL-total).toLocaleString();
+  document.getElementById('s-avg').textContent     = avg.toLocaleString();
   document.getElementById('s-surplus').textContent = (surplus>=0?'+':'')+surplus.toLocaleString();
-  document.getElementById('s-streak').textContent = streak+' days';
   document.getElementById('card-surplus').className = 'stat-card '+(surplus>=0?'sc-green':'sc-red');
-  document.getElementById('card-needed').className  = 'stat-card '+(needed<=AVG_NO_REST?'sc-green':'sc-red');
+
   document.getElementById('progress-pct').textContent = pct.toFixed(1)+'%';
   setTimeout(()=>{ document.getElementById('progress-fill').style.width=pct+'%'; }, 80);
   document.getElementById('target-line').style.left = Math.min(100,todayNum/TOTAL_DAYS*100)+'%';
@@ -467,64 +667,25 @@ function renderTable(days) {
   }).join('');
 }
 
-async function logEntry() {
-  const dv    = document.getElementById('input-date').value;
-  const am    = parseInt(document.getElementById('input-am').value)||0;
-  const pm    = parseInt(document.getElementById('input-pm').value)||0;
-  const night = parseInt(document.getElementById('input-night').value)||0;
-  if (!dv) { showMsg('Please select a date.','#dc2626'); return; }
-  if (saving) return;
-
-  // Update local state immediately so UI feels instant
-  entries[dv] = { am, pm, night };
-  render();
-  ['input-am','input-pm','input-night'].forEach(id => document.getElementById(id).value='');
-
-  // Save to JSONBin
-  saving = true;
-  document.querySelector('.btn-log').disabled = true;
-  setSyncBadge('saving', 'Saving…');
-  try {
-    await saveBin();
-    setSyncBadge('ok', 'Saved ✓');
-    showMsg(`✓ Logged ${(am+pm+night).toLocaleString()} push-ups for ${dv}`, '#16a34a');
-    setTimeout(() => setSyncBadge('ok', 'In sync'), 2000);
-  } catch(e) {
-    setSyncBadge('error', 'Save failed');
-    showMsg('⚠ Could not save to JSONBin: ' + e.message, '#dc2626');
-  } finally {
-    saving = false;
-    document.querySelector('.btn-log').disabled = false;
-  }
-}
-
-function showMsg(msg, color) {
-  const el = document.getElementById('log-msg');
-  el.style.color = color; el.textContent = msg;
-  setTimeout(()=>el.textContent='', 5000);
-}
 function setFilter(mode, btn) {
   filterMode=mode;
   document.querySelectorAll('.bt').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderTable(buildDays());
 }
+
 function render() {
   const days = buildDays();
   renderStats(days); renderMain(days); renderChartDaily(days); renderChartAvg(days); renderChartRunning(days); renderTable(days);
 }
 
-// ── BUILD DOM ──────────────────────────────────────────────────────────────────
 function buildApp() {
-  const today = dStr(new Date());
   document.getElementById('main').innerHTML = `
     <div class="stats-grid">
-      <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Done</div></div>
+      <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Completed</div></div>
       <div class="stat-card sc-orange"><div class="pill"></div><span class="ico">🎯</span><div class="val" id="s-remain">—</div><div class="lbl">Remaining</div></div>
       <div class="stat-card sc-dark"><div class="pill"></div><span class="ico">📊</span><div class="val" id="s-avg">—</div><div class="lbl">Daily Average</div></div>
-      <div class="stat-card" id="card-needed"><div class="pill"></div><span class="ico">📅</span><div class="val" id="s-needed">—</div><div class="lbl">Needed / Day</div></div>
       <div class="stat-card" id="card-surplus"><div class="pill"></div><span class="ico">⚡</span><div class="val" id="s-surplus">—</div><div class="lbl">Surplus / (Deficit)</div></div>
-      <div class="stat-card sc-purple"><div class="pill"></div><span class="ico">🔥</span><div class="val" id="s-streak">—</div><div class="lbl">Active Streak</div></div>
     </div>
 
     <div class="progress-card">
@@ -538,19 +699,17 @@ function buildApp() {
       <div class="chart-head">
         <h3>Daily &amp; Running Totals</h3>
         <div class="rg">
-          <button class="rb active" onclick="setMainRange(30,this)">Last 30</button>
+          <button class="rb" onclick="setMainRange(30,this)">Last 30</button>
           <button class="rb" onclick="setMainRange(60,this)">Last 60</button>
-          <button class="rb" onclick="setMainRange(0,this)">All</button>
+          <button class="rb active" onclick="setMainRange(0,this)">All</button>
         </div>
       </div>
       <div class="chart-body"><div class="chart-inner"><canvas id="chart-main"></canvas></div></div>
       <div class="chart-legend">
         <div class="li"><div class="lb" style="background:rgba(59,130,246,0.6)"></div>Daily Total</div>
         <div class="li"><div class="ld" style="border-top:2px dashed #2563eb"></div>Avg/Day</div>
-        <div class="li"><div class="ll" style="background:#111827"></div>Running Total</div>
+        <div class="li" style="margin-left:auto;">Running Total<div class="ll" style="background:#111827"></div></div>
         <div class="li"><div class="ll" style="background:#f59e0b"></div>Target No Rest</div>
-        <div class="li"><div class="ll" style="background:#3b82f6"></div>Target 1 Rest/wk</div>
-        <div class="li"><div class="ll" style="background:#16a34a"></div>Target 2 Rest/wk</div>
         <div class="li"><div class="ld" style="border-top:2px dashed #ea580c"></div>14-Day MA</div>
       </div>
     </div>
@@ -565,18 +724,18 @@ function buildApp() {
       <div class="chart-panels">
         <div class="cp active" id="cp-daily">
           <div class="pc">
-            <div class="rg"><button class="rb active" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb" onclick="setRange('daily',0,this)">All</button></div>
+            <div class="rg"><button class="rb" onclick="setRange('daily',30,this)">Last 30</button><button class="rb" onclick="setRange('daily',60,this)">Last 60</button><button class="rb active" onclick="setRange('daily',0,this)">All</button></div>
             <div class="pl"><div class="li"><div class="lb" style="background:#16a34a"></div>On/Ahead</div><div class="li"><div class="lb" style="background:#dc2626"></div>Behind</div></div>
           </div>
-          <canvas id="chart-daily" height="200"></canvas>
+          <div class="detail-chart-inner"><canvas id="chart-daily"></canvas></div>
         </div>
         <div class="cp" id="cp-avg">
-          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb" onclick="setRange('avg',0,this)">All</button></div></div>
-          <canvas id="chart-avg" height="200"></canvas>
+          <div class="pc"><div class="rg"><button class="rb" onclick="setRange('avg',30,this)">Last 30</button><button class="rb" onclick="setRange('avg',60,this)">Last 60</button><button class="rb active" onclick="setRange('avg',0,this)">All</button></div></div>
+          <div class="detail-chart-inner"><canvas id="chart-avg"></canvas></div>
         </div>
         <div class="cp" id="cp-running">
-          <div class="pc"><div class="rg"><button class="rb active" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb" onclick="setRange('running',0,this)">All</button></div></div>
-          <canvas id="chart-running" height="200"></canvas>
+          <div class="pc"><div class="rg"><button class="rb" onclick="setRange('running',30,this)">Last 30</button><button class="rb" onclick="setRange('running',60,this)">Last 60</button><button class="rb active" onclick="setRange('running',0,this)">All</button></div></div>
+          <div class="detail-chart-inner"><canvas id="chart-running"></canvas></div>
         </div>
       </div>
     </div>
@@ -584,123 +743,155 @@ function buildApp() {
     <div class="sec">Activity Log</div>
     <div class="table-card">
       <div class="table-head">
-        <h3>All Entries</h3>
-        <button class="bt active" onclick="setFilter('all',this)">All Days</button>
-        <button class="bt" onclick="setFilter('logged',this)">Logged Only</button>
-        <button class="bt" onclick="setFilter('rest',this)">Rest Days</button>
+        <h3>Logged Entries</h3>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Date</th><th>Day#</th><th>AM</th><th>PM</th><th>Night</th><th>Daily</th><th>14d MA</th><th>Running</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
+          <thead><tr><th>Date</th><th>Day#</th><th>Set 1</th><th>Set 2</th><th>Set 3</th><th>Daily</th><th>14d MA</th><th>Running</th><th>Avg/Day</th><th>Target</th><th>Surplus</th></tr></thead>
           <tbody id="table-body"></tbody>
         </table>
       </div>
+
+    <div class="about-section" id="about">
+      <h2>About Me and This Challenge</h2>
+      <p>My name is Mark Gerstl. Devastatingly, I lost my amazing son Astin 30 November 2025.</p>
+      <p>Astin died that day and I re-live it everyday. That I could not be there to save him haunts me, and it is also driving me to undertake and complete this challenge.</p>
+      <p>But the story of this challenge begins a few months before that fateful day.</p>
+      <p>Sometime around August or September 2025 I spoke to Astin about perhaps doing a fitness challenge the following year in 2026, this current year. 
+        We laughed half heartily about it but in the back of my mind, and after a few mental calculations I thought while it seemed a stretch, it was doable. 
+        And so I began to do some pushups as practise, only around 100-150 per day for several weeks.</p>
+      <p>Then, out of the blue, in the late afternoon of Sunday November 30, I received a terrifying call no parent wants to ever receive. The District Inspector of the police from mid-north NSW called 
+        to say Astin is lost at sea and they cannot locate him.</p> 
+      <p>At that very moment, my world turned upside down.</p>
+      <p>Enter utter confusion, disbelief, helplessness, brain fog... the first stages of grief dealing with severe trauma. Managing the aftermath was heart wrenching.</p>
+      <p>Skip forward 4 or 5 weeks, and still in disbelief at the tragic event, and after not being able to continue any activity whatsoever and completely forgetting about the challenge, 
+        I woke up on  01 January 2026 and without even thinking, my body immediately dropped to the floor and punched out 100 push ups.</p>
+      <p>I kept going. Set after set. Day after day.</p>
+      <p>And here we are. This tracker follows my mission to complete <strong>100,000 push-ups in 2026</strong>. This in in keeping with my "promise" to Astin. 365 days of dedication to him and keeping my word to him.</p>
+      <p>Every set is logged in a spreadsheet and shows up here in real time.</p>
+      <p>The challenge began on 01 January 2026 and is due to finish 31 December 2026.</p>
+      <p>I want to thank my son Orion for building this website and teaching me how to use it and update it. He is one of a kind.</p>
+
+      <div class="photo-sec">
+        <div class="photo-sec-title">Photos</div>
+        <div class="photo-grid" id="photo-grid"></div>
+      </div>
     </div>
 
-    <div class="log-card">
-      <div class="admin-lock" id="admin-lock">
-        <h2>Log Push-Ups</h2>
-        <div id="admin-lock-right">
-          <div class="admin-pw-form" id="pw-form">
-            <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
-            <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
-          </div>
+    <div class="about-section" id="who-am-i">
+      <h2>Who Is Astin</h2>
+      <div class="whoami-inner">
+        <div class="whoami-avatar">A</div>
+        <div class="whoami-bio">
+          <p>Astin Gerstl is my son. Unfortunately he passed away while on a trip with friends shortly after finishing his schooling on 30th November 2025. 
+          <p>At merely 18 years old.</p>
+          <p>The whole family including his mum, older brother and younger sister, as well as his extended family and friends are devastated and utterly heartbroken. 
+            He was, and is an amazing son, brother, grandson and friend to so many.</p>
+          <p>Astin was born 13 August 2007 in Sydney, and grew up in Sydney and Bowral. He was schooled at Cranbrook, Tudor House and The King's School. He was passionate about so many things especially performing arts, 
+            and was interested in everything and naturally curious about the world. Most importantly he was loving, happy, caring, a beautiful soul and highly intelligent who adored and fostered close relationships with so many. 
+            I am truly honored to call him my son.</p>
+          <p>This website and tracker keeps me honest — every set goes in the spreadsheet, every number shows up here.</p>
+          <p>Follow along, get inspired, or just check in to see if I'm still on pace. Either way, I'm not stopping.</p>
         </div>
       </div>
-      <div id="log-body">
-        <div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>
-      </div>
-      <div class="log-msg" id="log-msg"></div>
+    </div>
     </div>`;
 }
 
+const PHOTOS = [
+  { src: 'astin8.jpg', caption: "Astin at 18 and ready for the school formal" },
+  { src: 'astin7.jpg', caption: "Astin after a night out after finishing school " },
+  { src: 'astin6.jpeg', caption: "Astin's last day of school at The King's School" },
+  { src: 'astin5.JPG', caption: "Astin skydiving for his 16th Birthday" },
+  { src: 'astin4.jpg', caption: "Astin starting school at Tudor House in 2015" },
+  { src: 'astin3.jpg', caption: "Astin posing on the stairs in 2012" },
+  { src: 'astin2.JPG', caption: "Astin's first day of school at Cranbook - 2011" },
+  { src: 'astin1.JPG', caption: "Astin at 3 months old - 2007. So happy" }
+];
 
-// ── ADMIN AUTH ─────────────────────────────────────────────────────────────────
-const ADMIN_PW = 'Mark67';
-// admin state is purely in-memory — resets on every page load/refresh
-
-let _adminUnlocked = false;
-function isUnlocked() {
-  return _adminUnlocked;
-}
-
-function unlockAdmin() {
-  const input = document.getElementById('admin-pw');
-  if (input.value === ADMIN_PW) {
-    _adminUnlocked = true;
-    renderAdminState();
+function renderPhotos() {
+  const grid = document.getElementById('photo-grid');
+  if (!grid) return;
+  if (PHOTOS.length === 0) {
+    grid.innerHTML = '<div class="photo-empty">No photos yet.</div>';
   } else {
-    input.value = '';
-    input.classList.remove('shake');
-    void input.offsetWidth; // reflow to restart animation
-    input.classList.add('shake');
-    setTimeout(() => input.classList.remove('shake'), 400);
+    grid.innerHTML = PHOTOS.map((p, i) => `
+      <div class="photo-item">
+        <div class="photo-img-wrap" onclick="openLightbox('${p.src}')">
+          <img src="${p.src}" alt="${p.caption || 'Photo ' + (i+1)}" loading="lazy">
+        </div>
+        <div class="photo-caption ${p.caption ? '' : 'empty'}">${p.caption || 'No caption'}</div>
+      </div>`).join('');
   }
 }
 
-function lockAdmin() {
-  _adminUnlocked = false;
-  renderAdminState();
+function openLightbox(src) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  if (!lb || !img) return;
+  img.src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-function renderAdminState() {
-  const lockRight = document.getElementById('admin-lock-right');
-  const logBody   = document.getElementById('log-body');
-  if (!lockRight || !logBody) return;
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-  if (isUnlocked()) {
-    lockRight.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span class="admin-badge">🔓 Admin</span>
-        <button class="btn-logout" onclick="lockAdmin()">Lock</button>
-      </div>`;
-    const today = dStr(new Date());
-    logBody.innerHTML = `
-      <div class="log-form">
-        <div class="field"><label>Date</label><input type="date" id="input-date" value="${today}" min="2026-01-01" max="2026-12-31"></div>
-        <div class="field"><label>Morning</label><input type="number" id="input-am" placeholder="0" min="0"></div>
-        <div class="field"><label>Afternoon</label><input type="number" id="input-pm" placeholder="0" min="0"></div>
-        <div class="field"><label>Night</label><input type="number" id="input-night" placeholder="0" min="0"></div>
-        <button class="btn-log" onclick="logEntry()">Log It</button>
-      </div>`;
-  } else {
-    lockRight.innerHTML = `
-      <div class="admin-pw-form" id="pw-form">
-        <input type="password" id="admin-pw" placeholder="Password" onkeydown="if(event.key==='Enter')unlockAdmin()">
-        <button class="btn-unlock" onclick="unlockAdmin()">Unlock</button>
-      </div>`;
-    logBody.innerHTML = `<div class="log-locked"><div class="lock-icon">🔒</div>Enter the admin password to log push-ups.</div>`;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+async function trackVisitors() {
+  try {
+    const key = 'pushup_visits';
+    let count = parseInt(localStorage.getItem(key) || '0') + 1;
+    localStorage.setItem(key, count);
+
+    const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge/up', { method: 'GET' });
+    if (res.ok) {
+      const data = await res.json();
+      const el = document.getElementById('visitor-count');
+      if (el && data.count) {
+        el.textContent = Number(data.count).toLocaleString() + ' visitors';
+      }
+    }
+  } catch(e) {
   }
 }
 
-// ── STARTUP ────────────────────────────────────────────────────────────────────
 (async function init() {
   try {
-    await fetchBin();
+    const count = await loadDropbox();
     buildApp();
     const loader = document.getElementById('loading');
-    if (loader) { loader.classList.add('fade-out'); setTimeout(() => { if(loader) loader.style.display='none'; }, 500); }
+    if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
     render();
-    renderAdminState();
-    setSyncBadge('ok', 'In sync');
-    window.addEventListener('resize', () => {
-      const d = buildDays();
-      renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d);
+    renderPhotos();
+    setSyncBadge('ok', `${count} days loaded`);
+    setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
+    trackVisitors();
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('back-to-top');
+      if (btn) btn.classList.toggle('visible', window.scrollY > 300);
     });
+    window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
   } catch(e) {
-    console.error('Init failed:', e);
-    buildApp();
-    render();
-    renderAdminState();
-    // Fade out loader first, then update badge
-    const loader = document.getElementById('loading');
-    if (loader) {
-      loader.classList.add('fade-out');
-      setTimeout(() => { if(loader) loader.style.display='none'; }, 500);
-    }
+    console.error('Load failed:', e);
+    document.getElementById('loading').innerHTML = `
+      <div style="text-align:center;font-family:'DM Mono',monospace;">
+        <div style="font-size:36px;margin-bottom:16px;">⚠️</div>
+        <div style="color:#dc2626;font-size:14px;margin-bottom:8px;">Could not load spreadsheet</div>
+        <div style="color:#8a95a8;font-size:11px;max-width:320px;">${e.message}</div>
+      </div>`;
     setSyncBadge('error', 'Load failed');
   }
 })();
 </script>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" onclick="event.stopPropagation()" alt="">
+</div>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 </body>
 </html>
