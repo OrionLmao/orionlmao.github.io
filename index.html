@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>100K Astin Challenge</title>
+<meta name="description" content="100,000 push-ups in 2026 — 274 per day for 365 days, in memory of Astin Gerstl. Track daily progress, totals, and pace live.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -19,10 +20,10 @@
 
   header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:flex-start;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
   .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
-  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:12px;color:var(-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0;}
   .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
-  .header-total .label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
+  .header-total .label{font-size:12px;color:var(-muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
   .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
   .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
@@ -125,8 +126,11 @@
   .dim{color:var(--border2);}
   .tag-today{font-size:9px;background:var(--accent);color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-family:'DM Sans',sans-serif;font-weight:600;vertical-align:middle;}
 
-  footer{border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
-  .footer-inner{max-width:1320px;margin:0 auto;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .dedication-banner{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 40px;text-align:center;font-family:'Calibri';font-size:18px;font-weight:500;color:var(--text2);line-height:1.5;}
+  @media(max-width:600px){.dedication-banner{font-size:15px;padding:10px 16px;}}
+  footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);z-index:300;transform:translateY(100%);transition:transform 0.3s ease;}
+  footer.visible{transform:translateY(0);}
+  .footer-inner{max-width:1320px;margin:0 auto;padding:10px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
@@ -156,12 +160,12 @@
     tbody td{padding:6px 8px;}
   }
   
-  .btn-about{background:none;color:var(--accent);border:2px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
+  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
   .btn-about:hover{background:var(--accent-lt);}
   
   .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
-  .about-section p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
+  .about-section p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
   .about-section p:last-child{margin-bottom:0;}
   
   .footer-visitors{display:flex;align-items:center;gap:7px;}
@@ -216,16 +220,20 @@
   .lightbox-close:hover{opacity:1;}
 
   
-  #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;z-index:200;display:flex;align-items:center;justify-content:center;}
+  #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s,bottom 0.3s ease;pointer-events:none;z-index:400;display:flex;align-items:center;justify-content:center;}
   #back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+  #back-to-top.footer-up{bottom:58px;}
   #back-to-top:hover{background:#1d4ed8;}
 
   
   .whoami-inner{display:flex;gap:28px;align-items:flex-start;margin-top:4px;}
   .whoami-avatar{width:72px;height:72px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px;}
-  .whoami-bio p{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:680px;}
+  .whoami-bio p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:680px;}
   .whoami-bio p:last-child{margin-bottom:0;}
   @media(max-width:600px){.whoami-inner{flex-direction:column;gap:16px;}.whoami-avatar{width:56px;height:56px;font-size:28px;}}
+
+
+
 </style>
 </head>
 <body>
@@ -261,15 +269,14 @@
   <div class="loading-sub">Loading spreadsheet…</div>
 </div>
 
+<div class="dedication-banner"><p>100,000 push ups in one year in memory and dedicated to my son Astin</p><p><i>Promise kept, my boy</i></p></div>
+
 <main id="main"></main>
 <footer>
   <div class="footer-inner">
-    <div>
+    <div style="display:flex;align-items:center;gap:14px;">
       <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
-      <div class="footer-visitors" style="margin-top:4px;">
-        <div class="vdot"></div>
-        <span id="visitor-count">— visitors</span>
-      </div>
+      <span style="display:flex;align-items:center;gap:6px;"><span class="vdot"></span><span id="visitor-count">— visitors</span></span>
     </div>
     <span>Built by Orion Gerstl</span>
   </div>
@@ -677,7 +684,7 @@ function render() {
 function buildApp() {
   document.getElementById('main').innerHTML = `
     <div class="stats-grid">
-      <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Done</div></div>
+      <div class="stat-card sc-blue"><div class="pill"></div><span class="ico">💪</span><div class="val" id="s-total">—</div><div class="lbl">Total Completed</div></div>
       <div class="stat-card sc-orange"><div class="pill"></div><span class="ico">🎯</span><div class="val" id="s-remain">—</div><div class="lbl">Remaining</div></div>
       <div class="stat-card sc-dark"><div class="pill"></div><span class="ico">📊</span><div class="val" id="s-avg">—</div><div class="lbl">Daily Average</div></div>
       <div class="stat-card" id="card-surplus"><div class="pill"></div><span class="ico">⚡</span><div class="val" id="s-surplus">—</div><div class="lbl">Surplus / (Deficit)</div></div>
@@ -748,9 +755,24 @@ function buildApp() {
       </div>
 
     <div class="about-section" id="about">
-      <h2>About This Challenge</h2>
-      <p>This tracker follows Astin's mission to complete <strong>100,000 push-ups in 2026</strong> — 365 days of dedication, discipline, and serious upper body work. Every set logged in the spreadsheet shows up here in real time.</p>
-      <p>The challenge began on January 1st, 2026. Data is pulled automatically from a live Dropbox spreadsheet and updates whenever the page is loaded. No shortcuts, no skipped days — just the numbers.</p>
+      <h2>About Me and This Challenge</h2>
+      <p>My name is Mark Gerstl. Devastatingly, I lost my amazing son Astin 30 November 2025.</p>
+      <p>Astin died that day and I re-live it everyday. That I could not be there to save him haunts me, and it is also driving me to undertake and complete this challenge.</p>
+      <p>But the story of this challenge begins a few months before that fateful day.</p>
+      <p>Sometime around August or September 2025 I spoke to Astin about perhaps doing a fitness challenge the following year in 2026, this current year. 
+        We laughed half heartily about it but in the back of my mind, and after a few mental calculations I thought while it seemed a stretch, it was doable. 
+        And so I began to do some pushups as practise, only around 100-150 per day for several weeks.</p>
+      <p>Then, out of the blue, in the late afternoon of Sunday November 30, I received a terrifying call no parent wants to ever receive. The District Inspector of the police from mid-north NSW called 
+        to say Astin is lost at sea and they cannot locate him.</p> 
+      <p>At that very moment, my world turned upside down.</p>
+      <p>Enter utter confusion, disbelief, helplessness, brain fog... the first stages of grief dealing with severe trauma. Managing the aftermath was heart wrenching.</p>
+      <p>Skip forward 4 or 5 weeks, and still in disbelief at the tragic event, and after not being able to continue any activity whatsoever and completely forgetting about the challenge, 
+        I woke up on  01 January 2026 and without even thinking, my body immediately dropped to the floor and punched out 100 push ups.</p>
+      <p>I kept going. Set after set. Day after day.</p>
+      <p>And here we are. This tracker follows my mission to complete <strong>100,000 push-ups in 2026</strong>. This in in keeping with my "promise" to Astin. 365 days of dedication to him and keeping my word to him.</p>
+      <p>Every set is logged in a spreadsheet and shows up here in real time.</p>
+      <p>The challenge began on 01 January 2026 and is due to finish 31 December 2026.</p>
+      <p>I want to thank my son Orion for building this website and teaching me how to use it and update it. He is one of a kind.</p>
 
       <div class="photo-sec">
         <div class="photo-sec-title">Photos</div>
@@ -759,12 +781,18 @@ function buildApp() {
     </div>
 
     <div class="about-section" id="who-am-i">
-      <h2>Who Am I</h2>
+      <h2>Who Is Astin</h2>
       <div class="whoami-inner">
         <div class="whoami-avatar">A</div>
         <div class="whoami-bio">
-          <p>Hey, I'm Astin — a fitness enthusiast, competitor, and someone who believes that big goals are built one rep at a time. I've been training consistently for years, but 2026 is the year I decided to put a real number on it: 100,000 push-ups before December 31st.</p>
-          <p>Outside of training I'm into staying active, pushing limits, and proving to myself that consistency beats motivation every single time. This tracker keeps me honest — every set goes in the spreadsheet, every number shows up here.</p>
+          <p>Astin Gerstl is my son. Unfortunately he passed away while on a trip with friends shortly after finishing his schooling on 30th November 2025. 
+          <p>At merely 18 years old.</p>
+          <p>The whole family including his mum, older brother and younger sister, as well as his extended family and friends are devastated and utterly heartbroken. 
+            He was, and is an amazing son, brother, grandson and friend to so many.</p>
+          <p>Astin was born 13 August 2007 in Sydney, and grew up in Sydney and Bowral. He was schooled at Cranbrook, Tudor House and The King's School. He was passionate about so many things especially performing arts, 
+            and was interested in everything and naturally curious about the world. Most importantly he was loving, happy, caring, a beautiful soul and highly intelligent who adored and fostered close relationships with so many. 
+            I am truly honored to call him my son.</p>
+          <p>This website and tracker keeps me honest, every set goes in the spreadsheet, every number shows up here.</p>
           <p>Follow along, get inspired, or just check in to see if I'm still on pace. Either way, I'm not stopping.</p>
         </div>
       </div>
@@ -773,14 +801,14 @@ function buildApp() {
 }
 
 const PHOTOS = [
-  { src: 'astin8.jpg', caption: 'Astin 18 years old - School Formal' },
-  { src: 'astin7.jpg', caption: "Astin's Finished school " },
-  { src: 'astin6.jpeg', caption: "Astin's last day of school" },
-  { src: 'astin5.JPG', caption: "Astin's skydiving on 16th Birthday" },
-  { src: 'astin4.jpg', caption: "Astin's start school at Tudor House - 2015" },
-  { src: 'astin3.jpg', caption: "Astin posing on the stairs - 2012" },
+  { src: 'astin8.jpg', caption: "Astin at 18 and ready for the school formal" },
+  { src: 'astin7.jpg', caption: "Astin after a night out after finishing school " },
+  { src: 'astin6.jpeg', caption: "Astin's last day of school at The King's School" },
+  { src: 'astin5.JPG', caption: "Astin skydiving for his 16th Birthday" },
+  { src: 'astin4.jpg', caption: "Astin starting school at Tudor House in 2015" },
+  { src: 'astin3.jpg', caption: "Astin posing on the stairs in 2012" },
   { src: 'astin2.JPG', caption: "Astin's first day of school at Cranbook - 2011" },
-  { src: 'astin1.JPG', caption: "Astin at 3 months old - 2007" }
+  { src: 'astin1.JPG', caption: "Astin at 3 months old - 2007. So happy" }
 ];
 
 function renderPhotos() {
@@ -822,7 +850,7 @@ async function trackVisitors() {
     let count = parseInt(localStorage.getItem(key) || '0') + 1;
     localStorage.setItem(key, count);
 
-    const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge/up', { method: 'GET' });
+    const res = await fetch('https://api.counterapi.dev/v2/orions-team-3608/first-counter-3608/up', { method: 'GET' });
     if (res.ok) {
       const data = await res.json();
       const el = document.getElementById('visitor-count');
@@ -848,6 +876,10 @@ async function trackVisitors() {
     window.addEventListener('scroll', () => {
       const btn = document.getElementById('back-to-top');
       if (btn) btn.classList.toggle('visible', window.scrollY > 300);
+      const footer = document.querySelector('footer');
+      const nearBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 80;
+      if (footer) footer.classList.toggle('visible', nearBottom);
+      if (btn) btn.classList.toggle('footer-up', nearBottom);
     });
     window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
   } catch(e) {
