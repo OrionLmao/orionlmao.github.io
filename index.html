@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>100K Astin Challenge</title>
-<meta name="description" content="100,000 push-ups in 2026 — 274 per day for 365 days, in memory of Astin Gerstl. Track daily progress, totals, and pace live.">
+<meta name="description" content="A calendar year challenge of 100,000 push-ups in 2026 — 274 per day for 365 days, in memory of Astin Gerstl. Track daily progress, totals, and pace live.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -128,8 +128,7 @@
 
   .dedication-banner{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 40px;text-align:center;font-family:'Calibri';font-size:18px;font-weight:500;color:var(--text2);line-height:1.5;}
   @media(max-width:600px){.dedication-banner{font-size:15px;padding:10px 16px;}}
-  footer{position:fixed;bottom:0;left:0;right:0;border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);z-index:300;transform:translateY(100%);transition:transform 0.3s ease;}
-  footer.visible{transform:translateY(0);}
+  footer{border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);}
   .footer-inner{max-width:1320px;margin:0 auto;padding:10px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 
   @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
@@ -222,7 +221,6 @@
   
   #back-to-top{position:fixed;bottom:28px;right:28px;background:var(--accent);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,0.35);opacity:0;transform:translateY(10px);transition:opacity 0.2s,transform 0.2s,bottom 0.3s ease;pointer-events:none;z-index:400;display:flex;align-items:center;justify-content:center;}
   #back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
-  #back-to-top.footer-up{bottom:58px;}
   #back-to-top:hover{background:#1d4ed8;}
 
   
@@ -756,20 +754,20 @@ function buildApp() {
 
     <div class="about-section" id="about">
       <h2>About Me and This Challenge</h2>
-      <p>My name is Mark Gerstl. Devastatingly, I lost my amazing son Astin 30 November 2025.</p>
-      <p>Astin died that day and I re-live it everyday. That I could not be there to save him haunts me, and it is also driving me to undertake and complete this challenge.</p>
-      <p>But the story of this challenge begins a few months before that fateful day.</p>
-      <p>Sometime around August or September 2025 I spoke to Astin about perhaps doing a fitness challenge the following year in 2026, this current year. 
+      <p>My name is Mark Gerstl. Devastatingly, I lost my amazing son Astin on 30 November 2025.</p>
+      <p>While Astin died that day, I re-live it everyday. That I could not be there to save him haunts me, and it is also driving me to undertake and complete this challenge.</p>
+      <p><strong>But the story of this challenge begins a few months before that fateful day.</strong></p>
+      <p>Sometime around August or September 2025, I spoke to Astin about perhaps doing a fitness challenge the following year in 2026, this current year. 
         We laughed half heartily about it but in the back of my mind, and after a few mental calculations I thought while it seemed a stretch, it was doable. 
-        And so I began to do some pushups as practise, only around 100-150 per day for several weeks.</p>
+        And so I began to do some push-ups as practise, but only around 100-150 per day for several weeks.</p>
       <p>Then, out of the blue, in the late afternoon of Sunday November 30, I received a terrifying call no parent wants to ever receive. The District Inspector of the police from mid-north NSW called 
         to say Astin is lost at sea and they cannot locate him.</p> 
       <p>At that very moment, my world turned upside down.</p>
-      <p>Enter utter confusion, disbelief, helplessness, brain fog... the first stages of grief dealing with severe trauma. Managing the aftermath was heart wrenching.</p>
+      <p>For weeks there was utter confusion, disbelief, helplessness, brain fog... the first stages of grief dealing with severe trauma. Managing this aftermath was, and still is, heart wrenching.</p>
       <p>Skip forward 4 or 5 weeks, and still in disbelief at the tragic event, and after not being able to continue any activity whatsoever and completely forgetting about the challenge, 
-        I woke up on  01 January 2026 and without even thinking, my body immediately dropped to the floor and punched out 100 push ups.</p>
-      <p>I kept going. Set after set. Day after day.</p>
-      <p>And here we are. This tracker follows my mission to complete <strong>100,000 push-ups in 2026</strong>. This in in keeping with my "promise" to Astin. 365 days of dedication to him and keeping my word to him.</p>
+        I woke up on  01 January 2026 and without even thinking, and like on auto-pilot my body immediately dropped to the floor and punched out 100 push ups.</p>
+      <p>And so I kept going. Set after set. Day after day.</p>
+      <p>And here we are. This tracker follows <strong>my mission to complete 100,000 push-ups in 2026</strong>. This in in keeping with my "promise" to Astin. 365 days of dedication to him and keeping my word to him.</p>
       <p>Every set is logged in a spreadsheet and shows up here in real time.</p>
       <p>The challenge began on 01 January 2026 and is due to finish 31 December 2026.</p>
       <p>I want to thank my son Orion for building this website and teaching me how to use it and update it. He is one of a kind.</p>
@@ -876,10 +874,6 @@ async function trackVisitors() {
     window.addEventListener('scroll', () => {
       const btn = document.getElementById('back-to-top');
       if (btn) btn.classList.toggle('visible', window.scrollY > 300);
-      const footer = document.querySelector('footer');
-      const nearBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 80;
-      if (footer) footer.classList.toggle('visible', nearBottom);
-      if (btn) btn.classList.toggle('footer-up', nearBottom);
     });
     window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
   } catch(e) {
