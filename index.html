@@ -850,7 +850,7 @@ async function trackVisitors() {
     let count = parseInt(localStorage.getItem(key) || '0') + 1;
     localStorage.setItem(key, count);
 
-    const res = await fetch('https://api.counterapi.dev/v2/orions-team-3608/first-counter-3608/up', { method: 'GET' });
+    const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge-v2/up', { method: 'GET' });
     if (res.ok) {
       const data = await res.json();
       const el = document.getElementById('visitor-count');
