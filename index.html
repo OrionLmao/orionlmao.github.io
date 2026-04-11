@@ -1029,13 +1029,25 @@ async function cmFetch() {
 }
 
 async function cmPush(comments) {
+  // Fetch current bin so we don't overwrite the visitors count
+  let visitors = 0;
+  try {
+    const cur = await fetch(JSONBIN_URL + '/latest', {
+      headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
+    });
+    if (cur.ok) {
+      const d = await cur.json();
+      if (d && typeof d.visitors === 'number') visitors = d.visitors;
+    }
+  } catch(_) {}
+
   const res = await fetch(JSONBIN_URL, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'X-Master-Key': JSONBIN_KEY
     },
-    body: JSON.stringify({ comments })
+    body: JSON.stringify({ comments, visitors })
   });
   if (!res.ok) {
     const err = await res.text();
@@ -1258,19 +1270,36 @@ async function toggleReaction(id, emoji) {
 
 async function trackVisitors() {
   try {
-    const key = 'pushup_visits';
-    let count = parseInt(localStorage.getItem(key) || '0') + 1;
-    localStorage.setItem(key, count);
+    // Only count once per browser session
+    const sessionKey = 'pushup_visited_session';
+    const alreadyCounted = sessionStorage.getItem(sessionKey);
 
-    const res = await fetch('https://api.counterapi.dev/v1/oriongerstl/pushup-challenge-v2/up', { method: 'GET' });
-    if (res.ok) {
-      const data = await res.json();
-      const el = document.getElementById('visitor-count');
-      if (el && data.count) {
-        el.textContent = Number(data.count).toLocaleString() + ' visitors';
-      }
+    // Fetch current bin data
+    const res = await fetch(JSONBIN_URL + '/latest', {
+      headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    // Normalise — bin holds { comments:[], visitors:N }
+    const comments = Array.isArray(data) ? data : (data.comments || []);
+    let visitors = (data && typeof data.visitors === 'number') ? data.visitors : 0;
+
+    if (!alreadyCounted) {
+      visitors += 1;
+      sessionStorage.setItem(sessionKey, '1');
+      // Write back with incremented count
+      await fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+        body: JSON.stringify({ comments, visitors })
+      });
     }
+
+    const el = document.getElementById('visitor-count');
+    if (el) el.textContent = Number(visitors).toLocaleString() + ' visitors';
   } catch(e) {
+    console.warn('Visitor tracking error:', e);
   }
 }
 
