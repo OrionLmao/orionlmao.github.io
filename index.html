@@ -281,8 +281,24 @@
   .comment-body{font-size:14px;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word;}
   .comment-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--border2);font-size:16px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
   .comment-del:hover{color:var(--red);background:rgba(220,38,38,0.08);}
-  .comments-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-align:center;padding:32px 0;}
-  .comments-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:14px;}
+  .comment-footer{display:flex;align-items:center;margin-top:10px;gap:8px;}
+  .owner-response{margin-top:10px;display:flex;align-items:flex-start;gap:8px;}
+  .owner-response-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .owner-response-bubble{background:var(--accent-lt);border:1px solid #bfdbfe;border-radius:0 8px 8px 8px;padding:7px 12px;font-size:13px;color:var(--text2);line-height:1.5;flex:1;}
+  .owner-response-bubble .owner-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:3px;}
+  .btn-owner-respond{background:none;border:1.5px dashed var(--border);border-radius:6px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;transition:all 0.15s;margin-top:8px;display:none;text-transform:uppercase;letter-spacing:0.8px;}
+  .btn-owner-respond:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-owner-respond.visible{display:inline-block;}
+  .owner-respond-form{margin-top:8px;display:none;gap:6px;flex-direction:column;}
+  .owner-respond-form.visible{display:flex;}
+  .owner-respond-input{width:100%;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1.5px solid var(--accent);border-radius:6px;outline:none;resize:none;line-height:1.5;}
+  .owner-respond-actions{display:flex;gap:6px;}
+  .btn-respond-save{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:6px 14px;border-radius:5px;cursor:pointer;}
+  .btn-respond-save:hover{background:#1d4ed8;}
+  .btn-respond-cancel{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;padding:5px 10px;border-radius:5px;cursor:pointer;}
+  .btn-respond-cancel:hover{border-color:var(--red);color:var(--red);}
+  .btn-respond-remove{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;padding:0;margin-left:auto;}
+  .btn-respond-remove:hover{color:var(--red);}
   @media(max-width:600px){
     .message-board-section,.comments-section{padding:24px 20px;}
     .cf-row{flex-direction:column;}
@@ -915,7 +931,6 @@ function mbLoad() {
     display.textContent = 'No message yet.';
     display.classList.add('empty');
   }
-  // Show edit button only if admin unlocked
   const editBtn = document.getElementById('btn-mb-edit');
   if (mbIsAdmin()) editBtn.classList.add('visible');
 }
@@ -930,6 +945,7 @@ function mbUnlock() {
     sessionStorage.setItem('mb_admin', '1');
     document.getElementById('btn-mb-edit').classList.add('visible');
     mbStartEdit();
+    commentsLoad();
   } else if (pw !== null) {
     alert('Incorrect password.');
   }
@@ -983,29 +999,35 @@ document.addEventListener('DOMContentLoaded', () => {
    Public: anyone can post and see all comments.
    Admin: can delete any comment.
 ══════════════════════════════════════════ */
-const JSONBIN_ID  = '69da4803856a682189217d55';
-const JSONBIN_KEY = '$2a$10$5NPYSUi60G6bAm3ehVvs6uVAzmpeoItCqbjdRsgece4rAC/zaOVee';
+const JSONBIN_ID  = '69da4ae236566621a8a0c0ce';
+const JSONBIN_KEY = '$2a$10$4XmPCCckY9xLI9GGra48EeXc65f4006YjRue.gWcEtf4HKHik0/JG';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
 
 async function cmFetch() {
   const res = await fetch(JSONBIN_URL + '/latest', {
-    headers: { 'X-Master-Key': JSONBIN_KEY }
+    headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
   });
   if (!res.ok) return [];
   const data = await res.json();
-  if (!data.record) return [];
-  const records = Array.isArray(data.record) ? data.record : [];
-  return records.filter(c => !c._empty);
+  // Handle both {comments:[]} wrapper and bare array
+  if (Array.isArray(data)) return data;
+  if (data && Array.isArray(data.comments)) return data.comments;
+  return [];
 }
 
 async function cmPush(comments) {
-  // JSONBin won't accept an empty array — use a sentinel if empty
-  const payload = comments.length > 0 ? comments : [{ _empty: true }];
-  await fetch(JSONBIN_URL, {
+  const res = await fetch(JSONBIN_URL, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-    body: JSON.stringify(payload)
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSONBIN_KEY
+    },
+    body: JSON.stringify({ comments })
   });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error('JSONBin error: ' + err);
+  }
 }
 
 async function commentsLoad() {
@@ -1013,6 +1035,7 @@ async function commentsLoad() {
     const comments = await cmFetch();
     renderComments(comments);
   } catch(e) {
+    console.error('Comments load error:', e);
     document.getElementById('comments-list').innerHTML =
       '<div class="comments-empty">Could not load comments.</div>';
   }
@@ -1043,6 +1066,7 @@ function renderComments(comments) {
 
   count.textContent = comments.length + ' comment' + (comments.length === 1 ? '' : 's');
   list.innerHTML = [...comments].reverse().map((c) => {
+    const hasResponse = c.ownerResponse && c.ownerResponse.trim();
     return `<div class="comment-item${c.pinned ? ' pinned' : ''}" id="cm-${c.id}">
       <div class="comment-header">
         <span class="comment-name">${esc(c.name)}</span>
@@ -1050,6 +1074,26 @@ function renderComments(comments) {
         ${c.pinned ? '<span class="comment-pin-badge">Pinned</span>' : ''}
       </div>
       <div class="comment-body">${esc(c.body)}</div>
+      ${hasResponse ? `
+        <div class="owner-response">
+          <div class="owner-response-avatar">O</div>
+          <div class="owner-response-bubble">
+            <span class="owner-label">Orion</span>
+            ${esc(c.ownerResponse)}
+            ${isAdm ? `<button class="btn-respond-remove" onclick="removeResponse('${c.id}')" title="Remove response">✕ remove</button>` : ''}
+          </div>
+        </div>` : ''}
+      ${isAdm ? `
+        <button class="btn-owner-respond${hasResponse ? '' : ' visible'}" id="btn-respond-${c.id}" onclick="showRespondForm('${c.id}')">
+          ${hasResponse ? '✏ Edit response' : '↩ Reply as Orion'}
+        </button>
+        <div class="owner-respond-form" id="respond-form-${c.id}">
+          <textarea class="owner-respond-input" id="respond-input-${c.id}" rows="2" placeholder="Write a response…">${hasResponse ? esc(c.ownerResponse) : ''}</textarea>
+          <div class="owner-respond-actions">
+            <button class="btn-respond-save" onclick="saveResponse('${c.id}')">Save</button>
+            <button class="btn-respond-cancel" onclick="hideRespondForm('${c.id}')">Cancel</button>
+          </div>
+        </div>` : ''}
       ${isAdm ? `<button class="comment-del" style="display:block" title="Delete" onclick="cmDelete('${c.id}')">✕</button>` : ''}
     </div>`;
   }).join('');
@@ -1091,9 +1135,10 @@ async function submitComment() {
     renderComments(comments);
     document.getElementById('comments-list').scrollIntoView({ behavior:'smooth', block:'nearest' });
   } catch(e) {
+    console.error('Submit error:', e);
     btn.textContent = 'Post Comment';
     btn.disabled = false;
-    err.textContent = 'Failed to post. Please try again.';
+    err.textContent = 'Failed to post: ' + e.message;
     err.classList.add('visible');
   }
 }
@@ -1106,6 +1151,47 @@ async function cmDelete(id) {
     await commentsLoad();
   } catch(e) {
     alert('Could not delete comment.');
+  }
+}
+
+function showRespondForm(id) {
+  document.getElementById(`respond-form-${id}`).classList.add('visible');
+  document.getElementById(`btn-respond-${id}`).classList.remove('visible');
+  document.getElementById(`respond-input-${id}`).focus();
+}
+
+function hideRespondForm(id) {
+  document.getElementById(`respond-form-${id}`).classList.remove('visible');
+  document.getElementById(`btn-respond-${id}`).classList.add('visible');
+}
+
+async function saveResponse(id) {
+  if (!mbIsAdmin()) return;
+  const text = document.getElementById(`respond-input-${id}`).value.trim();
+  if (!text) return;
+  try {
+    const comments = await cmFetch();
+    const idx = comments.findIndex(c => c.id === id);
+    if (idx === -1) return;
+    comments[idx].ownerResponse = text;
+    await cmPush(comments);
+    renderComments(comments);
+  } catch(e) {
+    alert('Could not save response.');
+  }
+}
+
+async function removeResponse(id) {
+  if (!mbIsAdmin()) return;
+  try {
+    const comments = await cmFetch();
+    const idx = comments.findIndex(c => c.id === id);
+    if (idx === -1) return;
+    comments[idx].ownerResponse = '';
+    await cmPush(comments);
+    renderComments(comments);
+  } catch(e) {
+    alert('Could not remove response.');
   }
 }
 
