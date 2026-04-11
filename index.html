@@ -281,7 +281,16 @@
   .comment-body{font-size:14px;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word;}
   .comment-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--border2);font-size:16px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
   .comment-del:hover{color:var(--red);background:rgba(220,38,38,0.08);}
-  .comment-footer{display:flex;align-items:center;margin-top:10px;gap:8px;}
+  .comment-reactions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
+  .reaction-btn{background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:13px;cursor:default;display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);transition:all 0.15s;line-height:1.4;}
+  .reaction-btn.admin-clickable{cursor:pointer;}
+  .reaction-btn.admin-clickable:hover{border-color:var(--accent);background:var(--accent-lt);}
+  .reaction-btn.active{border-color:var(--accent);background:var(--accent-lt);font-weight:600;}
+  .reaction-add-row{display:flex;gap:5px;margin-top:8px;display:none;}
+  .reaction-add-row.visible{display:flex;}
+  .reaction-pick-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+  .reaction-pick-btn:hover{border-color:var(--accent);background:var(--accent-lt);transform:scale(1.15);}
+  .reaction-pick-btn.active{border-color:var(--accent);background:var(--accent-lt);}
   .owner-response{margin-top:10px;display:flex;align-items:flex-start;gap:8px;}
   .owner-response-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
   .owner-response-bubble{background:var(--accent-lt);border:1px solid #bfdbfe;border-radius:0 8px 8px 8px;padding:7px 12px;font-size:13px;color:var(--text2);line-height:1.5;flex:1;}
@@ -353,6 +362,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init('rlC1AQP72TC-AGMPv');
+</script>
 <script>
 const WORKER_URL = 'https://square-shape-a0ba.oriongerstl.workers.dev/';
 const SHEET_NAME  = '2026 Challenge 100,000';
@@ -1067,6 +1080,20 @@ function renderComments(comments) {
   count.textContent = comments.length + ' comment' + (comments.length === 1 ? '' : 's');
   list.innerHTML = [...comments].reverse().map((c) => {
     const hasResponse = c.ownerResponse && c.ownerResponse.trim();
+    const reactions = c.reactions || {};
+    const EMOJIS = ['❤️','🙏','💪'];
+
+    // Build visible reaction badges (show all that have been reacted)
+    const reactionBadges = EMOJIS
+      .filter(e => reactions[e])
+      .map(e => `<span class="reaction-btn${isAdm ? ' admin-clickable' : ''}${reactions[e] ? ' active' : ''}" onclick="${isAdm ? `toggleReaction('${c.id}','${e}')` : ''}" title="${isAdm ? 'Remove reaction' : ''}">${e}</span>`)
+      .join('');
+
+    // Emoji picker row (admin only)
+    const pickerBtns = EMOJIS.map(e =>
+      `<button class="reaction-pick-btn${reactions[e] ? ' active' : ''}" onclick="toggleReaction('${c.id}','${e}')" title="${reactions[e] ? 'Remove' : 'React with'} ${e}">${e}</button>`
+    ).join('');
+
     return `<div class="comment-item${c.pinned ? ' pinned' : ''}" id="cm-${c.id}">
       <div class="comment-header">
         <span class="comment-name">${esc(c.name)}</span>
@@ -1074,13 +1101,15 @@ function renderComments(comments) {
         ${c.pinned ? '<span class="comment-pin-badge">Pinned</span>' : ''}
       </div>
       <div class="comment-body">${esc(c.body)}</div>
+      ${reactionBadges ? `<div class="comment-reactions">${reactionBadges}</div>` : ''}
+      ${isAdm ? `<div class="reaction-add-row visible">${pickerBtns}</div>` : ''}
       ${hasResponse ? `
         <div class="owner-response">
-          <div class="owner-response-avatar">O</div>
+          <div class="owner-response-avatar">M</div>
           <div class="owner-response-bubble">
-            <span class="owner-label">Orion</span>
+            <span class="owner-label">Mark</span>
             ${esc(c.ownerResponse)}
-            ${isAdm ? `<button class="btn-respond-remove" onclick="removeResponse('${c.id}')" title="Remove response">✕ remove</button>` : ''}
+            ${isAdm ? `<button class="btn-respond-remove" onclick="removeResponse('${c.id}')">✕ remove</button>` : ''}
           </div>
         </div>` : ''}
       ${isAdm ? `
@@ -1124,6 +1153,18 @@ async function submitComment() {
       pinned: false
     });
     await cmPush(comments);
+
+    // Send email notification
+    try {
+      await emailjs.send('service_pk6mk2p', 'template_5fhcovv', {
+        from_name: name,
+        message:   body,
+        time:      new Date().toLocaleString('en-AU', { dateStyle:'medium', timeStyle:'short' })
+      });
+    } catch(emailErr) {
+      console.warn('Email notification failed:', emailErr);
+      // Don't block the comment from posting if email fails
+    }
 
     document.getElementById('cf-name').value = '';
     document.getElementById('cf-body').value = '';
@@ -1192,6 +1233,26 @@ async function removeResponse(id) {
     renderComments(comments);
   } catch(e) {
     alert('Could not remove response.');
+  }
+}
+
+async function toggleReaction(id, emoji) {
+  if (!mbIsAdmin()) return;
+  try {
+    const comments = await cmFetch();
+    const idx = comments.findIndex(c => c.id === id);
+    if (idx === -1) return;
+    if (!comments[idx].reactions) comments[idx].reactions = {};
+    // Toggle: if already reacted remove it, otherwise add it
+    if (comments[idx].reactions[emoji]) {
+      delete comments[idx].reactions[emoji];
+    } else {
+      comments[idx].reactions[emoji] = true;
+    }
+    await cmPush(comments);
+    renderComments(comments);
+  } catch(e) {
+    alert('Could not save reaction.');
   }
 }
 
