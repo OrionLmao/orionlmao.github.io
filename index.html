@@ -230,6 +230,70 @@
   .whoami-bio p:last-child{margin-bottom:0;}
   @media(max-width:600px){.whoami-inner{flex-direction:column;gap:16px;}.whoami-avatar{width:56px;height:56px;font-size:28px;}}
 
+  /* ── Message Board ── */
+  .message-board-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .message-board-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
+  .message-board-section .mb-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;}
+  .mb-display{font-size:15px;color:var(--text2);line-height:1.8;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 20px;min-height:80px;white-space:pre-wrap;word-break:break-word;}
+  .mb-display.empty{color:var(--muted);font-style:italic;}
+  .mb-edit-area{display:none;flex-direction:column;gap:10px;}
+  .mb-edit-area.visible{display:flex;}
+  .mb-textarea{width:100%;min-height:120px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;outline:none;resize:vertical;line-height:1.7;transition:border-color 0.2s;}
+  .mb-textarea:focus{border-color:var(--accent);}
+  .mb-actions{display:flex;gap:8px;align-items:center;}
+  .btn-mb-save{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:8px 20px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+  .btn-mb-save:hover{background:#1d4ed8;}
+  .btn-mb-cancel{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all 0.15s;}
+  .btn-mb-cancel:hover{border-color:var(--red);color:var(--red);}
+  .btn-mb-edit{background:none;border:1.5px solid var(--accent);color:var(--accent);font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.15s;display:none;margin-top:10px;}
+  .btn-mb-edit:hover{background:var(--accent-lt);}
+  .btn-mb-edit.visible{display:inline-block;}
+  .mb-save-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);opacity:0;transition:opacity 0.3s;}
+  .mb-save-status.show{opacity:1;}
+
+  /* ── Comments ── */
+  .comments-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .comments-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
+  .comments-section .cm-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:22px;}
+  .comment-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:28px;}
+  .comment-form-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+  .cf-row{display:flex;gap:10px;margin-bottom:10px;}
+  .cf-input{flex:1;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;transition:border-color 0.2s;}
+  .cf-input:focus{border-color:var(--accent);}
+  .cf-input::placeholder{color:var(--muted);}
+  .cf-textarea{width:100%;min-height:90px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.6;transition:border-color 0.2s;margin-bottom:10px;}
+  .cf-textarea:focus{border-color:var(--accent);}
+  .cf-textarea::placeholder{color:var(--muted);}
+  .btn-comment-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+  .btn-comment-submit:hover{background:#1d4ed8;}
+  .btn-comment-submit:disabled{background:var(--border2);cursor:not-allowed;}
+  .cf-char{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto;line-height:1;}
+  .cf-bottom-row{display:flex;align-items:center;gap:10px;}
+  .cf-error{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none;}
+  .cf-error.visible{display:block;}
+  .comments-list{display:flex;flex-direction:column;gap:14px;}
+  .comment-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;}
+  .comment-item.pinned{border-color:var(--accent);background:var(--accent-lt);}
+  .comment-header{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .comment-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;color:var(--text);}
+  .comment-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+  .comment-pin-badge{font-family:'DM Mono',monospace;font-size:9px;background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;}
+  .comment-body{font-size:14px;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word;}
+  .comment-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--border2);font-size:16px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
+  .comment-del:hover{color:var(--red);background:rgba(220,38,38,0.08);}
+  .comments-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-align:center;padding:32px 0;}
+  .comments-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:14px;}
+  @media(max-width:600px){
+    .message-board-section,.comments-section{padding:24px 20px;}
+    .cf-row{flex-direction:column;}
+  }
+  @media(max-width:1000px){
+    #message-board-outer,#comments-outer{padding-left:18px;padding-right:18px;}
+  }
+  @media(max-width:600px){
+    #message-board-outer,#comments-outer{padding-left:10px;padding-right:10px;}
+  }
+
 
 
 </style>
@@ -270,15 +334,6 @@
 <div class="dedication-banner"><p>100,000 push ups in one year in memory and dedicated to my son Astin</p><p><i>Promise kept, my boy</i></p></div>
 
 <main id="main"></main>
-<footer>
-  <div class="footer-inner">
-    <div style="display:flex;align-items:center;gap:14px;">
-      <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
-      <span style="display:flex;align-items:center;gap:6px;"><span class="vdot"></span><span id="visitor-count">— visitors</span></span>
-    </div>
-    <span>Built by Orion Gerstl</span>
-  </div>
-</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -842,6 +897,218 @@ function closeLightbox() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
+/* ══════════════════════════════════════════
+   MESSAGE BOARD  (admin-only, password-gated)
+   Uses localStorage so only the site owner
+   can edit — visitors see the saved message.
+══════════════════════════════════════════ */
+const MB_KEY  = 'astin_message_board_v1';
+const MB_PASS = 'astin2026';   // ← change this to your preferred password
+
+function mbLoad() {
+  const saved = localStorage.getItem(MB_KEY);
+  const display = document.getElementById('mb-display');
+  if (saved && saved.trim()) {
+    display.textContent = saved;
+    display.classList.remove('empty');
+  } else {
+    display.textContent = 'No message yet.';
+    display.classList.add('empty');
+  }
+  // Show edit button only if admin unlocked
+  const editBtn = document.getElementById('btn-mb-edit');
+  if (mbIsAdmin()) editBtn.classList.add('visible');
+}
+
+function mbIsAdmin() {
+  return sessionStorage.getItem('mb_admin') === '1';
+}
+
+function mbUnlock() {
+  const pw = prompt('Enter password to edit the message board:');
+  if (pw === MB_PASS) {
+    sessionStorage.setItem('mb_admin', '1');
+    document.getElementById('btn-mb-edit').classList.add('visible');
+    mbStartEdit();
+  } else if (pw !== null) {
+    alert('Incorrect password.');
+  }
+}
+
+function mbStartEdit() {
+  if (!mbIsAdmin()) { mbUnlock(); return; }
+  const saved = localStorage.getItem(MB_KEY) || '';
+  document.getElementById('mb-textarea').value = saved;
+  document.getElementById('mb-edit-area').classList.add('visible');
+  document.getElementById('mb-display').style.display = 'none';
+  document.getElementById('mb-textarea').focus();
+}
+
+function mbCancelEdit() {
+  document.getElementById('mb-edit-area').classList.remove('visible');
+  document.getElementById('mb-display').style.display = '';
+}
+
+function mbSave() {
+  const val = document.getElementById('mb-textarea').value.trim();
+  localStorage.setItem(MB_KEY, val);
+  const display = document.getElementById('mb-display');
+  if (val) {
+    display.textContent = val;
+    display.classList.remove('empty');
+  } else {
+    display.textContent = 'No message yet.';
+    display.classList.add('empty');
+  }
+  document.getElementById('mb-edit-area').classList.remove('visible');
+  display.style.display = '';
+  const status = document.getElementById('mb-save-status');
+  status.classList.add('show');
+  setTimeout(() => status.classList.remove('show'), 2500);
+}
+
+// Double-click on message to edit (admin shortcut)
+document.addEventListener('DOMContentLoaded', () => {
+  const d = document.getElementById('mb-display');
+  if (d) d.addEventListener('dblclick', mbStartEdit);
+  mbLoad();
+  commentsLoad();
+  document.getElementById('cf-body').addEventListener('input', function() {
+    document.getElementById('cf-char').textContent = 800 - this.value.length;
+  });
+});
+
+/* ══════════════════════════════════════════
+   COMMENTS  (stored in JSONBin.io)
+   Public: anyone can post and see all comments.
+   Admin: can delete any comment.
+══════════════════════════════════════════ */
+const JSONBIN_ID  = '69da4803856a682189217d55';
+const JSONBIN_KEY = '$2a$10$5NPYSUi60G6bAm3ehVvs6uVAzmpeoItCqbjdRsgece4rAC/zaOVee';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
+async function cmFetch() {
+  const res = await fetch(JSONBIN_URL + '/latest', {
+    headers: { 'X-Master-Key': JSONBIN_KEY }
+  });
+  if (!res.ok) return [];
+  const data = await res.json();
+  if (!data.record) return [];
+  const records = Array.isArray(data.record) ? data.record : [];
+  return records.filter(c => !c._empty);
+}
+
+async function cmPush(comments) {
+  // JSONBin won't accept an empty array — use a sentinel if empty
+  const payload = comments.length > 0 ? comments : [{ _empty: true }];
+  await fetch(JSONBIN_URL, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+    body: JSON.stringify(payload)
+  });
+}
+
+async function commentsLoad() {
+  try {
+    const comments = await cmFetch();
+    renderComments(comments);
+  } catch(e) {
+    document.getElementById('comments-list').innerHTML =
+      '<div class="comments-empty">Could not load comments.</div>';
+  }
+}
+
+function timeAgo(ts) {
+  const diff = Date.now() - ts;
+  const min  = Math.floor(diff / 60000);
+  const hr   = Math.floor(diff / 3600000);
+  const day  = Math.floor(diff / 86400000);
+  if (min < 1)  return 'just now';
+  if (min < 60) return min + 'm ago';
+  if (hr  < 24) return hr  + 'h ago';
+  if (day <  7) return day + 'd ago';
+  return new Date(ts).toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function renderComments(comments) {
+  const list  = document.getElementById('comments-list');
+  const count = document.getElementById('comments-count');
+  const isAdm = mbIsAdmin();
+
+  if (!comments.length) {
+    list.innerHTML = '<div class="comments-empty">Be the first to leave a message.</div>';
+    count.textContent = '';
+    return;
+  }
+
+  count.textContent = comments.length + ' comment' + (comments.length === 1 ? '' : 's');
+  list.innerHTML = [...comments].reverse().map((c) => {
+    return `<div class="comment-item${c.pinned ? ' pinned' : ''}" id="cm-${c.id}">
+      <div class="comment-header">
+        <span class="comment-name">${esc(c.name)}</span>
+        <span class="comment-time">${timeAgo(c.ts)}</span>
+        ${c.pinned ? '<span class="comment-pin-badge">Pinned</span>' : ''}
+      </div>
+      <div class="comment-body">${esc(c.body)}</div>
+      ${isAdm ? `<button class="comment-del" style="display:block" title="Delete" onclick="cmDelete('${c.id}')">✕</button>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function submitComment() {
+  const name = document.getElementById('cf-name').value.trim();
+  const body = document.getElementById('cf-body').value.trim();
+  const err  = document.getElementById('cf-error');
+  const btn  = document.getElementById('btn-comment-submit');
+
+  err.classList.remove('visible');
+  if (!name || !body) { err.classList.add('visible'); return; }
+
+  btn.textContent = 'Posting…';
+  btn.disabled = true;
+
+  try {
+    const comments = await cmFetch();
+    comments.push({
+      id:     Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+      name, body,
+      ts:     Date.now(),
+      pinned: false
+    });
+    await cmPush(comments);
+
+    document.getElementById('cf-name').value = '';
+    document.getElementById('cf-body').value = '';
+    document.getElementById('cf-char').textContent = '800';
+
+    btn.textContent = '✓ Posted!';
+    setTimeout(() => { btn.textContent = 'Post Comment'; btn.disabled = false; }, 2000);
+
+    renderComments(comments);
+    document.getElementById('comments-list').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  } catch(e) {
+    btn.textContent = 'Post Comment';
+    btn.disabled = false;
+    err.textContent = 'Failed to post. Please try again.';
+    err.classList.add('visible');
+  }
+}
+
+async function cmDelete(id) {
+  if (!mbIsAdmin()) return;
+  try {
+    const comments = await cmFetch();
+    await cmPush(comments.filter(c => c.id !== id));
+    await commentsLoad();
+  } catch(e) {
+    alert('Could not delete comment.');
+  }
+}
+
 async function trackVisitors() {
   try {
     const key = 'pushup_visits';
@@ -888,6 +1155,60 @@ async function trackVisitors() {
   }
 })();
 </script>
+<!-- ══ MESSAGE BOARD ══ -->
+<div style="max-width:1320px;margin:0 auto;padding:0 40px 0;" id="message-board-outer">
+  <div class="message-board-section" id="message-board">
+    <h2>Message Board</h2>
+    <div class="mb-subtitle">A note from me</div>
+    <div class="mb-display empty" id="mb-display">No message yet.</div>
+    <button class="btn-mb-edit" id="btn-mb-edit" onclick="mbStartEdit()">✏ Edit message</button>
+    <div class="mb-edit-area" id="mb-edit-area">
+      <textarea class="mb-textarea" id="mb-textarea" maxlength="2000" placeholder="Write a message for visitors…"></textarea>
+      <div class="mb-actions">
+        <button class="btn-mb-save" onclick="mbSave()">Save</button>
+        <button class="btn-mb-cancel" onclick="mbCancelEdit()">Cancel</button>
+        <span class="mb-save-status" id="mb-save-status">✓ Saved</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMMENTS ══ -->
+<div style="max-width:1320px;margin:0 auto;padding:0 40px 32px;" id="comments-outer">
+  <div class="comments-section">
+    <h2>Leave a Message</h2>
+    <div class="cm-subtitle">Share your support, memories, or encouragement</div>
+
+    <div class="comment-form">
+      <div class="comment-form-title">Post a comment</div>
+      <div class="cf-row">
+        <input class="cf-input" id="cf-name" maxlength="60" placeholder="Your name" autocomplete="name">
+      </div>
+      <textarea class="cf-textarea" id="cf-body" maxlength="800" placeholder="Write something…"></textarea>
+      <div class="cf-bottom-row">
+        <button class="btn-comment-submit" id="btn-comment-submit" onclick="submitComment()">Post Comment</button>
+        <span class="cf-char" id="cf-char">800</span>
+        <span class="cf-error" id="cf-error">Please enter a name and message.</span>
+      </div>
+    </div>
+
+    <div class="comments-count" id="comments-count"></div>
+    <div class="comments-list" id="comments-list">
+      <div class="comments-empty">Be the first to leave a message.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span>100,000 Astin Challenge 2026 · Data synced from Dropbox</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span class="vdot"></span><span id="visitor-count">— visitors</span></span>
+    </div>
+    <span>Built by Orion Gerstl</span>
+  </div>
+</footer>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close" onclick="closeLightbox()">✕</span>
   <img id="lightbox-img" src="" onclick="event.stopPropagation()" alt="">
