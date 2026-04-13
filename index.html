@@ -178,11 +178,33 @@
     tbody td{padding:6px 8px;}
   }
   
-  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
+  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;margin-right:4px;}
   .btn-about:hover{background:var(--accent-lt);}
-  .btn-share{background:var(--accent);color:#fff;border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;margin-left:4px;}
-  .btn-share:hover{background:#1d4ed8;border-color:#1d4ed8;}
-  .copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:#fff;font-family:'DM Mono',monospace;font-size:12px;padding:9px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;z-index:500;white-space:nowrap;}
+  @media(max-width:600px){
+    .btn-about{font-size:11px;padding:5px 10px;margin-top:6px;margin-right:3px;border-radius:5px;}
+    .btn-share{font-size:10px;padding:5px 9px;}
+  }
+  .btn-share{background:var(--accent);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.5px;padding:6px 12px;border-radius:6px;cursor:pointer;transition:background 0.15s;white-space:nowrap;}
+  .btn-share:hover{background:#1d4ed8;}
+  /* Share modal */
+  .share-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:600;display:none;align-items:flex-end;justify-content:center;}
+  .share-overlay.open{display:flex;}
+  .share-sheet{background:var(--surface);border-radius:18px 18px 0 0;padding:20px 20px 32px;width:100%;max-width:480px;box-shadow:0 -4px 32px rgba(0,0,0,0.15);animation:slideUp 0.25s ease;}
+  @keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .share-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px;}
+  .share-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;text-align:center;margin-bottom:18px;}
+  .share-platforms{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+  .share-btn{display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:none;cursor:pointer;padding:6px 0;border-radius:10px;transition:background 0.15s;}
+  .share-btn:hover{background:var(--surface2);}
+  .share-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .share-label{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text2);font-weight:500;}
+  .share-divider{height:1px;background:var(--border);margin:0 0 16px;}
+  .share-copy-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;}
+  .share-copy-url{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .btn-copy-url{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:6px 14px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:background 0.15s;}
+  .btn-copy-url:hover{background:#1d4ed8;}
+  .btn-copy-url.copied{background:var(--green);}
+  .copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:#fff;font-family:'DM Mono',monospace;font-size:12px;padding:9px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;z-index:700;white-space:nowrap;}
   .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
   
   .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
@@ -449,7 +471,7 @@
     <div class="subtitle">274 / day for 365 days</div>
     <button class="btn-about" onclick="openAndScroll('about')">About</button>
     <button class="btn-about" onclick="openAndScroll('who-am-i')">Astin</button>
-    <button class="btn-share" onclick="shareLink()">Share</button>
+    <button class="btn-about" onclick="openAndScroll('message-board')">Messages</button>
   </div>
   <div class="header-right">
     <div class="header-total">
@@ -461,6 +483,9 @@
           <div class="sync-dot"></div>
           <span id="sync-text">Loading…</span>
         </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:6px;">
+        <button class="btn-share" onclick="shareLink()">⬆ Share</button>
       </div>
     </div>
   </div>
@@ -1662,11 +1687,73 @@ function toggleAbout(id) {
 function openAndScroll(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  if (!el.classList.contains('open')) el.classList.add('open');
+  // only toggle open if it's a dropdown section
+  if (el.classList.contains('about-section') && !el.classList.contains('open')) el.classList.add('open');
   const offset = document.querySelector('header').offsetHeight + 12;
   setTimeout(() => {
     window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth'});
   }, 10);
+}
+
+function shareLink() {
+  document.getElementById('share-overlay').classList.add('open');
+}
+function shareClose() {
+  document.getElementById('share-overlay').classList.remove('open');
+}
+function shareTo(platform) {
+  const url = encodeURIComponent('https://www.mgaa.com.au');
+  const msg = encodeURIComponent('100K Astin Challenge — 100,000 push-ups in 2026 in memory of Astin Gerstl. Follow the live journey: https://www.mgaa.com.au');
+  const links = {
+    facebook:  `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+    linkedin:  `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+    whatsapp:  `https://wa.me/?text=${msg}`,
+    messages:  `sms:?&body=${msg}`,
+    tiktok:    `https://www.tiktok.com/`,
+    instagram: null,
+    snapchat:  `https://www.snapchat.com/scan?attachmentUrl=${url}`,
+  };
+  if (platform === 'instagram') {
+    copyUrl();
+    showToast('✓ Link copied — paste it in Instagram!');
+    shareClose();
+    return;
+  }
+  if (platform === 'tiktok') {
+    copyUrl();
+    showToast('✓ Link copied — paste it in TikTok!');
+    shareClose();
+    return;
+  }
+  window.open(links[platform], '_blank', 'noopener,noreferrer');
+  shareClose();
+}
+function copyUrl() {
+  const url = 'https://www.mgaa.com.au';
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url).catch(() => fallbackCopy(url));
+  } else { fallbackCopy(url); }
+}
+function fallbackCopy(url) {
+  const ta = document.createElement('textarea');
+  ta.value = url; ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0;';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function showToast(msg) {
+  const toast = document.getElementById('copy-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+function copyUrlBtn() {
+  copyUrl();
+  const btn = document.getElementById('btn-copy-url');
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  showToast('✓ Link copied to clipboard');
+  setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
 }
 </script>
 <!-- ══ MESSAGE BOARD ══ -->
@@ -1729,6 +1816,65 @@ function openAndScroll(id) {
   <span class="lightbox-close" onclick="closeLightbox()">✕</span>
   <img id="lightbox-img" src="" onclick="event.stopPropagation()" alt="">
 </div>
+<div class="copy-toast" id="copy-toast"></div>
+
+<!-- ══ SHARE MODAL ══ -->
+<div class="share-overlay" id="share-overlay" onclick="if(event.target===this)shareClose()">
+  <div class="share-sheet">
+    <div class="share-handle"></div>
+    <div class="share-title">Share this challenge</div>
+    <div class="share-platforms">
+      <button class="share-btn" onclick="shareTo('whatsapp')">
+        <div class="share-icon" style="background:#25D366;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.117.554 4.103 1.522 5.828L.057 23.428a.75.75 0 00.921.921l5.6-1.465A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.709 9.709 0 01-4.953-1.355l-.355-.21-3.676.963.98-3.583-.231-.368A9.709 9.709 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        </div>
+        <span class="share-label">WhatsApp</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('messages')">
+        <div class="share-icon" style="background:linear-gradient(135deg,#34C759,#30b350);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.477 2 2 6.145 2 11.25c0 2.547 1.148 4.847 3 6.497V22l4.333-2.167A11.3 11.3 0 0012 20.5c5.523 0 10-4.145 10-9.25S17.523 2 12 2z"/></svg>
+        </div>
+        <span class="share-label">Messages</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('facebook')">
+        <div class="share-icon" style="background:#1877F2;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.883v2.27h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </div>
+        <span class="share-label">Facebook</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('linkedin')">
+        <div class="share-icon" style="background:#0A66C2;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <span class="share-label">LinkedIn</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('snapchat')">
+        <div class="share-icon" style="background:#FFFC00;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#000"><path d="M12.017 0C8.617 0 7.33.914 6.513 1.73c-.9.895-1.354 2.117-1.354 3.644 0 .41.036.82.072 1.157-.182.09-.4.127-.618.127-.327 0-.654-.09-.872-.236l-.036-.018c-.073-.036-.146-.054-.218-.054-.218 0-.4.163-.4.381 0 .2.145.363.327.399.69.145 1.126.508 1.308.944.036.09.036.182 0 .272-.4.962-1.67 2.554-3.612 2.862-.2.036-.345.2-.345.4 0 .053.018.107.036.162.127.326.654.58 1.617.726.072.018.127.09.145.181.036.218.072.49.127.6.09.181.272.29.49.29.127 0 .272-.036.436-.09.327-.127.69-.2 1.054-.2.327 0 .617.054.89.163.563.236 1.035.726 1.762 1.253 1 .726 2.18 1.162 3.648 1.162 1.453 0 2.635-.436 3.648-1.162.727-.527 1.2-1.017 1.762-1.253.272-.11.563-.163.89-.163.363 0 .727.073 1.054.2.163.054.308.09.436.09.218 0 .4-.109.49-.29.055-.11.09-.382.127-.6.018-.09.072-.163.145-.181.963-.146 1.49-.4 1.617-.726.018-.055.036-.11.036-.163 0-.2-.145-.363-.345-.4-1.944-.307-3.212-1.9-3.612-2.86-.036-.091-.036-.182 0-.273.182-.436.617-.799 1.308-.944.182-.036.327-.2.327-.399 0-.218-.182-.381-.4-.381-.072 0-.145.018-.218.054l-.036.018c-.218.145-.545.236-.872.236-.218 0-.436-.036-.618-.127.036-.336.072-.746.072-1.157 0-1.527-.454-2.75-1.354-3.644C15.67.914 14.383 0 12.017 0z"/></svg>
+        </div>
+        <span class="share-label">Snapchat</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('instagram')">
+        <div class="share-icon" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        <span class="share-label">Instagram</span>
+      </button>
+      <button class="share-btn" onclick="shareTo('tiktok')">
+        <div class="share-icon" style="background:#010101;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        </div>
+        <span class="share-label">TikTok</span>
+      </button>
+    </div>
+    <div class="share-divider"></div>
+    <div class="share-copy-row">
+      <span class="share-copy-url">www.mgaa.com.au</span>
+      <button class="btn-copy-url" id="btn-copy-url" onclick="copyUrlBtn()">Copy</button>
+    </div>
+  </div>
+</div>
+
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 </body>
 </html>
