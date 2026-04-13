@@ -39,10 +39,10 @@
 
   header{background:var(--surface);border-bottom:2px solid var(--border);padding:18px 40px;display:flex;align-items:flex-start;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
   .logo-area h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,42px);letter-spacing:2px;color:var(--accent);line-height:1;}
-  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:12px;color:var(-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+  .logo-area .subtitle{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0;}
   .header-total .count{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--accent);line-height:1;text-align:right;}
-  .header-total .label{font-size:12px;color:var(-muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
+  .header-total .label{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;text-align:right;}
 
   .sync-badge{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;white-space:nowrap;}
   .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background 0.3s;}
@@ -181,8 +181,8 @@
   .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;margin-right:4px;}
   .btn-about:hover{background:var(--accent-lt);}
   @media(max-width:600px){
-    .btn-about{font-size:11px;padding:5px 10px;margin-top:6px;margin-right:3px;border-radius:5px;}
-    .btn-share{font-size:10px;padding:5px 9px;}
+    .btn-about{padding:8px 10px;margin-right:3px;}
+    .btn-share{padding:6px 9px;}
   }
   .btn-share{background:var(--accent);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.5px;padding:6px 12px;border-radius:6px;cursor:pointer;transition:background 0.15s;white-space:nowrap;}
   .btn-share:hover{background:#1d4ed8;}
@@ -207,7 +207,11 @@
   .copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:#fff;font-family:'DM Mono',monospace;font-size:12px;padding:9px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;z-index:700;white-space:nowrap;}
   .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
   
-  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .about-section{background:var(--surface);border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);border-radius:0;margin-top:0;}
+  .about-section.section-first{border-radius:10px 10px 0 0;margin-top:32px;}
+  .about-section.section-last{border-radius:0 0 10px 10px;}
+  .about-section.section-only{border-radius:10px;margin-top:32px;}
+  .about-section+.about-section{border-top:none;}
   .about-section-toggle{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;cursor:pointer;user-select:none;background:var(--surface2);border-bottom:1px solid transparent;transition:background 0.15s;}
   .about-section-toggle:hover{background:var(--accent-lt);}
   .about-section.open .about-section-toggle{border-bottom-color:var(--border);}
@@ -444,19 +448,20 @@
   .btn-respond-remove{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;padding:0;margin-left:auto;}
   .btn-respond-remove:hover{color:var(--red);}
   @media(max-width:600px){
-    .message-board-section,.comments-section{padding:14px 12px;border-radius:0;border-left:none;border-right:none;}
+    .message-board-section,.comments-section{padding:14px 12px;}
     .cf-row{flex-direction:column;}
-    .about-section{border-radius:0;border-left:none;border-right:none;margin-top:16px;}
+    .about-section.section-first{border-radius:0;border-left:none;border-right:none;margin-top:16px;}
+    .about-section.section-last,.about-section:not(.section-first):not(.section-last){border-radius:0;border-left:none;border-right:none;}
     .about-section-toggle{padding:14px 16px;}
     .about-section-body{padding:16px 16px 20px;}
   }
-  #message-board-outer,#comments-outer{max-width:1320px;margin:0 auto;padding:0 40px;}
-  #comments-outer{padding-bottom:16px;}
+  #message-board-outer{max-width:1320px;margin:0 auto;padding:0 40px 16px;}
+  #message-board-outer .about-section{border-top:none;}
   @media(max-width:1000px){
-    #message-board-outer,#comments-outer{padding-left:18px;padding-right:18px;}
+    #message-board-outer{padding-left:18px;padding-right:18px;}
   }
   @media(max-width:600px){
-    #message-board-outer,#comments-outer{padding-left:0;padding-right:0;}
+    #message-board-outer{padding-left:0;padding-right:0;}
     main{padding-left:0;padding-right:0;}
   }
 
@@ -979,7 +984,7 @@ function buildApp() {
         </table>
       </div>
 
-    <div class="about-section" id="about">
+    <div class="about-section section-first" id="about">
       <div class="about-section-toggle" onclick="toggleAbout('about')">
         <h2>About Me and This Challenge</h2>
         <span class="about-section-chevron">▼</span>
@@ -1756,48 +1761,52 @@ function copyUrlBtn() {
   setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
 }
 </script>
-<!-- ══ MESSAGE BOARD ══ -->
+<!-- ══ MESSAGE BOARD + COMMENTS DROPDOWN ══ -->
 <div id="message-board-outer">
-  <div class="message-board-section" id="message-board">
-    <h2>Message Board</h2>
-    <div class="mb-subtitle">Notes from Mark — double-click heading to admin login</div>
-    <div class="mb-admin-bar" id="mb-admin-bar">
-      <button class="btn-mb-add" onclick="mbNewPostOpen()" title="Add new message">+</button>
-      <span class="mb-admin-label">Add message</span>
+  <div class="about-section section-last" id="message-board">
+    <div class="about-section-toggle" onclick="toggleAbout('message-board')">
+      <h2>Message Board &amp; Comments</h2>
+      <span class="about-section-chevron">▼</span>
     </div>
-    <div class="mb-new-post-form" id="mb-new-post-form">
-      <textarea class="mb-new-post-textarea" id="mb-new-post-ta" maxlength="2000" placeholder="Write a message for visitors…"></textarea>
-      <div class="mb-new-post-actions">
-        <button class="btn-mb-post-submit" id="btn-mb-new-post-submit" onclick="mbNewPostSubmit()">Post Message</button>
-        <button class="btn-mb-new-cancel" onclick="mbNewPostClose()">Cancel</button>
-      </div>
-    </div>
-    <div class="mb-posts-list" id="mb-posts-list"></div>
-  </div>
-</div>
+    <div class="about-section-body" style="padding:0;">
 
-<!-- ══ COMMENTS ══ -->
-<div id="comments-outer">
-  <div class="comments-section">
-    <h2>Leave a Message</h2>
-    <div class="cm-subtitle">Share your support, memories, or encouragement</div>
-
-    <div class="comment-form">
-      <div class="comment-form-title">Post a comment</div>
-      <div class="cf-row">
-        <input class="cf-input" id="cf-name" maxlength="60" placeholder="Your name" autocomplete="name">
+      <div class="message-board-section" style="border-radius:0;border:none;border-bottom:1px solid var(--border);box-shadow:none;margin:0;">
+        <div class="mb-subtitle" style="margin-top:4px;">Notes from Mark — double-click heading to admin login</div>
+        <div class="mb-admin-bar" id="mb-admin-bar">
+          <button class="btn-mb-add" onclick="mbNewPostOpen()" title="Add new message">+</button>
+          <span class="mb-admin-label">Add message</span>
+        </div>
+        <div class="mb-new-post-form" id="mb-new-post-form">
+          <textarea class="mb-new-post-textarea" id="mb-new-post-ta" maxlength="2000" placeholder="Write a message for visitors…"></textarea>
+          <div class="mb-new-post-actions">
+            <button class="btn-mb-post-submit" id="btn-mb-new-post-submit" onclick="mbNewPostSubmit()">Post Message</button>
+            <button class="btn-mb-new-cancel" onclick="mbNewPostClose()">Cancel</button>
+          </div>
+        </div>
+        <div class="mb-posts-list" id="mb-posts-list"></div>
       </div>
-      <textarea class="cf-textarea" id="cf-body" maxlength="800" placeholder="Write something…"></textarea>
-      <div class="cf-bottom-row">
-        <button class="btn-comment-submit" id="btn-comment-submit" onclick="submitComment()">Post Comment</button>
-        <span class="cf-char" id="cf-char">800</span>
-        <span class="cf-error" id="cf-error">Please enter a name and message.</span>
-      </div>
-    </div>
 
-    <div class="comments-count" id="comments-count"></div>
-    <div class="comments-list" id="comments-list">
-      <div class="comments-empty">Be the first to leave a message.</div>
+      <div class="comments-section" style="border-radius:0;border:none;box-shadow:none;margin:0;">
+        <h2>Leave a Message</h2>
+        <div class="cm-subtitle">Share your support, memories, or encouragement</div>
+        <div class="comment-form">
+          <div class="comment-form-title">Post a comment</div>
+          <div class="cf-row">
+            <input class="cf-input" id="cf-name" maxlength="60" placeholder="Your name" autocomplete="name">
+          </div>
+          <textarea class="cf-textarea" id="cf-body" maxlength="800" placeholder="Write something…"></textarea>
+          <div class="cf-bottom-row">
+            <button class="btn-comment-submit" id="btn-comment-submit" onclick="submitComment()">Post Comment</button>
+            <span class="cf-char" id="cf-char">800</span>
+            <span class="cf-error" id="cf-error">Please enter a name and message.</span>
+          </div>
+        </div>
+        <div class="comments-count" id="comments-count"></div>
+        <div class="comments-list" id="comments-list">
+          <div class="comments-empty">Be the first to leave a message.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
