@@ -4,8 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>100K Astin Challenge</title>
-<meta name="description" content="A calendar year challenge of 100,000 push-ups in 2026 — 274 per day for 365 days, in memory of Astin Gerstl. Track daily progress, totals, and pace live.">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="A calendar year challenge of 100,000 push-ups in 2026 (274 per day for 365 days) in loving memory of Astin Gerstl. Track live and daily progress, totals, and honour his legacy.">
+<meta name="keywords" content="100K Astin Challenge, 100000 push ups, 100,000 push-ups, 100k push-ups, Astin Gerstl, Mark Gerstl, push up challenge 2026, memorial fitness challenge, 274 pushups daily">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="MGAA">
+    <link rel="canonical" href="https://www.mgaa.com.au/">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<meta property="og:title" content="100K Astin Challenge 2026 - 100,000 Push-Ups for Astin">
+    <meta property="og:description" content="A year-long challenge to complete 100,000 push-ups in loving memory of my son Astin. Live progress tracking available now.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.mgaa.com.au/">
+    <meta property="og:image" content="https://www.mgaa.com.au/images/astin8.jpg"> <!-- Replace with your actual high-quality image (recommended 1200x630) -->
+    <meta property="og:image:width" content="1134">
+    <meta property="og:image:height" content="1800">
+    <meta property="og:site_name" content="100K Astin Challenge">
+
+<meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="100K Astin Challenge 2026">
+    <meta name="twitter:description" content="100,000 push-ups in 2026 to honour Astin Gerstl. Follow the live journey.">
+    <meta name="twitter:image" content="https://www.mgaa.com.au/images/astin8.jpg">
+
 <style>
   :root {
     --bg:#f4f6f9; --surface:#fff; --surface2:#f0f2f6;
@@ -31,7 +50,7 @@
   .sync-badge.loading    .sync-dot{background:var(--accent);animation:pulse 0.8s infinite;}
   .sync-badge.error      .sync-dot{background:var(--red);}
 
-  main{max-width:1320px;margin:0 auto;padding:16px 40px 32px;}
+  main{max-width:1320px;margin:0 auto;padding:28px 40px 60px;}
 
   
   .loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;}
@@ -50,7 +69,7 @@
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 
   
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .stat-card .pill{position:absolute;top:0;left:0;right:0;height:4px;border-radius:10px 10px 0 0;transform:scaleX(0);transform-origin:left;transition:transform 0.9s ease;}
   .stat-card.loaded .pill{transform:scaleX(1);}
@@ -65,7 +84,7 @@
   .sc-dark .pill{background:var(--text);}.sc-dark .val{color:var(--text);}
 
   
-  .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .progress-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .progress-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
   .progress-header h2{font-weight:600;font-size:13px;color:var(--text2);}
   .progress-pct{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);}
@@ -79,7 +98,7 @@
   .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 
   
-  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .chart-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;background:var(--surface2);}
   .chart-head h3{font-weight:600;font-size:13px;color:var(--text);}
   .rg{display:flex;gap:3px;}
@@ -96,7 +115,7 @@
   .ld{width:20px;height:0;flex-shrink:0;}
 
   
-  .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .tabs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);}
   .ct{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 20px;cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
   .ct.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
@@ -131,7 +150,7 @@
   footer{border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);}
   .footer-inner{max-width:1320px;margin:0 auto;padding:10px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 
-  @media(max-width:1000px){main{padding:12px 18px 32px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
+  @media(max-width:1000px){main{padding:18px 18px 50px;}.stats-grid{grid-template-columns:repeat(3,1fr);}.chart-inner{height:250px;}header{padding:14px 18px;}}
   @media(max-width:600px){
     header{flex-wrap:nowrap;gap:8px;padding:8px 12px;align-items:flex-start;}
     .logo-area{min-width:0;flex:1;}
@@ -159,17 +178,17 @@
     tbody td{padding:6px 8px;}
   }
   
-  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:6px;}
+  .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
   .btn-about:hover{background:var(--accent-lt);}
   
-  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 28px;margin-top:16px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
   .about-section p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
   .about-section p:last-child{margin-bottom:0;}
   
   .footer-visitors{display:flex;align-items:center;gap:7px;}
   .footer-visitors .vdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
-  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:16px 14px;}footer{padding:16px 20px;}}
+  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:24px 20px;}footer{padding:16px 20px;}}
 
   
   .admin-unlock-row{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
@@ -184,7 +203,7 @@
   .admin-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:#f0fdf4;border:1px solid #bbf7d0;border-radius:4px;padding:3px 8px;}
 
   
-  .photo-sec{margin-top:16px;}
+  .photo-sec{margin-top:28px;}
   .photo-sec-title{font-weight:600;font-size:12px;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:0.8px;font-family:'DM Mono',monospace;}
   .photo-sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
   .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
@@ -231,62 +250,145 @@
   @media(max-width:600px){.whoami-inner{flex-direction:column;gap:16px;}.whoami-avatar{width:56px;height:56px;font-size:28px;}}
 
   /* ── Message Board ── */
-  .message-board-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px 28px;margin-top:16px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .message-board-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
-  .message-board-section .mb-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;}
-  .mb-display{font-size:15px;color:var(--text2);line-height:1.8;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 20px;min-height:80px;white-space:pre-wrap;word-break:break-word;}
-  .mb-display.empty{color:var(--muted);font-style:italic;}
-  .mb-edit-area{display:none;flex-direction:column;gap:10px;}
-  .mb-edit-area.visible{display:flex;}
-  .mb-textarea{width:100%;min-height:120px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;outline:none;resize:vertical;line-height:1.7;transition:border-color 0.2s;}
-  .mb-textarea:focus{border-color:var(--accent);}
-  .mb-actions{display:flex;gap:8px;align-items:center;}
-  .btn-mb-save{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:8px 20px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
-  .btn-mb-save:hover{background:#1d4ed8;}
-  .btn-mb-cancel{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:7px 14px;border-radius:6px;cursor:pointer;transition:all 0.15s;}
-  .btn-mb-cancel:hover{border-color:var(--red);color:var(--red);}
-  .btn-mb-edit{background:none;border:1.5px solid var(--accent);color:var(--accent);font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.15s;display:none;margin-top:10px;}
-  .btn-mb-edit:hover{background:var(--accent-lt);}
-  .btn-mb-edit.visible{display:inline-block;}
+  .message-board-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 24px;margin-top:6px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .message-board-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:2px;}
+  .message-board-section .mb-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
   .mb-save-status{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);opacity:0;transition:opacity 0.3s;}
   .mb-save-status.show{opacity:1;}
+  /* admin bar */
+  .mb-admin-bar{display:none;align-items:center;gap:8px;margin-bottom:12px;}
+  .mb-admin-bar.visible{display:flex;}
+  .btn-mb-add{background:var(--accent);color:#fff;border:none;font-size:18px;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background 0.15s;flex-shrink:0;}
+  .btn-mb-add:hover{background:#1d4ed8;}
+  .mb-admin-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+  /* message posts list */
+  .mb-posts-list{display:flex;flex-direction:column;gap:12px;}
+  /* individual post */
+  .mb-post{background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .mb-post-body-wrap{padding:12px 14px 8px;}
+  .mb-post-text{font-size:15px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+  .mb-post-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px;}
+  .mb-post-actions{display:flex;gap:6px;align-items:center;padding:0 14px 8px;flex-wrap:wrap;}
+  .btn-mb-post-like{background:none;border:1.5px solid var(--border);border-radius:20px;padding:2px 10px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);transition:all 0.15s;line-height:1.4;}
+  .btn-mb-post-like:hover,.btn-mb-post-like.liked{border-color:var(--accent);background:var(--accent-lt);color:var(--accent);font-weight:600;}
+  .btn-mb-post-reply-toggle{background:none;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:4px;transition:color 0.15s;}
+  .btn-mb-post-reply-toggle:hover{color:var(--accent);}
+  .btn-mb-post-edit{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;padding:2px 6px;text-transform:uppercase;letter-spacing:0.5px;transition:color 0.15s;margin-left:auto;}
+  .btn-mb-post-edit:hover{color:var(--accent);}
+  .btn-mb-post-del{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;padding:2px 6px;text-transform:uppercase;letter-spacing:0.5px;transition:color 0.15s;}
+  .btn-mb-post-del:hover{color:var(--red);}
+  /* inline edit form */
+  .mb-post-edit-form{display:none;padding:8px 14px 10px;border-top:1px solid var(--border);}
+  .mb-post-edit-form.visible{display:block;}
+  .mb-post-edit-textarea{width:100%;min-height:80px;padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--accent);border-radius:6px;outline:none;resize:vertical;line-height:1.6;}
+  .mb-post-edit-actions{display:flex;gap:6px;margin-top:6px;align-items:center;}
+  .btn-mb-post-save{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:5px 14px;border-radius:5px;cursor:pointer;}
+  .btn-mb-post-save:hover{background:#1d4ed8;}
+  .btn-mb-post-cancel{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;padding:4px 10px;border-radius:5px;cursor:pointer;}
+  .btn-mb-post-cancel:hover{border-color:var(--red);color:var(--red);}
+  /* replies thread */
+  .mb-post-replies{border-top:1px solid var(--border);background:var(--bg);display:none;}
+  .mb-post-replies.open{display:block;}
+  .mb-post-replies-inner{padding:8px 12px;display:flex;flex-direction:column;gap:5px;}
+  /* individual reply */
+  .mb-thread-reply{display:flex;flex-direction:column;gap:1px;}
+  .mb-thread-reply-row{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;}
+  .mb-thread-reply-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;color:var(--text);}
+  .mb-thread-reply-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+  .mb-thread-reply-body{font-size:13px;color:var(--text2);line-height:1.5;white-space:pre-wrap;word-break:break-word;margin-bottom:2px;}
+  .mb-thread-reply-actions{display:flex;gap:8px;align-items:center;}
+  .btn-thread-like{background:none;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;padding:0;transition:color 0.15s;}
+  .btn-thread-like:hover,.btn-thread-like.liked{color:var(--accent);font-weight:600;}
+  .btn-thread-subreply{background:none;border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);cursor:pointer;padding:0;transition:color 0.15s;}
+  .btn-thread-subreply:hover{color:var(--accent);}
+  .btn-thread-del{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--border2);cursor:pointer;padding:0;transition:color 0.15s;display:none;}
+  .btn-thread-del:hover{color:var(--red);}
+  /* sub-replies (nested) */
+  .mb-subreplies{margin-left:14px;margin-top:4px;display:flex;flex-direction:column;gap:3px;border-left:2px solid var(--border);padding-left:8px;}
+  .mb-subreply-row{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;}
+  .mb-subreply-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;color:var(--text);}
+  .mb-subreply-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+  .mb-subreply-body{font-size:12px;color:var(--text2);line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+  .mb-subreply-actions{display:flex;gap:8px;}
+  .btn-subreply-like{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;padding:0;transition:color 0.15s;}
+  .btn-subreply-like:hover,.btn-subreply-like.liked{color:var(--accent);font-weight:600;}
+  .btn-subreply-del{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--border2);cursor:pointer;padding:0;transition:color 0.15s;display:none;}
+  .btn-subreply-del:hover{color:var(--red);}
+  /* inline reply/subreply form */
+  .mb-inline-form{display:none;gap:5px;margin-top:5px;flex-direction:column;}
+  .mb-inline-form.open{display:flex;}
+  .mb-inline-name{padding:4px 8px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:5px;outline:none;transition:border-color 0.2s;width:100%;}
+  .mb-inline-name:focus{border-color:var(--accent);}
+  .mb-inline-name::placeholder{color:var(--muted);}
+  .mb-inline-text{width:100%;padding:4px 8px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:5px;outline:none;resize:none;line-height:1.4;transition:border-color 0.2s;min-height:44px;}
+  .mb-inline-text:focus{border-color:var(--accent);}
+  .mb-inline-text::placeholder{color:var(--muted);}
+  .mb-inline-btns{display:flex;gap:5px;align-items:center;}
+  .btn-inline-post{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;padding:4px 12px;border-radius:5px;cursor:pointer;}
+  .btn-inline-post:hover{background:#1d4ed8;}
+  .btn-inline-cancel{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;text-transform:uppercase;}
+  .btn-inline-cancel:hover{color:var(--red);}
+  /* new post form */
+  .mb-new-post-form{display:none;border:1.5px dashed var(--accent);border-radius:8px;padding:12px 14px;flex-direction:column;gap:8px;margin-bottom:12px;}
+  .mb-new-post-form.open{display:flex;}
+  .mb-new-post-textarea{width:100%;min-height:90px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.7;transition:border-color 0.2s;}
+  .mb-new-post-textarea:focus{border-color:var(--accent);}
+  .mb-new-post-actions{display:flex;gap:8px;align-items:center;}
+  .btn-mb-post-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:7px 18px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+  .btn-mb-post-submit:hover{background:#1d4ed8;}
+  .btn-mb-new-cancel{background:none;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;padding:6px 12px;border-radius:5px;cursor:pointer;}
+  .btn-mb-new-cancel:hover{border-color:var(--red);color:var(--red);}
+  /* reply form at bottom of thread */
+  .mb-post-reply-form{padding:8px 12px 10px;border-top:1px solid var(--border);display:none;flex-direction:column;gap:5px;}
+  .mb-post-reply-form.open{display:flex;}
+  .mb-post-reply-name{padding:5px 8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:5px;outline:none;transition:border-color 0.2s;width:100%;}
+  .mb-post-reply-name:focus{border-color:var(--accent);}
+  .mb-post-reply-name::placeholder{color:var(--muted);}
+  .mb-post-reply-text{width:100%;padding:6px 8px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:5px;outline:none;resize:none;line-height:1.5;transition:border-color 0.2s;min-height:52px;}
+  .mb-post-reply-text:focus{border-color:var(--accent);}
+  .mb-post-reply-text::placeholder{color:var(--muted);}
+  .mb-post-reply-btns{display:flex;gap:6px;align-items:center;}
+  .btn-post-reply-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:5px 14px;border-radius:5px;cursor:pointer;}
+  .btn-post-reply-submit:hover{background:#1d4ed8;}
+  .btn-post-reply-cancel{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;text-transform:uppercase;}
+  .btn-post-reply-cancel:hover{color:var(--red);}
 
-  /* ── Comments ── */
-  .comments-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .comments-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:6px;}
-  .comments-section .cm-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:22px;}
-  .comment-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:28px;}
-  .comment-form-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
-  .cf-row{display:flex;gap:10px;margin-bottom:10px;}
-  .cf-input{flex:1;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;transition:border-color 0.2s;}
+  .comments-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 24px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .comments-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:2px;}
+  .comments-section .cm-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+  .comment-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:16px;}
+  .comment-form-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .cf-row{display:flex;gap:10px;margin-bottom:8px;}
+  .cf-input{flex:1;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;transition:border-color 0.2s;}
   .cf-input:focus{border-color:var(--accent);}
   .cf-input::placeholder{color:var(--muted);}
-  .cf-textarea{width:100%;min-height:90px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.6;transition:border-color 0.2s;margin-bottom:10px;}
+  .cf-textarea{width:100%;min-height:80px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.6;transition:border-color 0.2s;margin-bottom:8px;}
   .cf-textarea:focus{border-color:var(--accent);}
   .cf-textarea::placeholder{color:var(--muted);}
-  .btn-comment-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 22px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+  .btn-comment-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:9px 22px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
   .btn-comment-submit:hover{background:#1d4ed8;}
   .btn-comment-submit:disabled{background:var(--border2);cursor:not-allowed;}
   .cf-char{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto;line-height:1;}
   .cf-bottom-row{display:flex;align-items:center;gap:10px;}
   .cf-error{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none;}
   .cf-error.visible{display:block;}
-  .comments-list{display:flex;flex-direction:column;gap:14px;}
-  .comment-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 18px;position:relative;}
+  .comments-count{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .comments-list{display:flex;flex-direction:column;gap:10px;}
+  .comments-empty{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);padding:12px 0;}
+  .comment-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;position:relative;}
   .comment-item.pinned{border-color:var(--accent);background:var(--accent-lt);}
-  .comment-header{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
-  .comment-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;color:var(--text);}
-  .comment-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+  .comment-header{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;flex-wrap:wrap;}
+  .comment-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:var(--text);}
+  .comment-time{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
   .comment-pin-badge{font-family:'DM Mono',monospace;font-size:9px;background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;}
-  .comment-body{font-size:14px;color:var(--text2);line-height:1.65;white-space:pre-wrap;word-break:break-word;}
+  .comment-body{font-size:16px;color:var(--text2);line-height:1.6;white-space:pre-wrap;word-break:break-word;}
   .comment-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--border2);font-size:16px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
   .comment-del:hover{color:var(--red);background:rgba(220,38,38,0.08);}
-  .comment-reactions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center;}
-  .reaction-btn{background:none;border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:13px;cursor:default;display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);transition:all 0.15s;line-height:1.4;}
-  .reaction-btn.admin-clickable{cursor:pointer;}
-  .reaction-btn.admin-clickable:hover{border-color:var(--accent);background:var(--accent-lt);}
-  .reaction-btn.active{border-color:var(--accent);background:var(--accent-lt);font-weight:600;}
-  .reaction-add-row{display:flex;gap:5px;margin-top:8px;display:none;}
+  .comment-reactions{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center;}
+  .reaction-btn{border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;color:var(--text2);transition:all 0.15s;line-height:1.4;background:none;}
+  .reaction-btn:hover{border-color:var(--accent);background:var(--accent-lt);}
+  .reaction-btn.active{border-color:var(--accent);background:var(--accent-lt);font-weight:600;color:var(--accent);}
+  .reaction-add-row{display:none;gap:5px;margin-top:6px;}
   .reaction-add-row.visible{display:flex;}
   .reaction-pick-btn{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
   .reaction-pick-btn:hover{border-color:var(--accent);background:var(--accent-lt);transform:scale(1.15);}
@@ -294,7 +396,7 @@
   .owner-response{margin-top:10px;display:flex;align-items:flex-start;gap:8px;}
   .owner-response-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
   .owner-response-bubble{background:var(--accent-lt);border:1px solid #bfdbfe;border-radius:0 8px 8px 8px;padding:7px 12px;font-size:13px;color:var(--text2);line-height:1.5;flex:1;}
-  .owner-response-bubble .owner-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:3px;}
+  .owner-response-bubble .owner-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-weight:700;display:block;margin-bottom:3px;}
   .btn-owner-respond{background:none;border:1.5px dashed var(--border);border-radius:6px;padding:5px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;transition:all 0.15s;margin-top:8px;display:none;text-transform:uppercase;letter-spacing:0.8px;}
   .btn-owner-respond:hover{border-color:var(--accent);color:var(--accent);}
   .btn-owner-respond.visible{display:inline-block;}
@@ -309,17 +411,15 @@
   .btn-respond-remove{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;padding:0;margin-left:auto;}
   .btn-respond-remove:hover{color:var(--red);}
   @media(max-width:600px){
-    .message-board-section,.comments-section{padding:16px 14px;}
+    .message-board-section,.comments-section{padding:14px 12px;border-radius:0;border-left:none;border-right:none;}
     .cf-row{flex-direction:column;}
   }
   @media(max-width:1000px){
     #message-board-outer,#comments-outer{padding-left:18px;padding-right:18px;}
   }
   @media(max-width:600px){
-    #message-board-outer,#comments-outer{padding-left:10px;padding-right:10px;}
+    #message-board-outer,#comments-outer{padding-left:0;padding-right:0;}
   }
-
-
 
 </style>
 </head>
@@ -926,81 +1026,378 @@ function closeLightbox() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
+async function trackVisitors() {
+  try {
+    const sessionKey = 'pushup_visited_session';
+    const alreadyCounted = sessionStorage.getItem(sessionKey);
+    const data = await binFetch();
+    let visitors = (data && typeof data.visitors === 'number') ? data.visitors : 0;
+    if (!alreadyCounted) {
+      visitors += 1;
+      sessionStorage.setItem(sessionKey, '1');
+      await binPush({...data, visitors});
+    }
+    const el = document.getElementById('visitor-count');
+    if (el) el.textContent = Number(visitors).toLocaleString() + ' visitors';
+  } catch(e) { console.warn('Visitor tracking error:', e); }
+}
+
+(async function init() {
+  try {
+    const count = await loadDropbox();
+    buildApp();
+    const loader = document.getElementById('loading');
+    if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
+    render();
+    renderPhotos();
+    setSyncBadge('ok', `${count} days loaded`);
+    setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
+    trackVisitors();
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('back-to-top');
+      if (btn) btn.classList.toggle('visible', window.scrollY > 300);
+    });
+    window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
+  } catch(e) {
+    console.error('Load failed:', e);
+    document.getElementById('loading').innerHTML = `
+      <div style="text-align:center;font-family:'DM Mono',monospace;">
+        <div style="font-size:36px;margin-bottom:16px;">⚠️</div>
+        <div style="color:#dc2626;font-size:14px;margin-bottom:8px;">Could not load spreadsheet</div>
+        <div style="color:#8a95a8;font-size:11px;max-width:320px;">${e.message}</div>
+      </div>`;
+    setSyncBadge('error', 'Load failed');
+  }
+})();
+
 /* ══════════════════════════════════════════
-   MESSAGE BOARD  (admin-only, password-gated)
-   Uses localStorage so only the site owner
-   can edit — visitors see the saved message.
+   MESSAGE BOARD  — multi-post, threaded replies
 ══════════════════════════════════════════ */
-const MB_KEY  = 'astin_message_board_v1';
 const MB_PASS = 'astin2026';
 
-function mbLoad() {
-  const saved = localStorage.getItem(MB_KEY);
-  const display = document.getElementById('mb-display');
-  if (saved && saved.trim()) {
-    display.textContent = saved;
-    display.classList.remove('empty');
-  } else {
-    display.textContent = 'No message yet.';
-    display.classList.add('empty');
-  }
-  const editBtn = document.getElementById('btn-mb-edit');
-  if (mbIsAdmin()) editBtn.classList.add('visible');
-}
-
-function mbIsAdmin() {
-  return sessionStorage.getItem('mb_admin') === '1';
-}
+function mbIsAdmin() { return sessionStorage.getItem('mb_admin') === '1'; }
 
 function mbUnlock() {
-  const pw = prompt('Enter password to edit the message board:');
+  const pw = prompt('Enter password:');
   if (pw === MB_PASS) {
     sessionStorage.setItem('mb_admin', '1');
-    document.getElementById('btn-mb-edit').classList.add('visible');
-    mbStartEdit();
+    mbInit();
     commentsLoad();
-  } else if (pw !== null) {
-    alert('Incorrect password.');
-  }
+  } else if (pw !== null) alert('Incorrect password.');
 }
 
-function mbStartEdit() {
-  if (!mbIsAdmin()) { mbUnlock(); return; }
-  const saved = localStorage.getItem(MB_KEY) || '';
-  document.getElementById('mb-textarea').value = saved;
-  document.getElementById('mb-edit-area').classList.add('visible');
-  document.getElementById('mb-display').style.display = 'none';
-  document.getElementById('mb-textarea').focus();
+/* ── JSONBin full-bin read/write ── */
+async function binFetch() {
+  const res = await fetch(JSONBIN_URL + '/latest', { headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' } });
+  if (!res.ok) return {};
+  return await res.json();
+}
+async function binPush(data) {
+  await fetch(JSONBIN_URL, { method:'PUT', headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY}, body:JSON.stringify(data) });
 }
 
-function mbCancelEdit() {
-  document.getElementById('mb-edit-area').classList.remove('visible');
-  document.getElementById('mb-display').style.display = '';
+/* ── init ── */
+async function mbInit() {
+  const data = await binFetch();
+  const posts = Array.isArray(data.mbPosts) ? data.mbPosts : [];
+  renderMbPosts(posts);
+  // show admin bar
+  if (mbIsAdmin()) document.getElementById('mb-admin-bar').classList.add('visible');
 }
 
-function mbSave() {
-  const val = document.getElementById('mb-textarea').value.trim();
-  localStorage.setItem(MB_KEY, val);
-  const display = document.getElementById('mb-display');
-  if (val) {
-    display.textContent = val;
-    display.classList.remove('empty');
-  } else {
-    display.textContent = 'No message yet.';
-    display.classList.add('empty');
-  }
-  document.getElementById('mb-edit-area').classList.remove('visible');
-  display.style.display = '';
-  const status = document.getElementById('mb-save-status');
-  status.classList.add('show');
-  setTimeout(() => status.classList.remove('show'), 2500);
+function newId() { return Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
+
+/* ── render all posts ── */
+function renderMbPosts(posts) {
+  const list = document.getElementById('mb-posts-list');
+  if (!list) return;
+  const isAdm = mbIsAdmin();
+  if (!posts.length) { list.innerHTML = '<div style="font-family:DM Mono,monospace;font-size:12px;color:var(--muted);padding:8px 0;">No messages yet.</div>'; return; }
+  list.innerHTML = posts.map(p => renderPost(p, isAdm)).join('');
 }
 
-// Double-click on message to edit (admin shortcut)
+function renderPost(p, isAdm) {
+  const likes = p.likes || 0;
+  const replies = p.replies || [];
+  const replyCount = replies.reduce((a,r) => a + 1 + (r.replies||[]).length, 0);
+  return `<div class="mb-post" id="mbp-${p.id}">
+    <div class="mb-post-body-wrap">
+      <div class="mb-post-text" id="mbp-text-${p.id}">${esc(p.text)}</div>
+      <div class="mb-post-meta">${timeAgo(p.ts)}</div>
+    </div>
+    <div class="mb-post-actions">
+      <button class="btn-mb-post-like${likes>0?' liked':''}" onclick="mbPostLike('${p.id}')">👍${likes>0?' '+likes:''}</button>
+      <button class="btn-mb-post-reply-toggle" onclick="mbToggleReplies('${p.id}')">💬 ${replyCount > 0 ? replyCount+' ' : ''}Reply</button>
+      ${isAdm ? `<button class="btn-mb-post-edit" onclick="mbPostEditOpen('${p.id}')">✏ Edit</button><button class="btn-mb-post-del" onclick="mbPostDelete('${p.id}')">✕ Del</button>` : ''}
+    </div>
+    <div class="mb-post-edit-form" id="mbp-edit-${p.id}">
+      <textarea class="mb-post-edit-textarea" id="mbp-edit-ta-${p.id}">${esc(p.text)}</textarea>
+      <div class="mb-post-edit-actions">
+        <button class="btn-mb-post-save" onclick="mbPostSave('${p.id}')">Save</button>
+        <button class="btn-mb-post-cancel" onclick="mbPostEditClose('${p.id}')">Cancel</button>
+        <span class="mb-save-status" id="mbp-saved-${p.id}">✓ Saved</span>
+      </div>
+    </div>
+    <div class="mb-post-replies" id="mbp-replies-${p.id}">
+      <div class="mb-post-replies-inner" id="mbp-replies-inner-${p.id}">
+        ${renderReplies(p.id, replies, isAdm)}
+      </div>
+      <div class="mb-post-reply-form" id="mbp-rf-${p.id}">
+        <input class="mb-post-reply-name" id="mbp-rf-name-${p.id}" placeholder="Your name" maxlength="60" autocomplete="name">
+        <textarea class="mb-post-reply-text" id="mbp-rf-text-${p.id}" placeholder="Write a reply…" maxlength="400" rows="2"></textarea>
+        <div class="mb-post-reply-btns">
+          <button class="btn-post-reply-submit" onclick="mbPostReplySubmit('${p.id}')">Post</button>
+          <button class="btn-post-reply-cancel" onclick="mbToggleReplies('${p.id}')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderReplies(postId, replies, isAdm) {
+  if (!replies.length) return '';
+  return replies.map(r => {
+    const rLikes = r.likes||0;
+    const subs = r.replies||[];
+    return `<div class="mb-thread-reply" id="mbr-${postId}-${r.id}">
+      <div class="mb-thread-reply-row">
+        <span class="mb-thread-reply-name">${esc(r.name)}</span>
+        <span class="mb-thread-reply-time">${timeAgo(r.ts)}</span>
+      </div>
+      <div class="mb-thread-reply-body">${esc(r.body)}</div>
+      <div class="mb-thread-reply-actions">
+        <button class="btn-thread-like${rLikes>0?' liked':''}" onclick="mbReplyLike('${postId}','${r.id}')">👍${rLikes>0?' '+rLikes:''}</button>
+        <button class="btn-thread-subreply" onclick="mbSubreplyOpen('${postId}','${r.id}')">↩ Reply</button>
+        ${isAdm?`<button class="btn-thread-del" style="display:inline" onclick="mbReplyDelete('${postId}','${r.id}')">✕</button>`:''}
+      </div>
+      ${subs.length ? `<div class="mb-subreplies">${renderSubreplies(postId, r.id, subs, isAdm)}</div>` : ''}
+      <div class="mb-inline-form" id="mbsr-form-${postId}-${r.id}">
+        <input class="mb-inline-name" id="mbsr-name-${postId}-${r.id}" placeholder="Your name" maxlength="60" autocomplete="name">
+        <textarea class="mb-inline-text" id="mbsr-text-${postId}-${r.id}" placeholder="Reply…" maxlength="300" rows="2"></textarea>
+        <div class="mb-inline-btns">
+          <button class="btn-inline-post" onclick="mbSubreplySubmit('${postId}','${r.id}')">Post</button>
+          <button class="btn-inline-cancel" onclick="mbSubreplyOpen('${postId}','${r.id}',true)">Cancel</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSubreplies(postId, replyId, subs, isAdm) {
+  return subs.map(s => `<div class="mb-thread-reply" id="mbsr-${postId}-${replyId}-${s.id}">
+    <div class="mb-subreply-row">
+      <span class="mb-subreply-name">${esc(s.name)}</span>
+      <span class="mb-subreply-time">${timeAgo(s.ts)}</span>
+    </div>
+    <div class="mb-subreply-body">${esc(s.body)}</div>
+    <div class="mb-subreply-actions">
+      <button class="btn-subreply-like${(s.likes||0)>0?' liked':''}" onclick="mbSubreplyLike('${postId}','${replyId}','${s.id}')">👍${(s.likes||0)>0?' '+s.likes:''}</button>
+      ${isAdm?`<button class="btn-subreply-del" style="display:inline" onclick="mbSubreplyDelete('${postId}','${replyId}','${s.id}')">✕</button>`:''}
+    </div>
+  </div>`).join('');
+}
+
+/* ── toggle reply panel ── */
+function mbToggleReplies(postId) {
+  const panel = document.getElementById(`mbp-replies-${postId}`);
+  const form  = document.getElementById(`mbp-rf-${postId}`);
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) { panel.classList.remove('open'); form.classList.remove('open'); }
+  else        { panel.classList.add('open'); form.classList.add('open'); document.getElementById(`mbp-rf-name-${postId}`).focus(); }
+}
+
+/* ── edit post ── */
+function mbPostEditOpen(postId) {
+  document.getElementById(`mbp-edit-${postId}`).classList.add('visible');
+  document.getElementById(`mbp-edit-ta-${postId}`).focus();
+}
+function mbPostEditClose(postId) { document.getElementById(`mbp-edit-${postId}`).classList.remove('visible'); }
+
+async function mbPostSave(postId) {
+  const newText = document.getElementById(`mbp-edit-ta-${postId}`).value.trim();
+  if (!newText) return;
+  try {
+    const data = await binFetch();
+    const posts = Array.isArray(data.mbPosts) ? data.mbPosts : [];
+    const idx = posts.findIndex(p => p.id === postId);
+    if (idx === -1) return;
+    posts[idx].text = newText;
+    await binPush({...data, mbPosts: posts});
+    document.getElementById(`mbp-text-${postId}`).textContent = newText;
+    mbPostEditClose(postId);
+    const s = document.getElementById(`mbp-saved-${postId}`);
+    s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),2000);
+  } catch(e) { alert('Could not save.'); }
+}
+
+async function mbPostDelete(postId) {
+  if (!confirm('Delete this message?')) return;
+  try {
+    const data = await binFetch();
+    const posts = (data.mbPosts||[]).filter(p=>p.id!==postId);
+    await binPush({...data, mbPosts:posts});
+    renderMbPosts(posts);
+  } catch(e) { alert('Could not delete.'); }
+}
+
+/* ── add new post ── */
+function mbNewPostOpen() {
+  document.getElementById('mb-new-post-form').classList.add('open');
+  document.getElementById('mb-new-post-ta').focus();
+}
+function mbNewPostClose() { document.getElementById('mb-new-post-form').classList.remove('open'); document.getElementById('mb-new-post-ta').value=''; }
+
+async function mbNewPostSubmit() {
+  const text = document.getElementById('mb-new-post-ta').value.trim();
+  if (!text) return;
+  const btn = document.getElementById('btn-mb-new-post-submit');
+  btn.textContent = 'Posting…'; btn.disabled = true;
+  try {
+    const data = await binFetch();
+    const posts = Array.isArray(data.mbPosts) ? data.mbPosts : [];
+    posts.push({ id:newId(), text, ts:Date.now(), likes:0, replies:[] });
+    await binPush({...data, mbPosts:posts});
+    mbNewPostClose();
+    btn.textContent = 'Post Message'; btn.disabled = false;
+    renderMbPosts(posts);
+  } catch(e) { btn.textContent='Post Message'; btn.disabled=false; alert('Could not post.'); }
+}
+
+/* ── post like ── */
+async function mbPostLike(postId) {
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const idx = posts.findIndex(p=>p.id===postId);
+    if (idx===-1) return;
+    posts[idx].likes = (posts[idx].likes||0)+1;
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+  } catch(e){}
+}
+
+/* ── post reply ── */
+async function mbPostReplySubmit(postId) {
+  const name = document.getElementById(`mbp-rf-name-${postId}`).value.trim();
+  const body = document.getElementById(`mbp-rf-text-${postId}`).value.trim();
+  if (!name||!body) return;
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const idx = posts.findIndex(p=>p.id===postId);
+    if (idx===-1) return;
+    if (!posts[idx].replies) posts[idx].replies=[];
+    posts[idx].replies.push({id:newId(),name,body,ts:Date.now(),likes:0,replies:[]});
+    await binPush({...data,mbPosts:posts});
+    document.getElementById(`mbp-rf-name-${postId}`).value='';
+    document.getElementById(`mbp-rf-text-${postId}`).value='';
+    renderMbPosts(posts);
+    // re-open panel
+    document.getElementById(`mbp-replies-${postId}`).classList.add('open');
+    document.getElementById(`mbp-rf-${postId}`).classList.add('open');
+  } catch(e){ alert('Could not post reply.'); }
+}
+
+/* ── reply like ── */
+async function mbReplyLike(postId, replyId) {
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const pIdx = posts.findIndex(p=>p.id===postId);
+    if (pIdx===-1) return;
+    const rIdx = posts[pIdx].replies.findIndex(r=>r.id===replyId);
+    if (rIdx===-1) return;
+    posts[pIdx].replies[rIdx].likes = (posts[pIdx].replies[rIdx].likes||0)+1;
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+    document.getElementById(`mbp-replies-${postId}`).classList.add('open');
+    document.getElementById(`mbp-rf-${postId}`).classList.add('open');
+  } catch(e){}
+}
+
+/* ── reply delete ── */
+async function mbReplyDelete(postId, replyId) {
+  if (!mbIsAdmin()) return;
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const pIdx = posts.findIndex(p=>p.id===postId);
+    if (pIdx===-1) return;
+    posts[pIdx].replies = posts[pIdx].replies.filter(r=>r.id!==replyId);
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+  } catch(e){ alert('Could not delete.'); }
+}
+
+/* ── sub-reply open/close ── */
+function mbSubreplyOpen(postId, replyId, close=false) {
+  const form = document.getElementById(`mbsr-form-${postId}-${replyId}`);
+  if (close) { form.classList.remove('open'); return; }
+  form.classList.toggle('open');
+  if (form.classList.contains('open')) document.getElementById(`mbsr-name-${postId}-${replyId}`).focus();
+}
+
+/* ── sub-reply submit ── */
+async function mbSubreplySubmit(postId, replyId) {
+  const name = document.getElementById(`mbsr-name-${postId}-${replyId}`).value.trim();
+  const body = document.getElementById(`mbsr-text-${postId}-${replyId}`).value.trim();
+  if (!name||!body) return;
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const pIdx = posts.findIndex(p=>p.id===postId);
+    if (pIdx===-1) return;
+    const rIdx = posts[pIdx].replies.findIndex(r=>r.id===replyId);
+    if (rIdx===-1) return;
+    if (!posts[pIdx].replies[rIdx].replies) posts[pIdx].replies[rIdx].replies=[];
+    posts[pIdx].replies[rIdx].replies.push({id:newId(),name,body,ts:Date.now(),likes:0});
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+    document.getElementById(`mbp-replies-${postId}`).classList.add('open');
+    document.getElementById(`mbp-rf-${postId}`).classList.add('open');
+  } catch(e){ alert('Could not post.'); }
+}
+
+/* ── sub-reply like ── */
+async function mbSubreplyLike(postId, replyId, subId) {
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const pIdx = posts.findIndex(p=>p.id===postId);
+    if (pIdx===-1) return;
+    const rIdx = posts[pIdx].replies.findIndex(r=>r.id===replyId);
+    if (rIdx===-1) return;
+    const sIdx = posts[pIdx].replies[rIdx].replies.findIndex(s=>s.id===subId);
+    if (sIdx===-1) return;
+    posts[pIdx].replies[rIdx].replies[sIdx].likes = (posts[pIdx].replies[rIdx].replies[sIdx].likes||0)+1;
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+    document.getElementById(`mbp-replies-${postId}`).classList.add('open');
+    document.getElementById(`mbp-rf-${postId}`).classList.add('open');
+  } catch(e){}
+}
+
+/* ── sub-reply delete ── */
+async function mbSubreplyDelete(postId, replyId, subId) {
+  if (!mbIsAdmin()) return;
+  try {
+    const data = await binFetch();
+    const posts = data.mbPosts||[];
+    const pIdx = posts.findIndex(p=>p.id===postId);
+    if (pIdx===-1) return;
+    const rIdx = posts[pIdx].replies.findIndex(r=>r.id===replyId);
+    if (rIdx===-1) return;
+    posts[pIdx].replies[rIdx].replies = posts[pIdx].replies[rIdx].replies.filter(s=>s.id!==subId);
+    await binPush({...data,mbPosts:posts});
+    renderMbPosts(posts);
+  } catch(e){ alert('Could not delete.'); }
+}
+
+// Double-click unlock shortcut on header
 document.addEventListener('DOMContentLoaded', () => {
-  const d = document.getElementById('mb-display');
-  if (d) d.addEventListener('dblclick', mbStartEdit);
-  mbLoad();
+  const h2 = document.querySelector('.message-board-section h2');
+  if (h2) h2.addEventListener('dblclick', mbUnlock);
+  mbInit();
   commentsLoad();
   document.getElementById('cf-body').addEventListener('input', function() {
     document.getElementById('cf-char').textContent = 800 - this.value.length;
@@ -1022,37 +1419,14 @@ async function cmFetch() {
   });
   if (!res.ok) return [];
   const data = await res.json();
-  // Handle both {comments:[]} wrapper and bare array
   if (Array.isArray(data)) return data;
   if (data && Array.isArray(data.comments)) return data.comments;
   return [];
 }
 
 async function cmPush(comments) {
-  // Fetch current bin so we don't overwrite the visitors count
-  let visitors = 0;
-  try {
-    const cur = await fetch(JSONBIN_URL + '/latest', {
-      headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
-    });
-    if (cur.ok) {
-      const d = await cur.json();
-      if (d && typeof d.visitors === 'number') visitors = d.visitors;
-    }
-  } catch(_) {}
-
-  const res = await fetch(JSONBIN_URL, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': JSONBIN_KEY
-    },
-    body: JSON.stringify({ comments, visitors })
-  });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error('JSONBin error: ' + err);
-  }
+  const data = await binFetch();
+  await binPush({...data, comments, visitors: data.visitors||0});
 }
 
 async function commentsLoad() {
@@ -1093,18 +1467,7 @@ function renderComments(comments) {
   list.innerHTML = [...comments].reverse().map((c) => {
     const hasResponse = c.ownerResponse && c.ownerResponse.trim();
     const reactions = c.reactions || {};
-    const EMOJIS = ['❤️','🙏','💪'];
-
-    // Build visible reaction badges (show all that have been reacted)
-    const reactionBadges = EMOJIS
-      .filter(e => reactions[e])
-      .map(e => `<span class="reaction-btn${isAdm ? ' admin-clickable' : ''}${reactions[e] ? ' active' : ''}" onclick="${isAdm ? `toggleReaction('${c.id}','${e}')` : ''}" title="${isAdm ? 'Remove reaction' : ''}">${e}</span>`)
-      .join('');
-
-    // Emoji picker row (admin only)
-    const pickerBtns = EMOJIS.map(e =>
-      `<button class="reaction-pick-btn${reactions[e] ? ' active' : ''}" onclick="toggleReaction('${c.id}','${e}')" title="${reactions[e] ? 'Remove' : 'React with'} ${e}">${e}</button>`
-    ).join('');
+    const likeCount = reactions['👍'] || 0;
 
     return `<div class="comment-item${c.pinned ? ' pinned' : ''}" id="cm-${c.id}">
       <div class="comment-header">
@@ -1113,8 +1476,9 @@ function renderComments(comments) {
         ${c.pinned ? '<span class="comment-pin-badge">Pinned</span>' : ''}
       </div>
       <div class="comment-body">${esc(c.body)}</div>
-      ${reactionBadges ? `<div class="comment-reactions">${reactionBadges}</div>` : ''}
-      ${isAdm ? `<div class="reaction-add-row visible">${pickerBtns}</div>` : ''}
+      <div class="comment-reactions">
+        <button class="reaction-btn${likeCount > 0 ? ' active' : ''}" onclick="toggleReaction('${c.id}','👍')" title="Like">👍${likeCount > 0 ? ` <span>${likeCount}</span>` : ''}</button>
+      </div>
       ${hasResponse ? `
         <div class="owner-response">
           <div class="owner-response-avatar">M</div>
@@ -1166,7 +1530,6 @@ async function submitComment() {
     });
     await cmPush(comments);
 
-    // Send email notification
     try {
       await emailjs.send('service_pk6mk2p', 'template_5fhcovv', {
         from_name: name,
@@ -1175,7 +1538,6 @@ async function submitComment() {
       });
     } catch(emailErr) {
       console.warn('Email notification failed:', emailErr);
-      // Don't block the comment from posting if email fails
     }
 
     document.getElementById('cf-name').value = '';
@@ -1249,103 +1611,37 @@ async function removeResponse(id) {
 }
 
 async function toggleReaction(id, emoji) {
-  if (!mbIsAdmin()) return;
   try {
     const comments = await cmFetch();
     const idx = comments.findIndex(c => c.id === id);
     if (idx === -1) return;
     if (!comments[idx].reactions) comments[idx].reactions = {};
-    // Toggle: if already reacted remove it, otherwise add it
-    if (comments[idx].reactions[emoji]) {
-      delete comments[idx].reactions[emoji];
-    } else {
-      comments[idx].reactions[emoji] = true;
-    }
+    // Store a count so multiple people can like
+    comments[idx].reactions[emoji] = (comments[idx].reactions[emoji] || 0) + 1;
     await cmPush(comments);
     renderComments(comments);
   } catch(e) {
     alert('Could not save reaction.');
   }
 }
-
-async function trackVisitors() {
-  try {
-    // Only count once per browser session
-    const sessionKey = 'pushup_visited_session';
-    const alreadyCounted = sessionStorage.getItem(sessionKey);
-
-    // Fetch current bin data
-    const res = await fetch(JSONBIN_URL + '/latest', {
-      headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
-    });
-    if (!res.ok) return;
-    const data = await res.json();
-
-    // Normalise — bin holds { comments:[], visitors:N }
-    const comments = Array.isArray(data) ? data : (data.comments || []);
-    let visitors = (data && typeof data.visitors === 'number') ? data.visitors : 0;
-
-    if (!alreadyCounted) {
-      visitors += 1;
-      sessionStorage.setItem(sessionKey, '1');
-      // Write back with incremented count
-      await fetch(JSONBIN_URL, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
-        body: JSON.stringify({ comments, visitors })
-      });
-    }
-
-    const el = document.getElementById('visitor-count');
-    if (el) el.textContent = Number(visitors).toLocaleString() + ' visitors';
-  } catch(e) {
-    console.warn('Visitor tracking error:', e);
-  }
-}
-
-(async function init() {
-  try {
-    const count = await loadDropbox();
-    buildApp();
-    const loader = document.getElementById('loading');
-    if (loader) { loader.classList.add('fade-out'); setTimeout(()=>loader.style.display='none', 500); }
-    render();
-    renderPhotos();
-    setSyncBadge('ok', `${count} days loaded`);
-    setTimeout(()=>setSyncBadge('ok', 'In sync'), 3000);
-    trackVisitors();
-    window.addEventListener('scroll', () => {
-      const btn = document.getElementById('back-to-top');
-      if (btn) btn.classList.toggle('visible', window.scrollY > 300);
-    });
-    window.addEventListener('resize', ()=>{ const d=buildDays(); renderMain(d); renderChartDaily(d); renderChartAvg(d); renderChartRunning(d); });
-  } catch(e) {
-    console.error('Load failed:', e);
-    document.getElementById('loading').innerHTML = `
-      <div style="text-align:center;font-family:'DM Mono',monospace;">
-        <div style="font-size:36px;margin-bottom:16px;">⚠️</div>
-        <div style="color:#dc2626;font-size:14px;margin-bottom:8px;">Could not load spreadsheet</div>
-        <div style="color:#8a95a8;font-size:11px;max-width:320px;">${e.message}</div>
-      </div>`;
-    setSyncBadge('error', 'Load failed');
-  }
-})();
 </script>
 <!-- ══ MESSAGE BOARD ══ -->
-<div style="max-width:1320px;margin:0 auto;padding:0 40px 0;" id="message-board-outer">
+<div style="max-width:1320px;margin:0 auto;padding:0 40px;" id="message-board-outer">
   <div class="message-board-section" id="message-board">
     <h2>Message Board</h2>
-    <div class="mb-subtitle">A note from me</div>
-    <div class="mb-display empty" id="mb-display">No message yet.</div>
-    <button class="btn-mb-edit" id="btn-mb-edit" onclick="mbStartEdit()">✏ Edit message</button>
-    <div class="mb-edit-area" id="mb-edit-area">
-      <textarea class="mb-textarea" id="mb-textarea" maxlength="2000" placeholder="Write a message for visitors…"></textarea>
-      <div class="mb-actions">
-        <button class="btn-mb-save" onclick="mbSave()">Save</button>
-        <button class="btn-mb-cancel" onclick="mbCancelEdit()">Cancel</button>
-        <span class="mb-save-status" id="mb-save-status">✓ Saved</span>
+    <div class="mb-subtitle">Notes from Mark — double-click heading to admin login</div>
+    <div class="mb-admin-bar" id="mb-admin-bar">
+      <button class="btn-mb-add" onclick="mbNewPostOpen()" title="Add new message">+</button>
+      <span class="mb-admin-label">Add message</span>
+    </div>
+    <div class="mb-new-post-form" id="mb-new-post-form">
+      <textarea class="mb-new-post-textarea" id="mb-new-post-ta" maxlength="2000" placeholder="Write a message for visitors…"></textarea>
+      <div class="mb-new-post-actions">
+        <button class="btn-mb-post-submit" id="btn-mb-new-post-submit" onclick="mbNewPostSubmit()">Post Message</button>
+        <button class="btn-mb-new-cancel" onclick="mbNewPostClose()">Cancel</button>
       </div>
     </div>
+    <div class="mb-posts-list" id="mb-posts-list"></div>
   </div>
 </div>
 
