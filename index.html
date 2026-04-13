@@ -181,14 +181,21 @@
   .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
   .btn-about:hover{background:var(--accent-lt);}
   
-  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:36px 40px;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-  .about-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
-  .about-section p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
-  .about-section p:last-child{margin-bottom:0;}
+  .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .about-section-toggle{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;cursor:pointer;user-select:none;background:var(--surface2);border-bottom:1px solid transparent;transition:background 0.15s;}
+  .about-section-toggle:hover{background:var(--accent-lt);}
+  .about-section.open .about-section-toggle{border-bottom-color:var(--border);}
+  .about-section-toggle h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--accent);margin:0;}
+  .about-section-chevron{font-size:18px;color:var(--muted);transition:transform 0.25s;flex-shrink:0;}
+  .about-section.open .about-section-chevron{transform:rotate(180deg);}
+  .about-section-body{display:none;padding:28px 40px 32px;}
+  .about-section.open .about-section-body{display:block;}
+  .about-section-body p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:12px;max-width:720px;}
+  .about-section-body p:last-child{margin-bottom:0;}
   
   .footer-visitors{display:flex;align-items:center;gap:7px;}
   .footer-visitors .vdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
-  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section{padding:24px 20px;}footer{padding:16px 20px;}}
+  @media(max-width:600px){.about-grid{grid-template-columns:1fr 1fr;}.about-section-body{padding:18px 16px;}footer{padding:16px 20px;}}
 
   
   .admin-unlock-row{display:flex;align-items:center;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
@@ -266,7 +273,7 @@
   /* individual post */
   .mb-post{background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
   .mb-post-body-wrap{padding:12px 14px 8px;}
-  .mb-post-text{font-size:15px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;}
+  .mb-post-text{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;}
   .mb-post-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px;}
   .mb-post-actions{display:flex;gap:6px;align-items:center;padding:0 14px 8px;flex-wrap:wrap;}
   .btn-mb-post-like{background:none;border:1.5px solid var(--border);border-radius:20px;padding:2px 10px;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);transition:all 0.15s;line-height:1.4;}
@@ -353,39 +360,39 @@
   .btn-post-reply-cancel{background:none;border:none;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);cursor:pointer;text-transform:uppercase;}
   .btn-post-reply-cancel:hover{color:var(--red);}
 
-  .comments-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 24px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+  .comments-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 20px;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .comments-section h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--accent);margin-bottom:2px;}
-  .comments-section .cm-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
-  .comment-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:16px;}
-  .comment-form-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-  .cf-row{display:flex;gap:10px;margin-bottom:8px;}
-  .cf-input{flex:1;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;transition:border-color 0.2s;}
+  .comments-section .cm-subtitle{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+  .comment-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:12px;}
+  .comment-form-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+  .cf-row{display:flex;gap:8px;margin-bottom:6px;}
+  .cf-input{flex:1;padding:6px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;transition:border-color 0.2s;}
   .cf-input:focus{border-color:var(--accent);}
   .cf-input::placeholder{color:var(--muted);}
-  .cf-textarea{width:100%;min-height:80px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.6;transition:border-color 0.2s;margin-bottom:8px;}
+  .cf-textarea{width:100%;min-height:60px;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:6px;outline:none;resize:vertical;line-height:1.5;transition:border-color 0.2s;margin-bottom:6px;}
   .cf-textarea:focus{border-color:var(--accent);}
   .cf-textarea::placeholder{color:var(--muted);}
-  .btn-comment-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;padding:9px 22px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
+  .btn-comment-submit{background:var(--accent);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;padding:6px 16px;border-radius:6px;cursor:pointer;transition:background 0.15s;}
   .btn-comment-submit:hover{background:#1d4ed8;}
   .btn-comment-submit:disabled{background:var(--border2);cursor:not-allowed;}
   .cf-char{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto;line-height:1;}
-  .cf-bottom-row{display:flex;align-items:center;gap:10px;}
+  .cf-bottom-row{display:flex;align-items:center;gap:8px;}
   .cf-error{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none;}
   .cf-error.visible{display:block;}
-  .comments-count{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:10px;}
-  .comments-list{display:flex;flex-direction:column;gap:10px;}
-  .comments-empty{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);padding:12px 0;}
-  .comment-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;position:relative;}
+  .comments-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:8px;}
+  .comments-list{display:flex;flex-direction:column;gap:7px;}
+  .comments-empty{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);padding:10px 0;}
+  .comment-item{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;position:relative;}
   .comment-item.pinned{border-color:var(--accent);background:var(--accent-lt);}
-  .comment-header{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;flex-wrap:wrap;}
-  .comment-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;color:var(--text);}
-  .comment-time{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);}
+  .comment-header{display:flex;align-items:baseline;gap:8px;margin-bottom:3px;flex-wrap:wrap;}
+  .comment-name{font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;color:var(--text);}
+  .comment-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
   .comment-pin-badge{font-family:'DM Mono',monospace;font-size:9px;background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:1px;}
-  .comment-body{font-size:16px;color:var(--text2);line-height:1.6;white-space:pre-wrap;word-break:break-word;}
-  .comment-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--border2);font-size:16px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
+  .comment-body{font-size:13px;color:var(--text2);line-height:1.5;white-space:pre-wrap;word-break:break-word;}
+  .comment-del{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--border2);font-size:14px;cursor:pointer;line-height:1;padding:2px 5px;border-radius:4px;transition:color 0.15s,background 0.15s;display:none;}
   .comment-del:hover{color:var(--red);background:rgba(220,38,38,0.08);}
-  .comment-reactions{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center;}
-  .reaction-btn{border:1.5px solid var(--border);border-radius:20px;padding:3px 10px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;color:var(--text2);transition:all 0.15s;line-height:1.4;background:none;}
+  .comment-reactions{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;align-items:center;}
+  .reaction-btn{border:1.5px solid var(--border);border-radius:20px;padding:2px 8px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;color:var(--text2);transition:all 0.15s;line-height:1.4;background:none;}
   .reaction-btn:hover{border-color:var(--accent);background:var(--accent-lt);}
   .reaction-btn.active{border-color:var(--accent);background:var(--accent-lt);font-weight:600;color:var(--accent);}
   .reaction-add-row{display:none;gap:5px;margin-top:6px;}
@@ -413,12 +420,16 @@
   @media(max-width:600px){
     .message-board-section,.comments-section{padding:14px 12px;border-radius:0;border-left:none;border-right:none;}
     .cf-row{flex-direction:column;}
+    .about-section{border-radius:0;border-left:none;border-right:none;margin-top:16px;}
+    .about-section-toggle{padding:14px 16px;}
+    .about-section-body{padding:16px 16px 20px;}
   }
   @media(max-width:1000px){
     #message-board-outer,#comments-outer{padding-left:18px;padding-right:18px;}
   }
   @media(max-width:600px){
     #message-board-outer,#comments-outer{padding-left:0;padding-right:0;}
+    main{padding-left:0;padding-right:0;}
   }
 
 </style>
@@ -430,8 +441,8 @@
     <h1>100,000 Astin Challenge</h1>
     <div class="subtitle">2026: 100,000 push-ups</div>
     <div class="subtitle">274 / day for 365 days</div>
-    <button class="btn-about" onclick="const el=document.getElementById('about');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">About</button>
-    <button class="btn-about" onclick="const el=document.getElementById('who-am-i');const offset=document.querySelector('header').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'})">Astin</button>
+    <button class="btn-about" onclick="openAndScroll('about')">About</button>
+    <button class="btn-about" onclick="openAndScroll('who-am-i')">Astin</button>
   </div>
   <div class="header-right">
     <div class="header-total">
@@ -937,7 +948,11 @@ function buildApp() {
       </div>
 
     <div class="about-section" id="about">
-      <h2>About Me and This Challenge</h2>
+      <div class="about-section-toggle" onclick="toggleAbout('about')">
+        <h2>About Me and This Challenge</h2>
+        <span class="about-section-chevron">▼</span>
+      </div>
+      <div class="about-section-body">
       <p>My name is Mark Gerstl. Devastatingly, I lost my amazing son Astin on 30 November 2025.</p>
       <p>While Astin died that day, I re-live it everyday. That I could not be there to save him haunts me, and it is also driving me to undertake and complete this challenge.</p>
       <p><strong>But the story of this challenge begins a few months before that fateful day.</strong></p>
@@ -960,10 +975,15 @@ function buildApp() {
         <div class="photo-sec-title">Photos</div>
         <div class="photo-grid" id="photo-grid"></div>
       </div>
+      </div>
     </div>
 
     <div class="about-section" id="who-am-i">
-      <h2>Who Is Astin</h2>
+      <div class="about-section-toggle" onclick="toggleAbout('who-am-i')">
+        <h2>Who Is Astin</h2>
+        <span class="about-section-chevron">▼</span>
+      </div>
+      <div class="about-section-body">
       <div class="whoami-inner">
         <div class="whoami-avatar">A</div>
         <div class="whoami-bio">
@@ -977,6 +997,7 @@ function buildApp() {
           <p>This website and tracker keeps me honest, every set goes in the spreadsheet, every number shows up here.</p>
           <p>Follow along, get inspired, or just check in to see if I'm still on pace. Either way, I'm not stopping.</p>
         </div>
+      </div>
       </div>
     </div>
     </div>`;
@@ -1623,6 +1644,22 @@ async function toggleReaction(id, emoji) {
   } catch(e) {
     alert('Could not save reaction.');
   }
+}
+
+function toggleAbout(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('open');
+}
+
+function openAndScroll(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!el.classList.contains('open')) el.classList.add('open');
+  const offset = document.querySelector('header').offsetHeight + 12;
+  setTimeout(() => {
+    window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth'});
+  }, 10);
 }
 </script>
 <!-- ══ MESSAGE BOARD ══ -->
