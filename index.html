@@ -180,6 +180,10 @@
   
   .btn-about{background:none;color:var(--accent);border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;}
   .btn-about:hover{background:var(--accent-lt);}
+  .btn-share{background:var(--accent);color:#fff;border:1px solid var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.3px;padding:8px 18px;border-radius:6px;cursor:pointer;transition:all 0.15s;white-space:nowrap;display:inline-block;margin-top:10px;margin-left:4px;}
+  .btn-share:hover{background:#1d4ed8;border-color:#1d4ed8;}
+  .copy-toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:#fff;font-family:'DM Mono',monospace;font-size:12px;padding:9px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity 0.2s,transform 0.2s;z-index:500;white-space:nowrap;}
+  .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
   
   .about-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:32px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
   .about-section-toggle{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;cursor:pointer;user-select:none;background:var(--surface2);border-bottom:1px solid transparent;transition:background 0.15s;}
@@ -424,6 +428,8 @@
     .about-section-toggle{padding:14px 16px;}
     .about-section-body{padding:16px 16px 20px;}
   }
+  #message-board-outer,#comments-outer{max-width:1320px;margin:0 auto;padding:0 40px;}
+  #comments-outer{padding-bottom:16px;}
   @media(max-width:1000px){
     #message-board-outer,#comments-outer{padding-left:18px;padding-right:18px;}
   }
@@ -443,6 +449,7 @@
     <div class="subtitle">274 / day for 365 days</div>
     <button class="btn-about" onclick="openAndScroll('about')">About</button>
     <button class="btn-about" onclick="openAndScroll('who-am-i')">Astin</button>
+    <button class="btn-share" onclick="shareLink()">Share</button>
   </div>
   <div class="header-right">
     <div class="header-total">
@@ -1663,7 +1670,7 @@ function openAndScroll(id) {
 }
 </script>
 <!-- ══ MESSAGE BOARD ══ -->
-<div style="max-width:1320px;margin:0 auto;padding:0 40px;" id="message-board-outer">
+<div id="message-board-outer">
   <div class="message-board-section" id="message-board">
     <h2>Message Board</h2>
     <div class="mb-subtitle">Notes from Mark — double-click heading to admin login</div>
@@ -1683,7 +1690,7 @@ function openAndScroll(id) {
 </div>
 
 <!-- ══ COMMENTS ══ -->
-<div style="max-width:1320px;margin:0 auto;padding:0 40px 16px;" id="comments-outer">
+<div id="comments-outer">
   <div class="comments-section">
     <h2>Leave a Message</h2>
     <div class="cm-subtitle">Share your support, memories, or encouragement</div>
